@@ -14,3 +14,6 @@
 ## new
 - zsh
 - vscode
+
+## theme / design
+- violet / dark / black
