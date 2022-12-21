@@ -8,6 +8,8 @@
 - fd
 - flutter
 - Qt
+- marp
+- github / git
 
 ## new
 - zsh
