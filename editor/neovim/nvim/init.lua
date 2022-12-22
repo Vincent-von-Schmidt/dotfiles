@@ -52,7 +52,8 @@ if package.config:sub(1,1) == "/" then
     size = 20,
     start_in_insert = true,
     direction = "horizontal",
-    insert_mappings = true
+    insert_mappings = true,
+    shell = "zsh",
   })
 
 else
@@ -63,7 +64,7 @@ else
     start_in_insert = true,
     direction = "horizontal",
     insert_mappings = true,
-    shell = "wsl"
+    shell = "wsl -d Ubuntu -e zsh",
   })
 
 end
