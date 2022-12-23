@@ -95,6 +95,9 @@ return require("packer").startup(function()
         -- surround -> ysiw) / ds) -> (word) / word
         use "kylechui/nvim-surround"
 
+        -- zen mode
+        use "Pocco81/true-zen.nvim"
+
         -- miscellaneous -------------------------------------------------
 
         -- latex

@@ -191,3 +191,6 @@ end
 -- vim.g.vimtex_view_method = ""
 -- vim.g.vimtex_view_general_viewer = ""
 
+
+--  zen mode ----------------------------------------------------
+require("true-zen").setup()

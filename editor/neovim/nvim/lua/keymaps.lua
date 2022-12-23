@@ -83,3 +83,6 @@ keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
 -- move highlighted
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
+
+-- zen mode
+keymap("n", "<leader>z", "<CMD> TZAtaraxis <CR>", opts)
