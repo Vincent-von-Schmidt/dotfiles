@@ -25,8 +25,8 @@ vim.o.clipboard = "unnamedplus"
 vim.opt.termguicolors = true
 
 -- disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 -- backups
 vim.opt.swapfile = false
@@ -74,23 +74,32 @@ require("nvim-tree").setup()
 
 -- telescope ----------------------------------------------------
 local telescope = require("telescope")
+
+-- require("telescope-tabs").setup()
+-- require("neoclip").setup()
+
+telescope.setup({
+    pickers = {},
+
+
+    extensions = {
+        project = {
+            sync_with_nvim_tree = true,
+        },
+
+        file_browser = {
+            initial_mode = "normal",
+            hijack_netrw = true
+        },
+    },
+})
+
 telescope.load_extension("project")
 telescope.load_extension("repo")
 telescope.load_extension("heading")
 telescope.load_extension("file_browser")
 telescope.load_extension("flutter")
 telescope.load_extension("noice")
-
-require("telescope-tabs").setup()
-require("neoclip").setup()
-
-require("telescope").setup({
-    extension = {
-        project = {
-            sync_with_nvim_tree = true,
-        }
-    }
-})
 
 -- treesitter ---------------------------------------------------
 require("nvim-treesitter.configs").setup({
@@ -110,6 +119,9 @@ require("nvim-treesitter.configs").setup({
     additional_vim_regex_highlighting = false,
   },
 })
+
+-- sticky scrolling
+require("treesitter-context").setup()
 
 -- lsp ----------------------------------------------------------
 require("mason").setup()
@@ -194,3 +206,6 @@ end
 
 --  zen mode ----------------------------------------------------
 require("true-zen").setup()
+
+-- movement
+-- require("leap").add_default_mappings()

@@ -83,6 +83,11 @@ return require("packer").startup(function()
         use "neoclide/coc.nvim"
         -- use "hrsh7th/nvim-cmp"
 
+        -- sticky scrolling
+        use { "nvim-treesitter/nvim-treesitter-context", requires = {
+            "nvim-treesitter/nvim-treesitter"
+        }}
+
         -- highlights the same vars
         use "RRethy/vim-illuminate"
 
@@ -97,6 +102,11 @@ return require("packer").startup(function()
 
         -- zen mode
         use "Pocco81/true-zen.nvim"
+
+        -- movement
+        use { "ggandor/leap.nvim", requires = {
+            "tpope/vim-repeat"
+        }}
 
         -- miscellaneous -------------------------------------------------
 

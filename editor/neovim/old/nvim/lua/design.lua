@@ -123,6 +123,7 @@ dashboard.custom_header = {
 dashboard.custom_center = {
   { icon = " ", desc = "open files", action = "Telescope find_files" },
   { icon = " ", desc = "open project", action = "Telescope project" },
+  { icon = "פּ ", desc = "open file-tree", action = "Telescope file_browser" },
   { icon = " ", desc = "keymaps", action = "Telescope keymaps" },
   { icon = " ", desc = "colorscheme", action = "Telescope colorscheme" },
   { icon = " ", desc = "settings", action = ":lua print('currently not available')" },

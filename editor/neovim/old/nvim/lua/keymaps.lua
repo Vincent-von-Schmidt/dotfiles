@@ -41,7 +41,7 @@ keymap("n", "<leader>s", telescope.live_grep, opts)
 -- keymap("n", "<leader>d", "<CMD> Telescope file_browser <CR>", opts)
 
 -- lsp
-keymap("n", "<leader>d", "<CMD> Telescope lsp_references <CR>", opts) -- shows where the hovered var is used
+keymap("n", "<leader>ls", "<CMD> Telescope lsp_references <CR>", opts) -- shows where the hovered var is used
 
 require("telescope").setup {
   defaults = {
