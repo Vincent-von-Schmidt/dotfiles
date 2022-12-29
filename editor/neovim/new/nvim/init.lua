@@ -1,3 +1,5 @@
+-- init ---------------------------------------------------------
+
 -- bootstrap
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -12,14 +14,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
--- init ---------------------------------------------------------
-
 -- keymaps
 local keymap = vim.keymap.set
 local keymap_opts = { buffer = bufnr, silent = true, noremap = true }
 
 -- leader key
-keymap("", "<Space>", "<Nop>", opts)
+keymap("", "<Space>", "<Nop>", keymap_opts)
 vim.g.mapleader = " "
 
 -- editor -------------------------------------------------------
@@ -57,6 +57,7 @@ end
 -- design
 vim.opt.hlsearch = false
 vim.opt.colorcolumn = "90"
+vim.opt.cursorline = true
 
 -- plugins ------------------------------------------------------
 
@@ -64,7 +65,7 @@ require("lazy").setup({
 
     -- design ---------------------------------------------------
 
-    {
+    { -- main colorscheme
         "EdenEast/nightfox.nvim",
         lazy = false,
         priority = 1000,
@@ -79,7 +80,46 @@ require("lazy").setup({
         end,
     },
 
-    {
+    -- TODO
+    { -- vscode colorscheme
+        "Mofiqul/vscode.nvim",
+        lazy = true,
+        cmd = {
+            "Telescope colorscheme",
+            "Coloscheme vscode",
+        },
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+        },
+        config = function()
+            -- dark theme
+            vim.o.background = "dark"
+
+            local vscolors = require("vscode.colors")
+            require("vscode").setup({
+                -- background
+                transparent = false,
+
+                -- italic comments
+                italic_comments = false,
+
+                -- color override
+                color_overrides = {
+                    vscLineNumber = "#FFFFFF",
+                },
+
+                group_overrides = {
+                    Cursor = {
+                        fg = vscolors.vscDarkBlue,
+                        bg = vscolors.vscLightGreen,
+                        bold = true
+                    },
+                },
+            })
+        end,
+    },
+
+    { -- tabline
         "nanozuki/tabby.nvim",
         lazy = false,
         priority = 999,
@@ -93,7 +133,7 @@ require("lazy").setup({
         end,
     },
 
-    {
+    { -- statusline
         "ojroques/nvim-hardline",
         lazy = false,
         priority = 998,
@@ -112,7 +152,7 @@ require("lazy").setup({
         end,
     },
 
-    {
+    { -- highlighting
         "nvim-treesitter/nvim-treesitter",
         lazy = false,
         config = function()
@@ -138,7 +178,7 @@ require("lazy").setup({
         end,
     },
 
-    {
+    { -- hightlight same vars
         "RRethy/vim-illuminate",
         lazy = false,
         config = function()
@@ -159,13 +199,16 @@ require("lazy").setup({
 
     -- file browser ---------------------------------------------
 
-    {
+    { -- fzf finder
         "nvim-telescope/telescope.nvim",
         lazy = true,
         keys = {
             { "<leader>a", "<CMD> Telescope find_files <CR>", desc = "Telescope" },
             { "<leader>s", "<CMD> Telescope live_grep <CR>", desc = "LSP search" },
-            { "<leader>lj", "<CMD> Telescope lsp_definitions <CR>", desc = "LSP jump" },
+            { "<leader>q", "<CMD> Telescope file_browser <CR>", desc = "open file_browser" },
+            { "<leader>c", "<CMD> Telescope project <CR>", desc = "open project" },
+            { "<leader>ld", "<CMD> Telescope lsp_definitions <CR>", desc = "LSP jump" },
+            { "<leader>li", "<CMD> Telescope lsp_implementations <CR>", desc = "LSP jump" },
             { "<leader>ls", "<CMD> Telescope lsp_references <CR>", desc = "show information about hovered item" },
         },
         dependencies = {
@@ -203,12 +246,14 @@ require("lazy").setup({
                 },
                 extensions = {
                     project = {
-                        sync_with_nvim_tree = true,
+                        theme = "ivy",
                     },
 
                     file_browser = {
                         initial_mode = "normal",
                         hijack_netrw = true,
+                        theme = "ivy",
+                        hidden = true,
                     },
                 },
             })
@@ -220,12 +265,13 @@ require("lazy").setup({
 
     -- lsp ------------------------------------------------------
 
-    {
+    { -- lsp install
         "williamboman/mason.nvim",
         lazy = false,
         dependencies = {
             "williamboman/mason-lspconfig.nvim",
             "neovim/nvim-lspconfig",
+            "ms-jpq/coq_nvim",
         },
         config = function()
             require("mason").setup()
@@ -253,7 +299,7 @@ require("lazy").setup({
                     "pyright", -- Python
                     -- "r_language_server", -- R
                     "rust_analyzer", -- rust
-                    "sqlls", -- sql
+                    -- "sqlls", -- sql
                     "taplo", -- TOML
                     "vimls", -- Vim
                     "lemminx", -- xml
@@ -261,35 +307,38 @@ require("lazy").setup({
                 },
             })
 
+            local coq = require("coq")
             local lsp = require("lspconfig")
-            lsp.sumneko_lua.setup{}
-            lsp.clangd.setup{}
+            lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities())
+            lsp.clangd.setup(coq.lsp_ensure_capabilities())
             -- lsp.csharp_ls.setup{}
-            lsp.cmake.setup{}
-            lsp.cssls.setup{}
-            lsp.dockerls.setup{}
-            lsp.gradle_ls.setup{}
-            lsp.html.setup{}
+            lsp.cmake.setup(coq.lsp_ensure_capabilities())
+            lsp.cssls.setup(coq.lsp_ensure_capabilities())
+            lsp.dockerls.setup(coq.lsp_ensure_capabilities())
+            lsp.gradle_ls.setup(coq.lsp_ensure_capabilities())
+            lsp.html.setup(coq.lsp_ensure_capabilities())
             -- lsp.hls.setup{}
-            lsp.jsonls.setup{}
-            lsp.jdtls.setup{}
-            lsp.tsserver.setup{}
-            lsp.kotlin_language_server.setup{}
-            lsp.ltex.setup{}
-            lsp.marksman.setup{}
-            lsp.intelephense.setup{}
+            lsp.jsonls.setup(coq.lsp_ensure_capabilities())
+            lsp.jdtls.setup(coq.lsp_ensure_capabilities())
+            lsp.tsserver.setup(coq.lsp_ensure_capabilities())
+            lsp.kotlin_language_server.setup(coq.lsp_ensure_capabilities())
+            lsp.ltex.setup(coq.lsp_ensure_capabilities())
+            lsp.marksman.setup(coq.lsp_ensure_capabilities())
+            lsp.intelephense.setup(coq.lsp_ensure_capabilities())
             -- lsp.powershell_es.setup{}
-            lsp.bashls.setup{}
-            lsp.pyright.setup{}
+            lsp.bashls.setup(coq.lsp_ensure_capabilities())
+            lsp.pyright.setup(coq.lsp_ensure_capabilities())
             -- lsp.r_language_server.setup{}
-            lsp.rust_analyzer.setup{}
-            lsp.sqlls.setup{}
-            lsp.taplo.setup{}
-            lsp.vimls.setup{}
-            lsp.lemminx.setup{}
-            lsp.yamlls.setup{}
+            lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities())
+            lsp.taplo.setup(coq.lsp_ensure_capabilities())
+            -- lsp.sqlls.setup(coq.lsp_ensure_capabilities())
+            lsp.vimls.setup(coq.lsp_ensure_capabilities())
+            lsp.lemminx.setup(coq.lsp_ensure_capabilities())
+            lsp.yamlls.setup(coq.lsp_ensure_capabilities())
         end,
     },
+
+    -- language -------------------------------------------------
 
     { -- flutter / dart
         "akinsho/flutter-tools.nvim",
@@ -301,6 +350,51 @@ require("lazy").setup({
         config = function()
             require("flutter-tools").setup()
             require("telescope").load_extension("flutter")
+        end,
+    },
+
+    { -- json / yaml
+        "gennaro-tedesco/nvim-jqx",
+        lazy = true,
+        ft = { "json", "yaml" },
+    },
+
+    { -- sql tools & lsp
+        "nanotee/sqls.nvim",
+        lazy = true,
+        ft = { "sql" },
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "ms-jpq/coq_nvim",
+        },
+        config = function()
+            require("lspconfig").sqls.setup(require("coq").lsp_ensure_capabilities({
+                on_attach = function(client, bufnr)
+                    require("sqls").on_attach(client, bufnr)
+                end,
+            }))
+        end,
+    },
+
+    { -- LaTeX
+        "lervag/vimtex",
+        lazy = true,
+        ft = { "tex" },
+        dependencies = {
+            "ms-jpq/coq.thirdparty",
+        },
+        config = function()
+            -- coq
+            require("coq_3p"){
+                { src = "vimtex" },
+            }
+
+            -- config
+            vim.cmd([[
+                " init
+                filetype plugin indent on
+                syntax enable
+            ]])
         end,
     },
 
@@ -355,22 +449,43 @@ require("lazy").setup({
         config = function()
             if package.config:sub(1,1) == "/" then
                 -- unix
-                vim.g.tagbar_ctags_bin = "/snap/bin/universal-ctags"
+                vim.g.tagbar_ctags_bin = "/snap/universal-ctags/current/usr/local/bin/ctags"
             end
         end,
     },
 
     -- quality of life ------------------------------------------
 
+    -- TODO
     { -- intellisense
         "ms-jpq/coq_nvim",
         lazy = false,
         dependencies = {
-            "ms-jpq/coq.artifacts"
+            "ms-jpq/coq.artifacts",
+            "ms-jpq/coq.thirdparty",
         },
         config = function()
-            vim.cmd("COQnow --shut-up")
-            -- require("coq").setup()
+            -- local vim.g.coq_settings = { ["clients.tabnine.enabled"] = true }
+            vim.cmd([[
+                " startup
+                COQnow --shut-up
+
+                " tabnine
+                let g:coq_settings = { "clients.tabnine.enabled": v:true }
+                " keymaps
+                let g:coq_settings = { "keymap.recommended": v:true }
+                "inoremap <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+                "inoremap <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>" : "\<BS>"
+                "inoremap <silent><expr> <C-y>   pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
+                "inoremap <silent><expr> <C-n>   pumvisible() ? "\<C-n>" : "\<Tab>"
+                "inoremap <silent><expr> <C-m>   pumvisible() ? "\<C-p>" : "\<BS>"
+                "ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+                "ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
+                "ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
+                "ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
+                "ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+                "ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
+            ]])
         end,
     },
 
@@ -386,7 +501,7 @@ require("lazy").setup({
     { -- gcc -> comment / uncomment
         "terrortylor/nvim-comment",
         lazy = true,
-        event = "InsertEnter",
+        keys = { "gcc" },
         config = function()
             require("nvim_comment").setup()
         end,
@@ -416,16 +531,19 @@ require("lazy").setup({
 -- keymaps ------------------------------------------------------
 
 -- auto center
-keymap("n", "n", "nzz", opts)
-keymap("n", "N", "Nzz", opts)
+keymap("n", "n", "nzz", keymap_opts)
+keymap("n", "N", "Nzz", keymap_opts)
+
+-- keymap("n", "j", "jzz", keymap_otps)
+-- keymap("n", "k", "kzz", keymap_opts)
 
 -- tab
-keymap("n", "<leader>tl", "<CMD> tabnext <CR>", opts)
-keymap("n", "<leader>th", "<CMD> tabprevious <CR>", opts)
-keymap("n", "<leader>tw", "<CMD> tabclose <CR>", opts)
+keymap("n", "<leader>tl", "<CMD> tabnext <CR>", keymap_opts)
+keymap("n", "<leader>th", "<CMD> tabprevious <CR>", keymap_opts)
+keymap("n", "<leader>tw", "<CMD> tabclose <CR>", keymap_opts)
 
 -- substitute highlighted word
-keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", opts)
+keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", keymap_opts)
 
 -- move highlighted
 keymap("v", "J", ":m '>+1<CR>gv=gv")
