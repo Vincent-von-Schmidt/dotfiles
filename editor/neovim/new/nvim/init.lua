@@ -58,6 +58,7 @@ end
 vim.opt.hlsearch = false
 vim.opt.colorcolumn = "90"
 vim.opt.cursorline = true
+-- vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 
 -- plugins ------------------------------------------------------
 
@@ -73,7 +74,7 @@ require("lazy").setup({
             require("nightfox").setup({
                 options = {
                     -- transparent background
-                    transparent = false,
+                    transparent = true,
                 },
             })
             vim.cmd("colorscheme carbonfox")
@@ -116,20 +117,6 @@ require("lazy").setup({
                     },
                 },
             })
-        end,
-    },
-
-    { -- tabline
-        "nanozuki/tabby.nvim",
-        lazy = false,
-        priority = 999,
-        config = function()
-            require("tabby.tabline").use_preset("tab_only", {
-                nerdfont = true,
-            })
-
-            -- show tabline
-            vim.o.showtabline = 2
         end,
     },
 
@@ -178,6 +165,7 @@ require("lazy").setup({
         end,
     },
 
+    -- TODO -> complete hightlight, not just underlineing
     { -- hightlight same vars
         "RRethy/vim-illuminate",
         lazy = false,
@@ -192,13 +180,14 @@ require("lazy").setup({
         config = function()
             require("indent_blankline").setup({
                 show_current_context = true,
-                show_current_context_start = true,
+                show_current_context_start = false,
             })
         end,
     },
 
     -- file browser ---------------------------------------------
 
+    -- TODO -> design
     { -- fzf finder
         "nvim-telescope/telescope.nvim",
         lazy = true,
@@ -208,7 +197,7 @@ require("lazy").setup({
             { "<leader>q", "<CMD> Telescope file_browser <CR>", desc = "open file_browser" },
             { "<leader>c", "<CMD> Telescope project <CR>", desc = "open project" },
             { "<leader>ld", "<CMD> Telescope lsp_definitions <CR>", desc = "LSP jump" },
-            { "<leader>li", "<CMD> Telescope lsp_implementations <CR>", desc = "LSP jump" },
+            { "<leader>li", "<CMD> Telescope lsp_implementations theme=cursor <CR>", desc = "LSP jump" },
             { "<leader>ls", "<CMD> Telescope lsp_references <CR>", desc = "show information about hovered item" },
         },
         dependencies = {
@@ -221,7 +210,9 @@ require("lazy").setup({
 
             -- plugins
             "nvim-telescope/telescope-project.nvim",
-            "nvim-telescope/telescope-file-browser.nvim"
+            "nvim-telescope/telescope-file-browser.nvim",
+            "nvim-telescope/telescope-fzf-native.nvim",
+            { "nvim-telescope/telescope-fzf-native.nvim", build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build" },
         },
         config = function()
             local telescope = require("telescope")
@@ -233,18 +224,41 @@ require("lazy").setup({
                         i = {
                             ["<leader>o"] = "select_vertical",
                             ["<leader>p"] = "select_horizontal",
-                            ["<leader>t"] = "select_tab",
                         },
 
                         -- normal
                         n = {
                             ["<leader>o"] = "select_vertical",
                             ["<leader>p"] = "select_horizontal",
-                            ["<leader>t"] = "select_tab",
                         },
                     },
+                    -- design config
+                    layout_strategy = "horizontal",
+                    layout_config = {
+                        horizontal = {
+                            prompt_position = "top",
+                            preview_width = 0.55,
+                            results_width = 0.8,
+                        },
+                        vertical = {
+                            mirror = false,
+                        },
+                        width = 0.87,
+                        height = 0.80,
+                        preview_cutoff = 120,
+                    },
+                    border = {},
+                    borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+                    color_devicons = true,
                 },
                 extensions = {
+                    fzf = {
+                        fuzzy = true,
+                        override_generic_sorter = true,
+                        override_file_sorter = true,
+                        case_mode = "smart_case",
+                    },
+
                     project = {
                         theme = "ivy",
                     },
@@ -260,6 +274,7 @@ require("lazy").setup({
 
             telescope.load_extension("project")
             telescope.load_extension("file_browser")
+            telescope.load_extension("fzf")
         end,
     },
 
@@ -268,6 +283,7 @@ require("lazy").setup({
     { -- lsp install
         "williamboman/mason.nvim",
         lazy = false,
+        priority = 900, -- load after coq_nvim
         dependencies = {
             "williamboman/mason-lspconfig.nvim",
             "neovim/nvim-lspconfig",
@@ -294,7 +310,7 @@ require("lazy").setup({
                     "ltex", -- LaTeX
                     "marksman", -- Markdown
                     "intelephense", -- php
-                    -- "powershell_es", -- Powershell
+                    "powershell_es", -- Powershell
                     "bashls", -- bash
                     "pyright", -- Python
                     -- "r_language_server", -- R
@@ -325,7 +341,7 @@ require("lazy").setup({
             lsp.ltex.setup(coq.lsp_ensure_capabilities())
             lsp.marksman.setup(coq.lsp_ensure_capabilities())
             lsp.intelephense.setup(coq.lsp_ensure_capabilities())
-            -- lsp.powershell_es.setup{}
+            lsp.powershell_es.setup(coq.lsp_ensure_capabilities())
             lsp.bashls.setup(coq.lsp_ensure_capabilities())
             lsp.pyright.setup(coq.lsp_ensure_capabilities())
             -- lsp.r_language_server.setup{}
@@ -456,29 +472,27 @@ require("lazy").setup({
 
     -- quality of life ------------------------------------------
 
-    -- TODO
+    -- TODO -> remove modern keybinds
     { -- intellisense
         "ms-jpq/coq_nvim",
         lazy = false,
+        priority = 950, -- load befor mason
         dependencies = {
             "ms-jpq/coq.artifacts",
             "ms-jpq/coq.thirdparty",
         },
         config = function()
-            -- local vim.g.coq_settings = { ["clients.tabnine.enabled"] = true }
             vim.cmd([[
                 " startup
                 COQnow --shut-up
 
                 " tabnine
                 let g:coq_settings = { "clients.tabnine.enabled": v:true }
+
                 " keymaps
-                let g:coq_settings = { "keymap.recommended": v:true }
-                "inoremap <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
-                "inoremap <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>" : "\<BS>"
-                "inoremap <silent><expr> <C-y>   pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
-                "inoremap <silent><expr> <C-n>   pumvisible() ? "\<C-n>" : "\<Tab>"
-                "inoremap <silent><expr> <C-m>   pumvisible() ? "\<C-p>" : "\<BS>"
+                let g:coq_settings = { "keymap.recommended": v:false }
+                let g:coq_settings = { "keymap.pre_select": v:true }
+                "inoremap <silent><expr> <CR>    pumvisible() ? "\<c-e><CR>" : "\<CR>" 
                 "ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
                 "ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
                 "ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
@@ -489,6 +503,7 @@ require("lazy").setup({
         end,
     },
 
+    -- TODO -> space
     { -- autopairs
         "windwp/nvim-autopairs",
         lazy = true,
@@ -498,6 +513,7 @@ require("lazy").setup({
         end,
     },
 
+    -- TODO -> multiline
     { -- gcc -> comment / uncomment
         "terrortylor/nvim-comment",
         lazy = true,
@@ -507,6 +523,7 @@ require("lazy").setup({
         end,
     },
 
+    -- TODO -> visual
     { -- surround -> ysiw) / ds) -> (word) / word
         "kylechui/nvim-surround",
         lazy = true,
@@ -516,14 +533,62 @@ require("lazy").setup({
         end,
     },
 
+    -- TODO -> transparent background
     { -- zen mode
-        "Pocco81/true-zen.nvim",
+        "folke/zen-mode.nvim",
         lazy = true,
         keys = {
-            { "<leader>z", "<CMD> TZAtaraxis <CR>", desc = "open true-zen mode" },
+            { "<leader>z", "<CMD> ZenMode <CR>" },
         },
         config = function()
-            require("true-zen").setup()
+            require("zen-mode").setup({
+                window = {
+                    options = {
+                        signcolumn = "no",
+                        number = false,
+                        relativenumber = false,
+                        cursorline = false,
+                        cursorcolumn = false,
+                        foldcolumn = "0",
+                        list = false,
+                        colorcolumn = "0",
+                    },
+                },
+            })
+        end,
+    },
+
+    { -- file switcher
+        "ThePrimeagen/harpoon",
+        lazy = true,
+        keys = {
+            { "<leader>t", "<CMD> lua require(\"harpoon.mark\").add_file() <CR>", desc = "add current file" },
+            { "<leader>ti", "<CMD> lua require(\"harpoon.ui\").toggle_quick_menu() <CR>" },
+            -- { "<leader>ti", "<CMD> Telescope harpoon mark <CR>" },
+            { "<leader>1", "<CMD> lua require(\"harpoon.ui\").nav_file(1) <CR>" },
+            { "<leader>2", "<CMD> lua require(\"harpoon.ui\").nav_file(2) <CR>" },
+            { "<leader>3", "<CMD> lua require(\"harpoon.ui\").nav_file(3) <CR>" },
+            { "<leader>4", "<CMD> lua require(\"harpoon.ui\").nav_file(4) <CR>" },
+        },
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+        },
+        config = function()
+            require("telescope").load_extension("harpoon")
+        end,
+    },
+
+    -- TODO -> setup
+    { -- refactoring
+        "ThePrimeagen/refactoring.nvim",
+        lazy = true,
+        event = "InsertEnter",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+            require("refactoring").setup()
         end,
     },
 })
