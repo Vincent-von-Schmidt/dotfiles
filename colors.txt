@@ -1,0 +1,4 @@
+Windows-Terminal color scheme: 
+Foreground: #cccccc
+Background: #0C0C0C
+Background-opacity: 90%

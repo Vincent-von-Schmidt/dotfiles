@@ -58,6 +58,7 @@ end
 vim.opt.hlsearch = false
 vim.opt.colorcolumn = "90"
 vim.opt.cursorline = true
+vim.o.showtabline = 0
 -- vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 
 -- plugins ------------------------------------------------------
@@ -341,7 +342,7 @@ require("lazy").setup({
             lsp.ltex.setup(coq.lsp_ensure_capabilities())
             lsp.marksman.setup(coq.lsp_ensure_capabilities())
             lsp.intelephense.setup(coq.lsp_ensure_capabilities())
-            lsp.powershell_es.setup(coq.lsp_ensure_capabilities())
+            -- lsp.powershell_es.setup{}
             lsp.bashls.setup(coq.lsp_ensure_capabilities())
             lsp.pyright.setup(coq.lsp_ensure_capabilities())
             -- lsp.r_language_server.setup{}
@@ -351,6 +352,33 @@ require("lazy").setup({
             lsp.vimls.setup(coq.lsp_ensure_capabilities())
             lsp.lemminx.setup(coq.lsp_ensure_capabilities())
             lsp.yamlls.setup(coq.lsp_ensure_capabilities())
+
+            -- local lsp = require("lspconfig")
+            -- lsp.sumneko_lua.setup{}
+            -- lsp.clangd.setup{}
+            -- -- lsp.csharp_ls.setup{}
+            -- lsp.cmake.setup{}
+            -- lsp.cssls.setup{}
+            -- lsp.dockerls.setup{}
+            -- lsp.gradle_ls.setup{}
+            -- lsp.html.setup{}
+            -- -- lsp.hls.setup{}
+            -- lsp.jsonls.setup{}
+            -- lsp.jdtls.setup{}
+            -- lsp.tsserver.setup{}
+            -- lsp.kotlin_language_server.setup{}
+            -- lsp.ltex.setup{}
+            -- lsp.marksman.setup{}
+            -- lsp.intelephense.setup{}
+            -- lsp.powershell_es.setup{}
+            -- lsp.bashls.setup{}
+            -- lsp.pyright.setup{}
+            -- -- lsp.r_language_server.setup{}
+            -- lsp.rust_analyzer.setup{}
+            -- lsp.taplo.setup{}
+            -- -- lsp.sqlls.setup{}
+            -- lsp.vimls.setup{}
+            -- lsp.lemminx.setup{}
         end,
     },
 
@@ -392,27 +420,16 @@ require("lazy").setup({
         end,
     },
 
-    { -- LaTeX
-        "lervag/vimtex",
-        lazy = true,
-        ft = { "tex" },
-        dependencies = {
-            "ms-jpq/coq.thirdparty",
-        },
-        config = function()
-            -- coq
-            require("coq_3p"){
-                { src = "vimtex" },
-            }
-
-            -- config
-            vim.cmd([[
-                " init
-                filetype plugin indent on
-                syntax enable
-            ]])
-        end,
-    },
+    -- TODO
+    -- { -- LaTeX
+    --     "lervag/vimtex",
+    --     lazy = true,
+    --     ft = { "tex", "plaintex", "latex", },
+    --     build = ":CocInstall coc-vimtex",
+    --     dependencies = {
+    --         "neoclide/coc.nvim",
+    --     },
+    -- }, 
 
     -- windows --------------------------------------------------
 
@@ -472,36 +489,76 @@ require("lazy").setup({
 
     -- quality of life ------------------------------------------
 
-    -- TODO -> remove modern keybinds
     { -- intellisense
         "ms-jpq/coq_nvim",
         lazy = false,
         priority = 950, -- load befor mason
+        build = ":COQdeps",
         dependencies = {
             "ms-jpq/coq.artifacts",
             "ms-jpq/coq.thirdparty",
         },
         config = function()
-            vim.cmd([[
-                " startup
-                COQnow --shut-up
 
-                " tabnine
-                let g:coq_settings = { "clients.tabnine.enabled": v:true }
+            require("coq")
 
-                " keymaps
-                let g:coq_settings = { "keymap.recommended": v:false }
-                let g:coq_settings = { "keymap.pre_select": v:true }
-                "inoremap <silent><expr> <CR>    pumvisible() ? "\<c-e><CR>" : "\<CR>" 
-                "ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
-                "ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
-                "ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
-                "ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
-                "ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-                "ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
-            ]])
+            vim.g.coq_settings = {
+                ["clients.tabnine.enabled"] = true,
+                ["keymap"] = {
+                    ["recommended"] = false,
+                    ["pre_select"] = true,
+                },
+            }
+
+            -- init
+            vim.cmd("COQnow --shut-up")
+
+            -- vim.cmd([[
+            --     " startup
+            --     COQnow --shut-up
+            --
+            --     " tabnine
+            --     let g:coq_settings = { "clients.tabnine.enabled": v:true }
+            --
+            --     " keymaps
+            --     " override themself 
+            --     let g:coq_settings = { "keymap.recommended": v:false }
+            --     let g:coq_settings = { "keymap.pre_select": v:true }
+            --
+            --     inoremap <silent><expr> <CR> pumvisible () ? "\<C-e><CR>" : "\<CR>"
+            --     "inoremap <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+            --     "inoremap <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>" : "\<BS>"
+            --     "inoremap <silent><expr> <C-y>   pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
+            --     "inoremap <silent><expr> <C-n>   pumvisible() ? "\<C-n>" : "\<Tab>"
+            --     "inoremap <silent><expr> <C-m>   pumvisible() ? "\<C-p>" : "\<BS>"
+            --     "ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+            --     "ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
+            --     "ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
+            --     "ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
+            --     "ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+            --     "ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
+            -- ]])
         end,
     },
+
+    -- { -- intellisense
+    --     "neoclide/coc.nvim",
+    --     branch = "release",
+    --     lazy = false,
+    --     priority = 950,
+    --     build = {
+    --         "npm install",
+    --         ":CocInstall coc-tabnine coc-snippets",
+    --         "python3 -m pip install pynvim",
+    --     },
+    --     config = function()
+    --         vim.cmd([[
+    --             " snippets
+    --             let g:coc_snippet_next = '<c-j>'
+    --             let g:coc_snippet_prev = '<c-k>'
+    --         ]])
+    --     end,
+    -- },
 
     -- TODO -> space
     { -- autopairs
@@ -517,7 +574,7 @@ require("lazy").setup({
     { -- gcc -> comment / uncomment
         "terrortylor/nvim-comment",
         lazy = true,
-        keys = { "gcc" },
+        keys = { "gc" },
         config = function()
             require("nvim_comment").setup()
         end,
@@ -534,27 +591,38 @@ require("lazy").setup({
     },
 
     -- TODO -> transparent background
+    -- { -- zen mode
+    --     "folke/zen-mode.nvim",
+    --     lazy = true,
+    --     keys = {
+    --         { "<leader>z", "<CMD> ZenMode <CR>" },
+    --     },
+    --     config = function()
+    --         require("zen-mode").setup({
+    --             window = {
+    --                 options = {
+    --                     signcolumn = "no",
+    --                     number = false,
+    --                     relativenumber = false,
+    --                     cursorline = false,
+    --                     cursorcolumn = false,
+    --                     foldcolumn = "0",
+    --                     list = false,
+    --                     colorcolumn = "0",
+    --                 },
+    --             },
+    --         })
+    --     end,
+    -- },
+
     { -- zen mode
-        "folke/zen-mode.nvim",
+        "Pocco81/true-zen.nvim",
         lazy = true,
         keys = {
-            { "<leader>z", "<CMD> ZenMode <CR>" },
+            { "<leader>z", "<CMD> TZAtaraxis <CR>", desc = "open true-zen mode" },
         },
         config = function()
-            require("zen-mode").setup({
-                window = {
-                    options = {
-                        signcolumn = "no",
-                        number = false,
-                        relativenumber = false,
-                        cursorline = false,
-                        cursorcolumn = false,
-                        foldcolumn = "0",
-                        list = false,
-                        colorcolumn = "0",
-                    },
-                },
-            })
+            require("true-zen").setup()
         end,
     },
 
