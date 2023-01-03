@@ -437,28 +437,40 @@ require("lazy").setup({
         "akinsho/toggleterm.nvim",
         lazy = false,
         config = function()
+
+            -- settings
+            local size = 20
+            local start_in_insert = true
+            local direction = "horizontal"
+            local insert_mappings = true
+            local shell = "zsh"
+            local open_mapping = [[<C-t>]]
+
+            -- init
             if package.config:sub(1,1) == "/" then
 
-                -- linux / mac
+                -- unix
                 require("toggleterm").setup({
-                    size = 20,
-                    start_in_insert = true,
-                    direction = "horizontal",
-                    insert_mappings = true,
-                    shell = "zsh",
-                    open_mapping = [[<C-t>]],
+                    size = size,
+                    start_in_insert = start_in_insert,
+                    direction = direction,
+                    insert_mappings = insert_mappings,
+                    -- shell = "zsh",
+                    shell = shell,
+                    open_mapping = open_mapping,
                 })
 
             else
 
                 -- windows
                 require("toggleterm").setup({
-                    size = 20,
-                    start_in_insert = true,
-                    direction = "horizontal",
-                    insert_mappings = true,
-                    shell = "wsl -d Ubuntu -e zsh",
-                    open_mapping = [[<C-t>]],
+                    size = size,
+                    start_in_insert = start_in_insert,
+                    direction = direction,
+                    insert_mappings = insert_mappings,
+                    -- shell = "wsl -d Ubuntu -e zsh",
+                    shell = string.format("wsl -d Ubuntu -e %s", shell),
+                    open_mapping = open_mapping,
                 })
 
             end
@@ -512,6 +524,14 @@ require("lazy").setup({
 
             -- init
             vim.cmd("COQnow --shut-up")
+
+            -- keymaps
+            vim.cmd([[
+
+                "inoremap <silent><expr> <CR> pumvisible() ? "\<C-e><CR>" : "\<CR>"
+                inoremap <silent><expr> <CR> <Nop>
+
+            ]])
 
             -- vim.cmd([[
             --     " startup
