@@ -1,6 +1,6 @@
 -- init ---------------------------------------------------------
 
--- bootstrap
+-- bootstrap -> lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -590,7 +590,6 @@ require("lazy").setup({
         end,
     },
 
-    -- TODO -> multiline
     { -- gcc -> comment / uncomment
         "terrortylor/nvim-comment",
         lazy = true,
@@ -687,13 +686,15 @@ require("lazy").setup({
 keymap("n", "n", "nzz", keymap_opts)
 keymap("n", "N", "Nzz", keymap_opts)
 
--- keymap("n", "j", "jzz", keymap_otps)
--- keymap("n", "k", "kzz", keymap_opts)
+keymap("n", "j", "jzz", keymap_opts)
+keymap("n", "k", "kzz", keymap_opts)
+keymap("v", "j", "jzz", keymap_opts)
+keymap("v", "k", "kzz", keymap_opts)
 
 -- tab
-keymap("n", "<leader>tl", "<CMD> tabnext <CR>", keymap_opts)
-keymap("n", "<leader>th", "<CMD> tabprevious <CR>", keymap_opts)
-keymap("n", "<leader>tw", "<CMD> tabclose <CR>", keymap_opts)
+-- keymap("n", "<leader>tl", "<CMD> tabnext <CR>", keymap_opts)
+-- keymap("n", "<leader>th", "<CMD> tabprevious <CR>", keymap_opts)
+-- keymap("n", "<leader>tw", "<CMD> tabclose <CR>", keymap_opts)
 
 -- substitute highlighted word
 keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", keymap_opts)
