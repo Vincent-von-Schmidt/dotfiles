@@ -154,7 +154,8 @@ require("lazy").setup({
                     "dart",
                     "markdown",
                     "bash",
-                    "json"
+                    "json",
+                    "haskell",
                 },
                 sync_install = false,
                 auto_install = true,
@@ -303,7 +304,7 @@ require("lazy").setup({
                     "dockerls", -- Docker
                     "gradle_ls", -- Gradle
                     "html", -- html
-                    -- "hls", -- Haskell
+                    "haskell-language-server", -- Haskell
                     "jsonls", -- json
                     "jdtls", -- Java
                     "tsserver", -- JavaScript / TypeScript
@@ -334,7 +335,7 @@ require("lazy").setup({
             lsp.dockerls.setup(coq.lsp_ensure_capabilities())
             lsp.gradle_ls.setup(coq.lsp_ensure_capabilities())
             lsp.html.setup(coq.lsp_ensure_capabilities())
-            -- lsp.hls.setup{}
+            -- lsp.haskell-language-server.setup(coq.lsp_ensure_capabilities())
             lsp.jsonls.setup(coq.lsp_ensure_capabilities())
             lsp.jdtls.setup(coq.lsp_ensure_capabilities())
             lsp.tsserver.setup(coq.lsp_ensure_capabilities())
@@ -455,7 +456,6 @@ require("lazy").setup({
                     start_in_insert = start_in_insert,
                     direction = direction,
                     insert_mappings = insert_mappings,
-                    -- shell = "zsh",
                     shell = shell,
                     open_mapping = open_mapping,
                 })
@@ -468,7 +468,6 @@ require("lazy").setup({
                     start_in_insert = start_in_insert,
                     direction = direction,
                     insert_mappings = insert_mappings,
-                    -- shell = "wsl -d Ubuntu -e zsh",
                     shell = string.format("wsl -d Ubuntu -e %s", shell),
                     open_mapping = open_mapping,
                 })
@@ -512,8 +511,6 @@ require("lazy").setup({
         },
         config = function()
 
-            require("coq")
-
             vim.g.coq_settings = {
                 ["clients.tabnine.enabled"] = true,
                 ["keymap"] = {
@@ -528,57 +525,14 @@ require("lazy").setup({
             -- keymaps
             vim.cmd([[
 
-                "inoremap <silent><expr> <CR> pumvisible() ? "\<C-e><CR>" : "\<CR>"
-                inoremap <silent><expr> <CR> <Nop>
+                inoremap <silent><expr> <CR> pumvisible() ? "\<C-e><CR>" : "\<CR>"
+                inoremap <silent><expr> <TAB> pumvisible() ? "\<C-e><TAB>" : "\<TAB>"
+                inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-e><S-TAB>" : "\<S-TAB>"
 
             ]])
 
-            -- vim.cmd([[
-            --     " startup
-            --     COQnow --shut-up
-            --
-            --     " tabnine
-            --     let g:coq_settings = { "clients.tabnine.enabled": v:true }
-            --
-            --     " keymaps
-            --     " override themself 
-            --     let g:coq_settings = { "keymap.recommended": v:false }
-            --     let g:coq_settings = { "keymap.pre_select": v:true }
-            --
-            --     inoremap <silent><expr> <CR> pumvisible () ? "\<C-e><CR>" : "\<CR>"
-            --     "inoremap <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
-            --     "inoremap <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>" : "\<BS>"
-            --     "inoremap <silent><expr> <C-y>   pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
-            --     "inoremap <silent><expr> <C-n>   pumvisible() ? "\<C-n>" : "\<Tab>"
-            --     "inoremap <silent><expr> <C-m>   pumvisible() ? "\<C-p>" : "\<BS>"
-            --     "ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
-            --     "ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
-            --     "ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
-            --     "ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
-            --     "ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-            --     "ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
-            -- ]])
         end,
     },
-
-    -- { -- intellisense
-    --     "neoclide/coc.nvim",
-    --     branch = "release",
-    --     lazy = false,
-    --     priority = 950,
-    --     build = {
-    --         "npm install",
-    --         ":CocInstall coc-tabnine coc-snippets",
-    --         "python3 -m pip install pynvim",
-    --     },
-    --     config = function()
-    --         vim.cmd([[
-    --             " snippets
-    --             let g:coc_snippet_next = '<c-j>'
-    --             let g:coc_snippet_prev = '<c-k>'
-    --         ]])
-    --     end,
-    -- },
 
     { -- auto-pairs
         "jiangmiao/auto-pairs",
@@ -605,31 +559,6 @@ require("lazy").setup({
         end,
     },
 
-    -- TODO -> transparent background
-    -- { -- zen mode
-    --     "folke/zen-mode.nvim",
-    --     lazy = true,
-    --     keys = {
-    --         { "<leader>z", "<CMD> ZenMode <CR>" },
-    --     },
-    --     config = function()
-    --         require("zen-mode").setup({
-    --             window = {
-    --                 options = {
-    --                     signcolumn = "no",
-    --                     number = false,
-    --                     relativenumber = false,
-    --                     cursorline = false,
-    --                     cursorcolumn = false,
-    --                     foldcolumn = "0",
-    --                     list = false,
-    --                     colorcolumn = "0",
-    --                 },
-    --             },
-    --         })
-    --     end,
-    -- },
-
     { -- zen mode
         "Pocco81/true-zen.nvim",
         lazy = true,
@@ -646,8 +575,7 @@ require("lazy").setup({
         lazy = true,
         keys = {
             { "<leader>t", "<CMD> lua require(\"harpoon.mark\").add_file() <CR>", desc = "add current file" },
-            { "<leader>ti", "<CMD> lua require(\"harpoon.ui\").toggle_quick_menu() <CR>" },
-            -- { "<leader>ti", "<CMD> Telescope harpoon mark <CR>" },
+            -- { "<leader>ti", "<CMD> lua require(\"harpoon.ui\").toggle_quick_menu() <CR>" },
             { "<leader>1", "<CMD> lua require(\"harpoon.ui\").nav_file(1) <CR>" },
             { "<leader>2", "<CMD> lua require(\"harpoon.ui\").nav_file(2) <CR>" },
             { "<leader>3", "<CMD> lua require(\"harpoon.ui\").nav_file(3) <CR>" },
@@ -687,14 +615,11 @@ keymap("n", "k", "kzz", keymap_opts)
 keymap("v", "j", "jzz", keymap_opts)
 keymap("v", "k", "kzz", keymap_opts)
 
--- tab
--- keymap("n", "<leader>tl", "<CMD> tabnext <CR>", keymap_opts)
--- keymap("n", "<leader>th", "<CMD> tabprevious <CR>", keymap_opts)
--- keymap("n", "<leader>tw", "<CMD> tabclose <CR>", keymap_opts)
-
 -- substitute highlighted word
 keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", keymap_opts)
 
 -- move highlighted
-keymap("v", "J", ":m '>+1<CR>gv=gv")
-keymap("v", "K", ":m '<-2<CR>gv=gv")
+keymap("v", "J", ":m '>+1<CR>gv=gv", keymap_opts)
+keymap("v", "K", ":m '<-2<CR>gv=gv", keymap_opts)
+keymap("v", "H", "<gv", keymap_opts)
+keymap("v", "L", ">gv", keymap_opts)
