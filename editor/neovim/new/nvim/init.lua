@@ -580,14 +580,10 @@ require("lazy").setup({
     --     end,
     -- },
 
-    -- TODO -> space
-    { -- autopairs
-        "windwp/nvim-autopairs",
+    { -- auto-pairs
+        "jiangmiao/auto-pairs",
         lazy = true,
         event = "InsertEnter",
-        config = function()
-            require("nvim-autopairs").setup()
-        end,
     },
 
     { -- gcc -> comment / uncomment
