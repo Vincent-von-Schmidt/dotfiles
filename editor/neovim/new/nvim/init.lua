@@ -59,7 +59,6 @@ vim.opt.hlsearch = false
 vim.opt.colorcolumn = "90"
 vim.opt.cursorline = true
 vim.o.showtabline = 0
--- vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 
 -- plugins ------------------------------------------------------
 
@@ -304,7 +303,8 @@ require("lazy").setup({
                     "dockerls", -- Docker
                     "gradle_ls", -- Gradle
                     "html", -- html
-                    "haskell-language-server", -- Haskell
+                    -- "haskell-language-server", -- Haskell
+                    "hls", -- Haskell
                     "jsonls", -- json
                     "jdtls", -- Java
                     "tsserver", -- JavaScript / TypeScript
@@ -336,6 +336,7 @@ require("lazy").setup({
             lsp.gradle_ls.setup(coq.lsp_ensure_capabilities())
             lsp.html.setup(coq.lsp_ensure_capabilities())
             -- lsp.haskell-language-server.setup(coq.lsp_ensure_capabilities())
+            lsp.hls.setup(coq.lsp_ensure_capabilities())
             lsp.jsonls.setup(coq.lsp_ensure_capabilities())
             lsp.jdtls.setup(coq.lsp_ensure_capabilities())
             lsp.tsserver.setup(coq.lsp_ensure_capabilities())
@@ -354,32 +355,6 @@ require("lazy").setup({
             lsp.lemminx.setup(coq.lsp_ensure_capabilities())
             lsp.yamlls.setup(coq.lsp_ensure_capabilities())
 
-            -- local lsp = require("lspconfig")
-            -- lsp.sumneko_lua.setup{}
-            -- lsp.clangd.setup{}
-            -- -- lsp.csharp_ls.setup{}
-            -- lsp.cmake.setup{}
-            -- lsp.cssls.setup{}
-            -- lsp.dockerls.setup{}
-            -- lsp.gradle_ls.setup{}
-            -- lsp.html.setup{}
-            -- -- lsp.hls.setup{}
-            -- lsp.jsonls.setup{}
-            -- lsp.jdtls.setup{}
-            -- lsp.tsserver.setup{}
-            -- lsp.kotlin_language_server.setup{}
-            -- lsp.ltex.setup{}
-            -- lsp.marksman.setup{}
-            -- lsp.intelephense.setup{}
-            -- lsp.powershell_es.setup{}
-            -- lsp.bashls.setup{}
-            -- lsp.pyright.setup{}
-            -- -- lsp.r_language_server.setup{}
-            -- lsp.rust_analyzer.setup{}
-            -- lsp.taplo.setup{}
-            -- -- lsp.sqlls.setup{}
-            -- lsp.vimls.setup{}
-            -- lsp.lemminx.setup{}
         end,
     },
 
@@ -511,6 +486,8 @@ require("lazy").setup({
         },
         config = function()
 
+            require("coq")
+
             vim.g.coq_settings = {
                 ["clients.tabnine.enabled"] = true,
                 ["keymap"] = {
@@ -519,12 +496,13 @@ require("lazy").setup({
                 },
             }
 
-            -- init
-            vim.cmd("COQnow --shut-up")
-
             -- keymaps
             vim.cmd([[
 
+                " init
+                COQnow --shut-up
+
+                " keymaps
                 inoremap <silent><expr> <CR> pumvisible() ? "\<C-e><CR>" : "\<CR>"
                 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-e><TAB>" : "\<TAB>"
                 inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-e><S-TAB>" : "\<S-TAB>"
@@ -614,6 +592,9 @@ keymap("n", "j", "jzz", keymap_opts)
 keymap("n", "k", "kzz", keymap_opts)
 keymap("v", "j", "jzz", keymap_opts)
 keymap("v", "k", "kzz", keymap_opts)
+
+keymap("n", "J", "j", keymap_opts)
+keymap("n", "K", "k", keymap_opts)
 
 -- substitute highlighted word
 keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", keymap_opts)
