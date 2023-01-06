@@ -166,6 +166,17 @@ require("lazy").setup({
         end,
     },
 
+    { -- sticky scrolling
+        "nvim-treesitter/nvim-treesitter-context",
+        lazy = false,
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+            require("treesitter-context").setup()
+        end,
+    },
+
     -- TODO -> complete hightlight, not just underlineing
     { -- hightlight same vars
         "RRethy/vim-illuminate",
