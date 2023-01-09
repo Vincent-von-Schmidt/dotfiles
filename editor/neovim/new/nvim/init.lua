@@ -525,8 +525,7 @@ require("lazy").setup({
 
     { -- auto-pairs
         "jiangmiao/auto-pairs",
-        lazy = true,
-        event = "InsertEnter",
+        lazy = false,
     },
 
     { -- gcc -> comment / uncomment
@@ -591,6 +590,20 @@ require("lazy").setup({
             require("refactoring").setup()
         end,
     },
+
+    -- { -- ai assistent
+    --     "jackMort/ChatGPT.nvim",
+    --     lazy = true,
+    --     cmd = "ChatGPT",
+    --     dependencies = {
+    --         "MunifTanjim/nui.nvim",
+    --         "nvim-lua/plenary.nvim",
+    --         "nvim-telescope/telescope.nvim",
+    --     },
+    --     config = function()
+    --         require("chatGPT").setup()
+    --     end,
+    -- },
 })
 
 -- keymaps ------------------------------------------------------

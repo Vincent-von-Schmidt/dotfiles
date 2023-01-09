@@ -10,8 +10,8 @@ sudo apt-get upgrade -y
 
 
 # python3 -------------------------------------------------------
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt-get update
+# sudo add-apt-repository ppa:deadsnakes/ppa
+# sudo apt-get update
 
 
 # neovim / editor -----------------------------------------------
@@ -26,9 +26,12 @@ sudo add-apt-repository ppa:neovim-ppa/unstable
 curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash - &&\
 sudo apt-get install -y nodejs neovim ripgrep fd_find
 
+# universal ctags
+sudo snap install universal-ctags
+
 # install packer
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+# git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ # ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # reset of .config
 # sudo rm $HOME/.config -r
