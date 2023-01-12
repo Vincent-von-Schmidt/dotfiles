@@ -407,16 +407,19 @@ require("lazy").setup({
         end,
     },
 
-    -- TODO
-    -- { -- LaTeX
-    --     "lervag/vimtex",
-    --     lazy = true,
-    --     ft = { "tex", "plaintex", "latex", },
-    --     build = ":CocInstall coc-vimtex",
-    --     dependencies = {
-    --         "neoclide/coc.nvim",
-    --     },
-    -- }, 
+    { -- LaTeX
+        "lervag/vimtex",
+        lazy = true,
+        ft = { "tex", "plaintex", "latex", },
+        dependencies = {
+            "ms-jpq/coq.thirdparty",
+        },
+        config = function()
+            require("coq_3p") {
+                { src = "vimtex", short_name = "vTEX" },
+            }
+        end,
+    },
 
     -- windows --------------------------------------------------
 
@@ -562,8 +565,8 @@ require("lazy").setup({
         "ThePrimeagen/harpoon",
         lazy = true,
         keys = {
-            { "<leader>t", "<CMD> lua require(\"harpoon.mark\").add_file() <CR>", desc = "add current file" },
-            -- { "<leader>ti", "<CMD> lua require(\"harpoon.ui\").toggle_quick_menu() <CR>" },
+            { "<leader>ta", "<CMD> lua require(\"harpoon.mark\").add_file() <CR>", desc = "add current file" },
+            { "<leader>ti", "<CMD> lua require(\"harpoon.ui\").toggle_quick_menu() <CR>" },
             { "<leader>1", "<CMD> lua require(\"harpoon.ui\").nav_file(1) <CR>" },
             { "<leader>2", "<CMD> lua require(\"harpoon.ui\").nav_file(2) <CR>" },
             { "<leader>3", "<CMD> lua require(\"harpoon.ui\").nav_file(3) <CR>" },
