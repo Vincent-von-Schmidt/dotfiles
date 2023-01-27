@@ -634,6 +634,12 @@ require("lazy").setup({
         end,
     },
 
+    { -- lern to vim
+        "ThePrimeagen/vim-be-good",
+        lazy = true,
+        cmd = "VimBeGood",
+    },
+
     -- { -- ai assistent
     --     "jackMort/ChatGPT.nvim",
     --     lazy = true,
