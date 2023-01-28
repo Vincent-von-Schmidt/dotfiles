@@ -165,6 +165,7 @@ require("lazy").setup({
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
             "nvim-telescope/telescope.nvim",
+            "nvim-treesitter/nvim-treesitter",
         },
         config = function()
             require("noice").setup({
@@ -183,21 +184,24 @@ require("lazy").setup({
                             -- winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
                         },
                     },
-                    -- popupmenu = {
-                    --     border = {
-                    --         style = "single",
-                    --         padding = { 0, 1 },
-                    --         relative = {
-                    --             type = "cursor",
-                    --             position = "10%",
-                    --         },
-                    --     },
-                    -- },
+                    popupmenu = {
+                        relative = "cursor",
+                        position = {
+                            row = 2, -- move popupmenu beneth the cursor
+                            col = 0,
+                        },
+                        border = {
+                            style = "single",
+                            padding = { 0, 1 },
+                            -- relative = {
+                            --     type = "cursor",
+                            -- },
+                        },
+                    },
                 },
                 cmdline = {
                     enabled = true,
                     view = "cmdline",
-                    opts = {},
                     format = {
                         search_down = {
                             view = "cmdline",
@@ -206,6 +210,14 @@ require("lazy").setup({
                             view = "cmdline",
                         },
                     },
+                },
+                messages = {
+                    enabled = true,
+                    view = "notify",
+                    view_error = "notify",
+                    view_warn = "notify",
+                    view_history = "messages",
+                    view_search = "virtualtext",
                 },
                 -- presets = {
                 --     bottom_search = false,
@@ -219,6 +231,8 @@ require("lazy").setup({
             require('notify').setup({
                 background_colour = "#000000",
             })
+
+            require("telescope").load_extension("flutter")
         end,
     },
 
@@ -235,7 +249,6 @@ require("lazy").setup({
             { "<leader>c", "<CMD> Telescope project <CR>", desc = "open project" },
             { "<leader>ld", "<CMD> Telescope lsp_definitions <CR>", desc = "LSP jump" },
             { "<leader>li", "<CMD> Telescope lsp_implementations theme=cursor <CR>", desc = "LSP jump" },
-            { "<leader>ls", "<CMD> Telescope lsp_references <CR>", desc = "show information about hovered item" },
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -337,27 +350,20 @@ require("lazy").setup({
                     "cmake", -- CMake
                     "cssls", -- CSS
                     "dockerls", -- Docker
-                    "gradle_ls", -- Gradle
                     "html", -- html
                     -- "haskell-language-server", -- Haskell
-                    "hls", -- Haskell
+                    -- "hls", -- Haskell
                     "jsonls", -- json
-                    "jdtls", -- Java
                     "tsserver", -- JavaScript / TypeScript
                     "kotlin_language_server", -- Kotlin
                     "ltex", -- LaTeX
                     "marksman", -- Markdown
                     "intelephense", -- php
-                    "powershell_es", -- Powershell
                     "bashls", -- bash
                     "pyright", -- Python
-                    -- "r_language_server", -- R
-                    "rust_analyzer", -- rust
-                    -- "sqlls", -- sql
-                    "taplo", -- TOML
-                    "vimls", -- Vim
                     "lemminx", -- xml
                     "yamlls", -- yaml
+                    "vimls", -- vim
                 },
             })
 
@@ -369,27 +375,23 @@ require("lazy").setup({
             lsp.cmake.setup(coq.lsp_ensure_capabilities())
             lsp.cssls.setup(coq.lsp_ensure_capabilities())
             lsp.dockerls.setup(coq.lsp_ensure_capabilities())
-            lsp.gradle_ls.setup(coq.lsp_ensure_capabilities())
             lsp.html.setup(coq.lsp_ensure_capabilities())
             -- lsp.haskell-language-server.setup(coq.lsp_ensure_capabilities())
-            lsp.hls.setup(coq.lsp_ensure_capabilities())
+            -- lsp.hls.setup(coq.lsp_ensure_capabilities())
             lsp.jsonls.setup(coq.lsp_ensure_capabilities())
-            lsp.jdtls.setup(coq.lsp_ensure_capabilities())
             lsp.tsserver.setup(coq.lsp_ensure_capabilities())
             lsp.kotlin_language_server.setup(coq.lsp_ensure_capabilities())
             lsp.ltex.setup(coq.lsp_ensure_capabilities())
             lsp.marksman.setup(coq.lsp_ensure_capabilities())
             lsp.intelephense.setup(coq.lsp_ensure_capabilities())
-            -- lsp.powershell_es.setup{}
             lsp.bashls.setup(coq.lsp_ensure_capabilities())
             lsp.pyright.setup(coq.lsp_ensure_capabilities())
-            -- lsp.r_language_server.setup{}
-            lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities())
-            lsp.taplo.setup(coq.lsp_ensure_capabilities())
-            -- lsp.sqlls.setup(coq.lsp_ensure_capabilities())
-            lsp.vimls.setup(coq.lsp_ensure_capabilities())
             lsp.lemminx.setup(coq.lsp_ensure_capabilities())
             lsp.yamlls.setup(coq.lsp_ensure_capabilities())
+            lsp.yamlls.setup(coq.lsp_ensure_capabilities())
+
+            -- keymaps
+            keymap("n", "<leader>ls", vim.lsp.buf.hover, keymap_opts)
 
         end,
     },
@@ -638,6 +640,14 @@ require("lazy").setup({
         "ThePrimeagen/vim-be-good",
         lazy = true,
         cmd = "VimBeGood",
+    },
+
+    { -- movement
+        "ggandor/leap.nvim",
+        lazy = false,
+        config = function()
+            require('leap').add_default_mappings()
+        end,
     },
 
     -- { -- ai assistent
