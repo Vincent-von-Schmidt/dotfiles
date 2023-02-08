@@ -16,11 +16,11 @@ snippet template
     \\fancyhead[c]{${0:title}}
     \\fancyhead[R]{${1:date}}
 
-    $2:content
+    ${2:content}
 
     \\end{document}
 
 snippet begin
-    \\begin{$0:type}
-        $1:content
-    \\end{$0:type}
+    \\begin{${0:type}}
+        ${1:content}
+    \\end{${0:type}}

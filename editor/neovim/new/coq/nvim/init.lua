@@ -579,11 +579,16 @@ require("lazy").setup(
                     ["keymap"] = {
                         ["recommended"] = false,
                         ["pre_select"] = true,
+                        ["jump_to_mark"] = "<c-h>",
                     },
                     ["display"] = {
                         ["ghost_text.enabled"] = false,
                     },
                 }
+
+                -- keymaps
+                keymap("i", "<c-h>", "<Nop>", keymap_opts)
+                keymap("i", "<c-h>", "<ESC><c-h>", keymap_opts)
 
                 vim.cmd([[
 
