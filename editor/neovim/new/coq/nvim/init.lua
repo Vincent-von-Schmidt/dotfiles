@@ -482,6 +482,10 @@ require("lazy").setup(
                 "ms-jpq/coq.thirdparty",
             },
             config = function()
+                -- editor
+                vim.opt.wrap = true
+
+                -- add vimtex as coq source
                 require("coq_3p") {
                     { src = "vimtex", short_name = "vTEX" },
                 }

@@ -1,0 +1,26 @@
+snippet template
+    \\documentclass{article}
+    \\usepackage[utf8]{inputenc}
+    \\usepackage[a4paper, margin=1in]{geometry}
+    \\usepackage{fancyhdr}
+
+    \\title{${0:title}}
+    \\author{Vincent von Schmidt}
+    \\date{${1:date}}
+
+    \\begin{document}
+
+    \\maketitle
+    \\pagestyle{fancy}
+    \\fancyhead[l]{Vincent von Schmidt}
+    \\fancyhead[c]{${0:title}}
+    \\fancyhead[R]{${1:date}}
+
+    $2:content
+
+    \\end{document}
+
+snippet begin
+    \\begin{$0:type}
+        $1:content
+    \\end{$0:type}
