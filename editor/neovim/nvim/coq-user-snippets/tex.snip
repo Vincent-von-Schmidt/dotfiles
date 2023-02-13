@@ -1,0 +1,36 @@
+snippet template
+alias \documentclass{article}
+    \\documentclass{article}
+    \\usepackage[utf8]{inputenc}
+    \\usepackage[a4paper, margin=1in]{geometry}
+    \\usepackage{fancyhdr}
+
+    \\pagestyle{fancy}
+    \\fancyhead[l]{Vincent von Schmidt}
+    \\fancyhead[c]{${0:title}}
+    \\fancyhead[R]{${1:date}}
+
+    \\title{\\textbf{${0:title}}}
+    \\date{\\vspace{-5ex}}
+
+    \\begin{document}
+
+    \\maketitle
+    \\thispagestyle{fancy}
+
+    \\end{document}
+
+snippet sources
+    \\newpage
+    \\section{Sources}
+
+    \\usepackage[hyphens, spaces, obeyspaces]{url}
+    \\urlstyle{same}
+
+    \\begin{itemize}
+        ${0:TARGET}
+    \\end{itemize}
+
+extends sources
+snippet url
+    \\item\\url{${0:URL}} (${1:TIME})
