@@ -96,8 +96,8 @@ require("lazy").setup(
                         {class = "mode", item = require("hardline.parts.mode").get_item},
                         {class = "med", item = require("hardline.parts.filename").get_item},
                         "%<",
-                        {class="high", item =  require("noice").api.statusline.mode.get},
-                        {class = "med", item = require("lazy.status").updates},
+                        -- {class="high", item =  require("noice").api.statusline.mode.get},
+                        -- {class = "med", item = require("lazy.status").updates},
                         {class = "med", item = "%="},
                         {class = "high", item = require("hardline.parts.filetype").get_item, hide = 60},
                         {class = "mode", item = require("hardline.parts.line").get_item}
@@ -384,14 +384,14 @@ require("lazy").setup(
 
                 require("mason-lspconfig").setup({
                     ensure_installed = {
-                        "sumneko_lua", -- Lua
+                        -- "sumneko_lua", -- Lua
                         "clangd", -- C / C++
                         -- "csharp_ls", -- C#
                         "cmake", -- CMake
                         "cssls", -- CSS
                         "dockerls", -- Docker
                         "html", -- html
-                        "haskell-language-server", -- Haskell
+                        -- "haskell-language-server", -- Haskell
                         -- "hls", -- Haskell
                         "jsonls", -- json
                         "tsserver", -- JavaScript / TypeScript
@@ -409,7 +409,7 @@ require("lazy").setup(
 
                 local coq = require("coq")
                 local lsp = require("lspconfig")
-                lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities())
+                -- lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities())
                 lsp.clangd.setup(coq.lsp_ensure_capabilities())
                 -- lsp.csharp_ls.setup{}
                 lsp.cmake.setup(coq.lsp_ensure_capabilities())
