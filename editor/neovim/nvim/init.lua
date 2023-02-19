@@ -624,21 +624,13 @@ require("lazy").setup(
             end,
         },
 
-        { -- zen mode
-            "Pocco81/true-zen.nvim",
-            lazy = true,
-            keys = {
-                { "<leader>z", "<CMD> TZAtaraxis <CR>", desc = "open true-zen mode" },
-            },
-            config = function()
-                require("true-zen").setup()
-            end,
-        },
-
         { -- center code window
             "shortcuts/no-neck-pain.nvim",
             lazy = true,
             cmd = "NoNeckPain",
+            keys = {
+                { "<leader>z", "<CMD> NoNeckPain <CR>" },
+            },
         },
 
         { -- file switcher
