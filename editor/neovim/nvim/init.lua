@@ -185,23 +185,23 @@ require("lazy").setup(
                                 -- winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
                             },
                         },
-                        popupmenu = {
-                            relative = "cursor",
-                            position = {
-                                row = 2,
-                                col = 0,
-                            },
-                            border = {
-                                style = "rounded",
-                                padding = { 0, 1 },
-                            },
-                            winhighlight = {
-                                Normal = "NoicePopupmenu",
-                                FloatBorder = "NoicePopupmenuBorder",
-                                CursorLine = "NoicePopupmenuSelected",
-                                PmenuMatch = "NoicePopupmenuMatch",
-                            },
-                        },
+                        -- popupmenu = {
+                        --     relative = "cursor",
+                        --     position = {
+                        --         row = 2,
+                        --         col = 0,
+                        --     },
+                        --     border = {
+                        --         style = "rounded",
+                        --         padding = { 0, 1 },
+                        --     },
+                        --     winhighlight = {
+                        --         Normal = "NoicePopupmenu",
+                        --         FloatBorder = "NoicePopupmenuBorder",
+                        --         CursorLine = "NoicePopupmenuSelected",
+                        --         PmenuMatch = "NoicePopupmenuMatch",
+                        --     },
+                        -- },
                         -- popupmenu = {
                         --     relative = "editor",
                         --     -- position = {
@@ -637,13 +637,12 @@ require("lazy").setup(
         --     "ThePrimeagen/harpoon",
         --     lazy = true,
         --     keys = {
-        --         { "<leader>ta", "<CMD> lua require(\"harpoon.mark\").add_file() <CR>", desc = "add current file" },
+        --         { "<leader>ta", "<CMD> lua require(\"harpoon.mark\").add_file() <CR>" },
         --         { "<leader>ti", "<CMD> lua require(\"harpoon.ui\").toggle_quick_menu() <CR>" },
         --         { "<leader>1", "<CMD> lua require(\"harpoon.ui\").nav_file(1) <CR>" },
         --         { "<leader>2", "<CMD> lua require(\"harpoon.ui\").nav_file(2) <CR>" },
         --         { "<leader>3", "<CMD> lua require(\"harpoon.ui\").nav_file(3) <CR>" },
         --         { "<leader>4", "<CMD> lua require(\"harpoon.ui\").nav_file(4) <CR>" },
-        --         { "<leader>t1", "<CMD> vsplit lua require(\"harpoon.mark\").get_marked_file(1).filename <CR>" },
         --     },
         --     dependencies = {
         --         "nvim-telescope/telescope.nvim",
@@ -658,13 +657,12 @@ require("lazy").setup(
             "Vincent-von-Schmidt/harpoon",
             lazy = true,
             keys = {
-                { "<leader>ta", "<CMD> lua require(\"harpoon.mark\").add_file() <CR>", desc = "add current file" },
+                { "<leader>ta", "<CMD> lua require(\"harpoon.mark\").add_file() <CR>" },
                 { "<leader>ti", "<CMD> lua require(\"harpoon.ui\").toggle_quick_menu() <CR>" },
                 { "<leader>1", "<CMD> lua require(\"harpoon.ui\").nav_file(1) <CR>" },
                 { "<leader>2", "<CMD> lua require(\"harpoon.ui\").nav_file(2) <CR>" },
                 { "<leader>3", "<CMD> lua require(\"harpoon.ui\").nav_file(3) <CR>" },
                 { "<leader>4", "<CMD> lua require(\"harpoon.ui\").nav_file(4) <CR>" },
-                { "<leader>t1", "<CMD> vsplit lua require(\"harpoon.mark\").get_marked_file(1).filename <CR>" },
             },
             dependencies = {
                 "nvim-telescope/telescope.nvim",
@@ -672,28 +670,6 @@ require("lazy").setup(
             },
             config = function()
                 require("telescope").load_extension("harpoon")
-            end,
-        },
-
-        -- TODO -> setup
-        { -- refactoring
-            "ThePrimeagen/refactoring.nvim",
-            lazy = true,
-            event = "InsertEnter",
-            dependencies = {
-                "nvim-lua/plenary.nvim",
-                "nvim-treesitter/nvim-treesitter",
-            },
-            config = function()
-                require("refactoring").setup()
-            end,
-        },
-
-        { -- tmux
-            "aserowy/tmux.nvim",
-            lazy = false,
-            config = function()
-                require("tmux").setup()
             end,
         },
 
@@ -711,19 +687,6 @@ require("lazy").setup(
             end,
         },
 
-        -- { -- ai assistent
-        --     "jackMort/ChatGPT.nvim",
-        --     lazy = true,
-        --     cmd = "ChatGPT",
-        --     dependencies = {
-        --         "MunifTanjim/nui.nvim",
-        --         "nvim-lua/plenary.nvim",
-        --         "nvim-telescope/telescope.nvim",
-        --     },
-        --     config = function()
-        --         require("chatGPT").setup()
-        --     end,
-        -- },
     },
     { -- lazy.nvim config
         ui = {
