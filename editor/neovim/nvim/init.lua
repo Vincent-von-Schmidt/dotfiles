@@ -673,17 +673,36 @@ require("lazy").setup(
             end,
         },
 
-        { -- lern to vim
-            "ThePrimeagen/vim-be-good",
-            lazy = true,
-            cmd = "VimBeGood",
-        },
-
         { -- movement
             "ggandor/leap.nvim",
             lazy = false,
             config = function()
                 require('leap').add_default_mappings()
+            end,
+        },
+
+        { -- learn to vim
+            "ThePrimeagen/vim-be-good",
+            lazy = true,
+            cmd = "VimBeGood",
+        },
+
+        { -- blackjack game
+            "alanfortlink/blackjack.nvim",
+            lazy = true,
+            cmd = {
+                "BlackJackNewGame",
+                "BlackJackQuit",
+                "BlackJackResetScores",
+            },
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+            },
+            config = function()
+                require('blackjack').setup({
+                    card_style = "mini",
+                    suit_style = "black",
+                })
             end,
         },
 
