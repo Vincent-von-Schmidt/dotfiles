@@ -21,3 +21,6 @@ STARSHIP_CONFIG=~/.config/starship.toml
 # alias
 alias ll="ls -alF --color=always" 
 alias tree="tree -a"
+
+# auto tmux
+[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
