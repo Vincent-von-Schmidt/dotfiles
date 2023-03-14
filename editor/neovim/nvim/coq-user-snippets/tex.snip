@@ -7,9 +7,15 @@ alias \documentclass{article}
     \\usepackage[T1]{fontenc}
 
     \\pagestyle{fancy}
+
     \\fancyhead[l]{Vincent von Schmidt}
     \\fancyhead[c]{${1:header}}
     \\fancyhead[R]{\\today}
+
+    \\renewcommand{\\footrulewidth}{0.4pt}
+    \\fancyfoot{}
+    \\fancyfoot[L]{${0:title}}
+    \\fancyfoot[R]{\\thepage}
 
     \\title{\\textbf{${0:title}}}
     \\date{\\vspace{-5ex}}
@@ -34,4 +40,4 @@ snippet sources
 
 extends sources
 snippet url
-    \\item\\url{${0:URL}} (${1:TIME})
+    \\item ${0:AUTHOR}, ${1:TITLE}, ${2:DATE}, \\newline \\url{${3:URL}}
