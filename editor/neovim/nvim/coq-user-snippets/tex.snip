@@ -9,15 +9,15 @@ alias \documentclass{article}
     \\pagestyle{fancy}
 
     \\fancyhead[l]{Vincent von Schmidt}
-    \\fancyhead[c]{${1:header}}
+    \\fancyhead[c]{${1:HEADER}}
     \\fancyhead[R]{\\today}
 
     \\renewcommand{\\footrulewidth}{0.4pt}
     \\fancyfoot{}
-    \\fancyfoot[L]{${0:title}}
+    \\fancyfoot[L]{${0:TITLE}}
     \\fancyfoot[R]{\\thepage}
 
-    \\title{\\textbf{${0:title}}}
+    \\title{\\textbf{${0:TITLE}}}
     \\date{\\vspace{-5ex}}
 
     \\begin{document}
@@ -26,6 +26,20 @@ alias \documentclass{article}
     \\thispagestyle{fancy}
 
     \\end{document}
+
+snippet sidebyside
+alias \begin{figure}[htbp]
+    \\begin{figure}[htbp]
+        \\centering
+        \\begin{minipage}{.5\\textwidth}
+            \\centering
+            ${0:LEFT}
+        \\end{minipage}%
+        \\begin{minipage}{.5\\textwidth}
+            \\centering
+            ${1:RIGHT}
+        \\end{minipage}
+    \\end{figure}
 
 snippet sources
     \\newpage

@@ -599,6 +599,10 @@ require("lazy").setup(
 
                 ]])
 
+                -- keymaps
+                keymap("i", "<c-h>", "<Nop>", keymap_opts)
+                keymap("i", "<c-h>", "<ESC><c-h>", keymap_opts)
+
             end,
         },
 
