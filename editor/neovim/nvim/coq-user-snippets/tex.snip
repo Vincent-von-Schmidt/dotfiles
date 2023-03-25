@@ -1,23 +1,37 @@
 snippet template
 alias \documentclass{article}
     \\documentclass{article}
+
+    %%% packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    %-- page setup ----------------------------------------------
+
     \\usepackage[utf8]{inputenc}
     \\usepackage[a4paper, margin=1in]{geometry}
-    \\usepackage{fancyhdr}
+
+    %-- font ----------------------------------------------------
+
     \\usepackage[T1]{fontenc}
+
+    %-- head/foot -----------------------------------------------
+
+    \\usepackage{fancyhdr}
 
     \\pagestyle{fancy}
 
     \\fancyhead[l]{Vincent von Schmidt}
-    \\fancyhead[c]{${1:HEADER}}
+    \\fancyhead[c]{${2:HEADER}}
     \\fancyhead[R]{\\today}
 
     \\renewcommand{\\footrulewidth}{0.4pt}
     \\fancyfoot{}
-    \\fancyfoot[L]{${0:TITLE}}
+    \\fancyfoot[L]{${1:TITLE}}
     \\fancyfoot[R]{\\thepage}
 
-    \\title{\\textbf{${0:TITLE}}}
+    %------------------------------------------------------------
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \\title{\\textbf{${1:TITLE}}}
     \\date{\\vspace{-5ex}}
 
     \\begin{document}
@@ -25,7 +39,21 @@ alias \documentclass{article}
     \\maketitle
     \\thispagestyle{fancy}
 
+    %%% content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    ${0:CONTENT}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
     \\end{document}
+
+snippet section
+alias \section{}
+    %------------------------------------------------------------
+
+    \\section{${0:NAME}}
+
+    %------------------------------------------------------------
 
 snippet sidebyside
 alias \begin{figure}[htbp]
