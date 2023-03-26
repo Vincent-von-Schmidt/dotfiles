@@ -540,20 +540,6 @@ require("lazy").setup(
             },
         },
 
-        { -- outline
-            "preservim/tagbar",
-            lazy = true,
-            keys = {
-                { "<leader>e", "<CMD> TagbarToggle <CR>", desc = "open outline" },
-            },
-            config = function()
-                if package.config:sub(1,1) == "/" then
-                    -- unix
-                    vim.g.tagbar_ctags_bin = "/snap/universal-ctags/current/usr/local/bin/ctags"
-                end
-            end,
-        },
-
         -- quality of life ------------------------------------------
 
         { -- intellisense
@@ -721,6 +707,10 @@ require("lazy").setup(
 )
 
 -- keymaps ------------------------------------------------------
+
+-- esc
+keymap("i", "<c-e>", "<ESC>", keymap_opts)
+keymap("v", "<c-e>", "<ESC>", keymap_opts)
 
 -- auto center
 keymap("n", "n", "nzz", keymap_opts)
