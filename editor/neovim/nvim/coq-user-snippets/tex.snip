@@ -43,6 +43,8 @@ alias \documentclass{article}
 
     ${0:CONTENT}
 
+    %------------------------------------------------------------
+
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     \\end{document}
@@ -51,9 +53,7 @@ snippet section
 alias \section{}
     %------------------------------------------------------------
 
-    \\section{${0:NAME}}
-
-    %------------------------------------------------------------
+    \\section{${1:NAME}}\\label{section-${0:REFERENCE}}
 
 snippet sidebyside
 alias \begin{figure}[htbp]
@@ -61,25 +61,24 @@ alias \begin{figure}[htbp]
         \\centering
         \\begin{minipage}{.5\\textwidth}
             \\centering
-            ${0:LEFT}
-        \\end{minipage}%
-        \\begin{minipage}{.5\\textwidth}
+
+            %--- left ----
+
+            ${1:LEFT}
+
+            %-------------
+
+        \\end{minipage}\\begin{minipage}{.5\\textwidth}
             \\centering
-            ${1:RIGHT}
+
+            %--- right ---
+
+            ${0:RIGHT}
+
+            %-------------
+
         \\end{minipage}
     \\end{figure}
 
-snippet sources
-    \\newpage
-    \\section{Sources}
-
-    \\usepackage[hyphens, spaces, obeyspaces]{url}
-    \\urlstyle{same}
-
-    \\begin{itemize}
-        ${0:TARGET}
-    \\end{itemize}
-
-extends sources
 snippet url
     \\item ${0:AUTHOR}, ${1:TITLE}, ${2:DATE}, \\newline \\url{${3:URL}}
