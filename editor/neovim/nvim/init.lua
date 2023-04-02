@@ -382,49 +382,38 @@ require("lazy").setup(
                 require("mason-lspconfig").setup({
                     ensure_installed = {
                         -- "sumneko_lua", -- Lua
-                        "clangd", -- C / C++
+                        -- "clangd", -- C / C++
                         -- "csharp_ls", -- C#
-                        "cmake", -- CMake
-                        "cssls", -- CSS
-                        "dockerls", -- Docker
-                        "html", -- html
+                        -- "cssls", -- CSS
+                        -- "html", -- html
                         -- "haskell-language-server", -- Haskell
                         -- "hls", -- Haskell
-                        "jsonls", -- json
-                        "tsserver", -- JavaScript / TypeScript
                         -- "kotlin_language_server", -- Kotlin
-                        "ltex", -- LaTeX
-                        "marksman", -- Markdown
-                        "intelephense", -- php
-                        "bashls", -- bash
                         "pyright", -- Python
-                        "lemminx", -- xml
-                        "yamlls", -- yaml
-                        "vimls", -- vim
                     },
                 })
 
                 local coq = require("coq")
                 local lsp = require("lspconfig")
                 -- lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities())
-                lsp.clangd.setup(coq.lsp_ensure_capabilities())
+                -- lsp.clangd.setup(coq.lsp_ensure_capabilities())
                 -- lsp.csharp_ls.setup{}
-                lsp.cmake.setup(coq.lsp_ensure_capabilities())
-                lsp.cssls.setup(coq.lsp_ensure_capabilities())
-                lsp.dockerls.setup(coq.lsp_ensure_capabilities())
-                lsp.html.setup(coq.lsp_ensure_capabilities())
+                -- lsp.cmake.setup(coq.lsp_ensure_capabilities())
+                -- lsp.cssls.setup(coq.lsp_ensure_capabilities())
+                -- lsp.dockerls.setup(coq.lsp_ensure_capabilities())
+                -- lsp.html.setup(coq.lsp_ensure_capabilities())
                 -- lsp.haskell-language-server.setup(coq.lsp_ensure_capabilities())
-                lsp.hls.setup(coq.lsp_ensure_capabilities())
-                lsp.jsonls.setup(coq.lsp_ensure_capabilities())
-                lsp.tsserver.setup(coq.lsp_ensure_capabilities())
+                -- lsp.hls.setup(coq.lsp_ensure_capabilities())
+                -- lsp.jsonls.setup(coq.lsp_ensure_capabilities())
+                -- lsp.tsserver.setup(coq.lsp_ensure_capabilities())
                 -- lsp.kotlin_language_server.setup(coq.lsp_ensure_capabilities())
-                lsp.ltex.setup(coq.lsp_ensure_capabilities())
-                lsp.marksman.setup(coq.lsp_ensure_capabilities())
-                lsp.intelephense.setup(coq.lsp_ensure_capabilities())
-                lsp.bashls.setup(coq.lsp_ensure_capabilities())
+                -- lsp.ltex.setup(coq.lsp_ensure_capabilities())
+                -- lsp.marksman.setup(coq.lsp_ensure_capabilities())
+                -- lsp.intelephense.setup(coq.lsp_ensure_capabilities())
+                -- lsp.bashls.setup(coq.lsp_ensure_capabilities())
                 lsp.pyright.setup(coq.lsp_ensure_capabilities())
-                lsp.lemminx.setup(coq.lsp_ensure_capabilities())
-                lsp.yamlls.setup(coq.lsp_ensure_capabilities())
+                -- lsp.lemminx.setup(coq.lsp_ensure_capabilities())
+                -- lsp.yamlls.setup(coq.lsp_ensure_capabilities())
 
                 -- keymaps
                 keymap("n", "<leader>ls", vim.lsp.buf.hover, keymap_opts)
@@ -697,6 +686,11 @@ require("lazy").setup(
                 })
             end,
         },
+
+        -- { -- tmux
+        --     "christoomey/vim-tmux-navigator",
+        --     lazy = false,
+        -- },
 
     },
     { -- lazy.nvim config
