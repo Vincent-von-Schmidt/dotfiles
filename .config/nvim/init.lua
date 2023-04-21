@@ -82,35 +82,35 @@ require("lazy").setup(
             end,
         },
 
-        -- { -- statusline
-        --     "ojroques/nvim-hardline",
-        --     lazy = false,
-        --     priority = 998,
-        --     config = function()
-        --         require("hardline").setup({
-        --             theme = "dracula",
-        --             section = {
-        --                 {class = "mode", item = require("hardline.parts.mode").get_item},
-        --                 {class = "med", item = require("hardline.parts.filename").get_item},
-        --                 "%<",
-        --                 {class = "med", item = "%="},
-        --                 {class = "high", item = require("hardline.parts.filetype").get_item, hide = 60},
-        --                 {class = "mode", item = require("hardline.parts.line").get_item}
-        --             },
-        --         })
-        --     end,
-        -- },
-
         { -- statusline
-            "nvim-lualine/lualine.nvim",
+            "ojroques/nvim-hardline",
             lazy = false,
-            dependencies = {
-                "nvim-tree/nvim-web-devicons",
-            },
+            priority = 998,
             config = function()
-                require("lualine").setup()
+                require("hardline").setup({
+                    theme = "dracula",
+                    section = {
+                        {class = "mode", item = require("hardline.parts.mode").get_item},
+                        {class = "med", item = require("hardline.parts.filename").get_item},
+                        "%<",
+                        {class = "med", item = "%="},
+                        {class = "high", item = require("hardline.parts.filetype").get_item, hide = 60},
+                        {class = "mode", item = require("hardline.parts.line").get_item}
+                    },
+                })
             end,
         },
+
+        -- { -- statusline
+        --     "nvim-lualine/lualine.nvim",
+        --     lazy = false,
+        --     dependencies = {
+        --         "nvim-tree/nvim-web-devicons",
+        --     },
+        --     config = function()
+        --         require("lualine").setup()
+        --     end,
+        -- },
 
         { -- highlighting
             "nvim-treesitter/nvim-treesitter",
@@ -194,54 +194,7 @@ require("lazy").setup(
                                 padding = { 0, 1 },
                             },
                             filter_options = {},
-                            win_options = {
-                                -- winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-                            },
                         },
-                        -- popupmenu = {
-                        --     relative = "cursor",
-                        --     position = {
-                        --         row = 2,
-                        --         col = 0,
-                        --     },
-                        --     border = {
-                        --         style = "rounded",
-                        --         padding = { 0, 1 },
-                        --     },
-                        --     winhighlight = {
-                        --         Normal = "NoicePopupmenu",
-                        --         FloatBorder = "NoicePopupmenuBorder",
-                        --         CursorLine = "NoicePopupmenuSelected",
-                        --         PmenuMatch = "NoicePopupmenuMatch",
-                        --     },
-                        -- },
-                        -- popupmenu = {
-                        --     relative = "editor",
-                        --     -- position = {
-                        --     --     row = 2, -- move popupmenu beneth the cursor
-                        --     --     col = 0,
-                        --     -- },
-                        --     zindex = 50,
-                        --     -- yindex = 10,
-                        --     position = "auto",
-                        --     border = {
-                        --         style = "rounded",
-                        --         padding = { 0, 1 },
-                        --         -- relative = {
-                        --         --     type = "cursor",
-                        --         -- },
-                        --     },
-                        --     win_options = {
-                        --         cursorline = true,
-                        --         cursorlineopt = "line",
-                        --         winhighlight = {
-                        --             Normal = "NoicePopupmenu",
-                        --             FloatBorder = "NoicePopupmenuBorder",
-                        --             CursorLine = "NoicePopupmenuSelected",
-                        --             PmenuMatch = "NoicePopupmenuMatch",
-                        --         },
-                        --     },
-                        -- },
                     },
                     cmdline = {
                         enabled = true,
@@ -263,20 +216,11 @@ require("lazy").setup(
                         view_history = "messages",
                         view_search = "virtualtext",
                     },
-                    -- presets = {
-                    --     bottom_search = false,
-                    --     command_palette = true,
-                    --     long_message_to_split = true,
-                    --     inc_rename = false,
-                    --     lsp_doc_border = false,
-                    -- },
                 })
 
                 require('notify').setup({
                     background_colour = "#000000",
                 })
-
-                require("telescope").load_extension("flutter")
             end,
         },
 
@@ -392,39 +336,14 @@ require("lazy").setup(
 
                 require("mason-lspconfig").setup({
                     ensure_installed = {
-                        -- "sumneko_lua", -- Lua
-                        -- "clangd", -- C / C++
-                        -- "csharp_ls", -- C#
-                        -- "cssls", -- CSS
-                        -- "html", -- html
-                        -- "haskell-language-server", -- Haskell
-                        -- "hls", -- Haskell
-                        -- "kotlin_language_server", -- Kotlin
                         "pyright", -- Python
                     },
                 })
 
                 local coq = require("coq")
                 local lsp = require("lspconfig")
-                -- lsp.sumneko_lua.setup(coq.lsp_ensure_capabilities())
-                -- lsp.clangd.setup(coq.lsp_ensure_capabilities())
-                -- lsp.csharp_ls.setup{}
-                -- lsp.cmake.setup(coq.lsp_ensure_capabilities())
-                -- lsp.cssls.setup(coq.lsp_ensure_capabilities())
-                -- lsp.dockerls.setup(coq.lsp_ensure_capabilities())
-                -- lsp.html.setup(coq.lsp_ensure_capabilities())
-                -- lsp.haskell-language-server.setup(coq.lsp_ensure_capabilities())
-                -- lsp.hls.setup(coq.lsp_ensure_capabilities())
-                -- lsp.jsonls.setup(coq.lsp_ensure_capabilities())
-                -- lsp.tsserver.setup(coq.lsp_ensure_capabilities())
-                -- lsp.kotlin_language_server.setup(coq.lsp_ensure_capabilities())
-                -- lsp.ltex.setup(coq.lsp_ensure_capabilities())
-                -- lsp.marksman.setup(coq.lsp_ensure_capabilities())
-                -- lsp.intelephense.setup(coq.lsp_ensure_capabilities())
-                -- lsp.bashls.setup(coq.lsp_ensure_capabilities())
+
                 lsp.pyright.setup(coq.lsp_ensure_capabilities())
-                -- lsp.lemminx.setup(coq.lsp_ensure_capabilities())
-                -- lsp.yamlls.setup(coq.lsp_ensure_capabilities())
 
                 -- keymaps
                 keymap("n", "<leader>ls", vim.lsp.buf.hover, keymap_opts)
@@ -433,42 +352,6 @@ require("lazy").setup(
         },
 
         -- language -------------------------------------------------
-
-        { -- flutter / dart
-            "akinsho/flutter-tools.nvim",
-            lazy = true,
-            ft = "dart",
-            dependencies = {
-                "nvim-telescope/telescope.nvim"
-            },
-            config = function()
-                require("flutter-tools").setup()
-                require("telescope").load_extension("flutter")
-            end,
-        },
-
-        { -- json / yaml
-            "gennaro-tedesco/nvim-jqx",
-            lazy = true,
-            ft = { "json", "yaml" },
-        },
-
-        { -- sql tools & lsp
-            "nanotee/sqls.nvim",
-            lazy = true,
-            ft = { "sql" },
-            dependencies = {
-                "neovim/nvim-lspconfig",
-                "ms-jpq/coq_nvim",
-            },
-            config = function()
-                require("lspconfig").sqls.setup(require("coq").lsp_ensure_capabilities({
-                    on_attach = function(client, bufnr)
-                        require("sqls").on_attach(client, bufnr)
-                    end,
-                }))
-            end,
-        },
 
         { -- LaTeX
             "lervag/vimtex",
@@ -490,47 +373,47 @@ require("lazy").setup(
 
         -- windows --------------------------------------------------
 
-        { --terminal
-            "akinsho/toggleterm.nvim",
-            lazy = false,
-            config = function()
-
-                -- settings
-                local size = 20
-                local start_in_insert = true
-                local direction = "horizontal"
-                local insert_mappings = true
-                local shell = "zsh"
-                local open_mapping = [[<C-t>]]
-
-                -- init
-                if package.config:sub(1,1) == "/" then
-
-                    -- unix
-                    require("toggleterm").setup({
-                        size = size,
-                        start_in_insert = start_in_insert,
-                        direction = direction,
-                        insert_mappings = insert_mappings,
-                        shell = shell,
-                        open_mapping = open_mapping,
-                    })
-
-                else
-
-                    -- windows
-                    require("toggleterm").setup({
-                        size = size,
-                        start_in_insert = start_in_insert,
-                        direction = direction,
-                        insert_mappings = insert_mappings,
-                        shell = string.format("wsl -d Ubuntu -e %s", shell),
-                        open_mapping = open_mapping,
-                    })
-
-                end
-            end,
-        },
+        -- { --terminal
+        --     "akinsho/toggleterm.nvim",
+        --     lazy = false,
+        --     config = function()
+        --
+        --         -- settings
+        --         local size = 20
+        --         local start_in_insert = true
+        --         local direction = "horizontal"
+        --         local insert_mappings = true
+        --         local shell = "zsh"
+        --         local open_mapping = [[<C-t>]]
+        --
+        --         -- init
+        --         if package.config:sub(1,1) == "/" then
+        --
+        --             -- unix
+        --             require("toggleterm").setup({
+        --                 size = size,
+        --                 start_in_insert = start_in_insert,
+        --                 direction = direction,
+        --                 insert_mappings = insert_mappings,
+        --                 shell = shell,
+        --                 open_mapping = open_mapping,
+        --             })
+        --
+        --         else
+        --
+        --             -- windows
+        --             require("toggleterm").setup({
+        --                 size = size,
+        --                 start_in_insert = start_in_insert,
+        --                 direction = direction,
+        --                 insert_mappings = insert_mappings,
+        --                 shell = string.format("wsl -d Ubuntu -e %s", shell),
+        --                 open_mapping = open_mapping,
+        --             })
+        --
+        --         end
+        --     end,
+        -- },
 
         { -- undotree
             "mbbill/undotree",
@@ -625,26 +508,6 @@ require("lazy").setup(
             },
         },
 
-        -- { -- file switcher
-        --     "ThePrimeagen/harpoon",
-        --     lazy = true,
-        --     keys = {
-        --         { "<leader>ta", "<CMD> lua require(\"harpoon.mark\").add_file() <CR>" },
-        --         { "<leader>ti", "<CMD> lua require(\"harpoon.ui\").toggle_quick_menu() <CR>" },
-        --         { "<leader>1", "<CMD> lua require(\"harpoon.ui\").nav_file(1) <CR>" },
-        --         { "<leader>2", "<CMD> lua require(\"harpoon.ui\").nav_file(2) <CR>" },
-        --         { "<leader>3", "<CMD> lua require(\"harpoon.ui\").nav_file(3) <CR>" },
-        --         { "<leader>4", "<CMD> lua require(\"harpoon.ui\").nav_file(4) <CR>" },
-        --     },
-        --     dependencies = {
-        --         "nvim-telescope/telescope.nvim",
-        --         "nvim-lua/plenary.nvim",
-        --     },
-        --     config = function()
-        --         require("telescope").load_extension("harpoon")
-        --     end,
-        -- },
-
         { -- file switcher
             "Vincent-von-Schmidt/harpoon",
             lazy = true,
@@ -672,36 +535,6 @@ require("lazy").setup(
                 require('leap').add_default_mappings()
             end,
         },
-
-        { -- learn to vim
-            "ThePrimeagen/vim-be-good",
-            lazy = true,
-            cmd = "VimBeGood",
-        },
-
-        { -- blackjack game
-            "alanfortlink/blackjack.nvim",
-            lazy = true,
-            cmd = {
-                "BlackJackNewGame",
-                "BlackJackQuit",
-                "BlackJackResetScores",
-            },
-            dependencies = {
-                "nvim-lua/plenary.nvim",
-            },
-            config = function()
-                require('blackjack').setup({
-                    card_style = "mini",
-                    suit_style = "black",
-                })
-            end,
-        },
-
-        -- { -- tmux
-        --     "christoomey/vim-tmux-navigator",
-        --     lazy = false,
-        -- },
 
     },
     { -- lazy.nvim config
