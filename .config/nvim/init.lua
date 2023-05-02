@@ -4,14 +4,14 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "--single-branch",
-    "https://github.com/folke/lazy.nvim.git",
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "--single-branch",
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath,
+    })
 end
 vim.opt.runtimepath:prepend(lazypath)
 
@@ -101,17 +101,6 @@ require("lazy").setup(
             end,
         },
 
-        -- { -- statusline
-        --     "nvim-lualine/lualine.nvim",
-        --     lazy = false,
-        --     dependencies = {
-        --         "nvim-tree/nvim-web-devicons",
-        --     },
-        --     config = function()
-        --         require("lualine").setup()
-        --     end,
-        -- },
-
         { -- highlighting
             "nvim-treesitter/nvim-treesitter",
             lazy = false,
@@ -121,11 +110,7 @@ require("lazy").setup(
                         "vim",
                         "regex",
                         "lua",
-                        "c",
-                        "cpp",
-                        "rust",
                         "python",
-                        "dart",
                         "markdown",
                         "bash",
                         "json",
@@ -316,9 +301,9 @@ require("lazy").setup(
             end,
         },
 
-        -- lsp ------------------------------------------------------
+        -- language -------------------------------------------------
 
-        { -- lsp install
+        { -- lsp
             "williamboman/mason.nvim",
             lazy = false,
             priority = 900, -- load after coq_nvim
@@ -351,8 +336,6 @@ require("lazy").setup(
             end,
         },
 
-        -- language -------------------------------------------------
-
         { -- LaTeX
             "lervag/vimtex",
             lazy = true,
@@ -371,59 +354,16 @@ require("lazy").setup(
             end,
         },
 
-        -- windows --------------------------------------------------
 
-        -- { --terminal
-        --     "akinsho/toggleterm.nvim",
-        --     lazy = false,
-        --     config = function()
-        --
-        --         -- settings
-        --         local size = 20
-        --         local start_in_insert = true
-        --         local direction = "horizontal"
-        --         local insert_mappings = true
-        --         local shell = "zsh"
-        --         local open_mapping = [[<C-t>]]
-        --
-        --         -- init
-        --         if package.config:sub(1,1) == "/" then
-        --
-        --             -- unix
-        --             require("toggleterm").setup({
-        --                 size = size,
-        --                 start_in_insert = start_in_insert,
-        --                 direction = direction,
-        --                 insert_mappings = insert_mappings,
-        --                 shell = shell,
-        --                 open_mapping = open_mapping,
-        --             })
-        --
-        --         else
-        --
-        --             -- windows
-        --             require("toggleterm").setup({
-        --                 size = size,
-        --                 start_in_insert = start_in_insert,
-        --                 direction = direction,
-        --                 insert_mappings = insert_mappings,
-        --                 shell = string.format("wsl -d Ubuntu -e %s", shell),
-        --                 open_mapping = open_mapping,
-        --             })
-        --
-        --         end
-        --     end,
-        -- },
+        -- quality of life ------------------------------------------
 
         { -- undotree
             "mbbill/undotree",
             lazy = true,
             keys = {
-                { "<leader>w", "<CMD> UndotreeToggle <CR> <CMD> UndotreeFocus <CR>", desc = "open undotree" },
+                { "<leader>w", "<CMD> UndotreeToggle <CR> <CMD> UndotreeFocus <CR>" },
             },
         },
-
-        -- quality of life ------------------------------------------
 
         { -- intellisense
             "ms-jpq/coq_nvim",
@@ -433,7 +373,6 @@ require("lazy").setup(
             dependencies = {
                 "ms-jpq/coq.artifacts",
                 "ms-jpq/coq.thirdparty",
-                -- "L3MON4D3/LuaSnip",
             },
             config = function()
 
@@ -549,6 +488,8 @@ require("lazy").setup(
 -- esc
 keymap("i", "<c-e>", "<ESC>", keymap_opts)
 keymap("v", "<c-e>", "<ESC>", keymap_opts)
+keymap("c", "<c-e>", "<ESC>", keymap_opts)
+keymap("n", "<c-e>", "<ESC>", keymap_opts)
 
 -- auto center
 keymap("n", "n", "nzz", keymap_opts)
@@ -560,11 +501,6 @@ keymap("v", "j", "jzz", keymap_opts)
 keymap("v", "k", "kzz", keymap_opts)
 keymap("v", "J", "Jzz", keymap_opts)
 keymap("v", "K", "Kzz", keymap_opts)
-
--- TODO -> indent not working
--- keymap("n", "o", "o<ESC>zzi", keymap_opts)
--- keymap("n", "O", "O<ESC>zzi", keymap_opts)
--- keymap("i", "<CR>", "<CR><ESC>zzi", keymap_opts)
 
 -- no auto center
 keymap("n", "J", "j", keymap_opts)
@@ -580,12 +516,3 @@ keymap("v", "J", ":m '>+1<CR>gv=gv", keymap_opts)
 keymap("v", "K", ":m '<-2<CR>gv=gv", keymap_opts)
 keymap("v", "H", "<gv", keymap_opts)
 keymap("v", "L", ">gv", keymap_opts)
-
--- gui ----------------------------------------------------------
-
--- neovide
-if vim.g.neovide then
-    -- vim.opt.guifont = { "Source Code Pro", "h10" }
-    vim.g.neovide_scale_factor = 0.8
-    vim.g.neovide_transparency = 0.8
-end

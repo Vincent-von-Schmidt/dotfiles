@@ -13,7 +13,6 @@ compinit
 
 # path
 export PATH=/snap/bin:$PATH
-export PATH=/home/vincent/.codon/bin:$PATH
 
 # starship
 eval "$(starship init zsh)"
@@ -22,8 +21,10 @@ STARSHIP_CONFIG=~/.config/starship.toml
 # alias
 alias ll="ls -alF --color=always" 
 alias tree="tree -a"
-alias update="sudo apt update && sudo apt upgrade -y"
-alias mail="neomutt"
+alias home="cd /mnt/c/Users/Vincent/"
+
+# config files
+export XDG_CONFIG_HOME=$HOME/.config/
 
 # auto tmux
 [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
