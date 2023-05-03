@@ -369,6 +369,7 @@ require("lazy").setup({
         config = function()
             -- editor
             vim.opt.wrap = true
+            vim.opt.textwidth = 90
 
             -- add vimtex as coq source
             require("coq_3p") {
@@ -402,7 +403,7 @@ require("lazy").setup({
             require("coq")
 
             vim.g.coq_settings = {
-                ["clients.tabnine.enabled"] = true,
+                ["clients.tabnine.enabled"] = false,
                 ["keymap"] = {
                     ["recommended"] = false,
                     ["pre_select"] = true,
@@ -487,6 +488,11 @@ require("lazy").setup({
         },
         config = function()
             require("telescope").load_extension("harpoon")
+
+            -- highlights
+            highlight("HarpoonWindow", { link = "NormalFloat" })
+            highlight("HarpoonBorder", { link = "TelescopeBorder" })
+            highlight("HarpoonTitle", { link = "TelescopePromptTitle" })
         end,
     },
 
@@ -501,7 +507,6 @@ require("lazy").setup({
 })
 
 -- lazy highlight groups
--- highlight("LazyNormal", { bg = "#272f35" })
 highlight("LazyNormal", { link = "NormalFloat" })
 
 -- keymaps ------------------------------------------------------
