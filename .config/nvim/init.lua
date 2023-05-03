@@ -15,6 +15,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
+-- highlight groups
+function highlight(group, args)
+    vim.api.nvim_set_hl(0, group, args)
+end
+
 -- keymaps
 local keymap = vim.keymap.set
 local keymap_opts = { buffer = bufnr, silent = true, noremap = true }
@@ -79,6 +84,7 @@ require("lazy").setup(
                     },
                 })
                 vim.cmd("colorscheme carbonfox")
+                -- highlight("LazyNormal", { bg = "#ffffff" })
             end,
         },
 
@@ -298,6 +304,11 @@ require("lazy").setup(
                 telescope.load_extension("project")
                 telescope.load_extension("file_browser")
                 telescope.load_extension("fzf")
+
+                -- highlights
+                highlight("TelescopeNormal", { bg = "#313030" })
+                highlight("TelescopeBorder", { fg = "#ffffff", bg = "#0b68a6" })
+                highlight("TelescopeTitle", { bg = "#ffffff" })
             end,
         },
 
@@ -477,11 +488,14 @@ require("lazy").setup(
 
     },
     { -- lazy.nvim config
-        ui = {
-            border = "rounded",
-        },
+        -- ui = {
+        --     border = "rounded",
+        -- },
     }
 )
+
+-- lazy highlight groups
+highlight("LazyNormal", { bg = "#313030" })
 
 -- keymaps ------------------------------------------------------
 
@@ -512,7 +526,7 @@ keymap("v", "<CR>", "<ESC>", keymap_opts)
 keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", keymap_opts)
 
 -- move highlighted
-keymap("v", "J", ":m '>+1<CR>gv=gv", keymap_opts)
-keymap("v", "K", ":m '<-2<CR>gv=gv", keymap_opts)
+keymap("v", "J", ":m '>+1<CR>gv=gvzz", keymap_opts)
+keymap("v", "K", ":m '<-2<CR>gv=gvzz", keymap_opts)
 keymap("v", "H", "<gv", keymap_opts)
 keymap("v", "L", ">gv", keymap_opts)
