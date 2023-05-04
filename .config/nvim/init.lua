@@ -233,8 +233,6 @@ require("lazy").setup({
             { "<leader>s", "<CMD> Telescope live_grep <CR>" },
             { "<leader>q", "<CMD> Telescope file_browser <CR>" },
             { "<leader>c", "<CMD> Telescope project <CR>" },
-            { "<leader>ld", "<CMD> Telescope lsp_definitions <CR>" },
-            { "<leader>li", "<CMD> Telescope lsp_implementations theme=cursor <CR>" },
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -254,13 +252,7 @@ require("lazy").setup({
             telescope.setup({
                 defaults = {
                     mappings = {
-                        -- insert
-                        i = {
-                            ["<leader>o"] = "select_vertical",
-                            ["<leader>p"] = "select_horizontal",
-                        },
-
-                        -- normal
+                        -- normal mode
                         n = {
                             ["<leader>o"] = "select_vertical",
                             ["<leader>p"] = "select_horizontal",
@@ -333,9 +325,10 @@ require("lazy").setup({
             "williamboman/mason-lspconfig.nvim",
             "neovim/nvim-lspconfig",
             "ms-jpq/coq_nvim",
+            "KostkaBrukowa/definition-or-references.nvim",
         },
         config = function()
-            require("mason").setup({})
+            require("mason").setup()
 
             require("mason-lspconfig").setup({
                 ensure_installed = {
@@ -349,7 +342,8 @@ require("lazy").setup({
             lsp.pyright.setup(coq.lsp_ensure_capabilities())
 
             -- keymaps
-            keymap("n", "<leader>ls", vim.lsp.buf.hover, keymap_opts)
+            keymap("n", "<c-l>d", require('definition-or-references').definition_or_references, keymap_opts)
+            keymap("n", "<c-l>i", vim.lsp.buf.hover, keymap_opts)
 
         end,
     },
