@@ -77,6 +77,7 @@ require("lazy").setup({
         lazy = false,
         priority = 1000,
         config = function()
+
             require("nightfox").setup({
                 options = {
                     -- transparent background
@@ -85,10 +86,6 @@ require("lazy").setup({
             })
             vim.cmd("colorscheme carbonfox")
 
-            -- highlights
-            highlight("Normal", { bg = "#252525" })
-            highlight("NormalNC", { link = "Normal" })
-            highlight("NormalFloat", { bg = "#272f35" })
         end,
     },
 
@@ -155,6 +152,11 @@ require("lazy").setup({
         lazy = false,
         config = function()
             require("illuminate").configure()
+
+            -- highlights
+            highlight("illuminatedWordText", { bold = true, underline = true })
+            highlight("illuminatedWordRead", { link = "illuminatedWordText" })
+            highlight("illuminatedWordWrite", { link = "illuminatedWordText" })
         end,
     },
 
@@ -175,7 +177,6 @@ require("lazy").setup({
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
-            "nvim-telescope/telescope.nvim",
             "nvim-treesitter/nvim-treesitter",
         },
         config = function()
@@ -196,28 +197,28 @@ require("lazy").setup({
                 cmdline = {
                     enabled = true,
                     view = "cmdline",
+                    -- view = "popup",
                     format = {
                         search_down = {
                             view = "cmdline",
+                            -- view = "popup",
                         },
                         search_up = {
                             view = "cmdline",
+                            -- view = "popup",
                         },
                     },
-                },
-                messages = {
-                    enabled = true,
-                    view = "notify",
-                    view_error = "notify",
-                    view_warn = "notify",
-                    view_history = "messages",
-                    view_search = "virtualtext",
                 },
             })
 
             require('notify').setup({
                 background_colour = "#000000",
             })
+
+            -- highlights
+            highlight("NoiceCmdlinePopup", { link = "TelescopeNormal" })
+            highlight("NoiceCmdlinePopupBorder", { link = "TelescopeBorder" })
+
         end,
     },
 
@@ -228,12 +229,12 @@ require("lazy").setup({
         "nvim-telescope/telescope.nvim",
         lazy = true,
         keys = {
-            { "<leader>a", "<CMD> Telescope find_files <CR>", desc = "Telescope" },
-            { "<leader>s", "<CMD> Telescope live_grep <CR>", desc = "LSP search" },
-            { "<leader>q", "<CMD> Telescope file_browser <CR>", desc = "open file_browser" },
-            { "<leader>c", "<CMD> Telescope project <CR>", desc = "open project" },
-            { "<leader>ld", "<CMD> Telescope lsp_definitions <CR>", desc = "LSP jump" },
-            { "<leader>li", "<CMD> Telescope lsp_implementations theme=cursor <CR>", desc = "LSP jump" },
+            { "<leader>a", "<CMD> Telescope find_files <CR>" },
+            { "<leader>s", "<CMD> Telescope live_grep <CR>" },
+            { "<leader>q", "<CMD> Telescope file_browser <CR>" },
+            { "<leader>c", "<CMD> Telescope project <CR>" },
+            { "<leader>ld", "<CMD> Telescope lsp_definitions <CR>" },
+            { "<leader>li", "<CMD> Telescope lsp_implementations theme=cursor <CR>" },
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -241,12 +242,11 @@ require("lazy").setup({
             "nvim-tree/nvim-web-devicons",
             "sharkdp/fd",
             "BurntSushi/ripgrep",
-            "neovim/nvim-lspconfig",
+            -- "neovim/nvim-lspconfig",
 
             -- plugins
             "nvim-telescope/telescope-project.nvim",
             "nvim-telescope/telescope-file-browser.nvim",
-            "nvim-telescope/telescope-fzf-native.nvim",
             { "nvim-telescope/telescope-fzf-native.nvim", build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build" },
         },
         config = function()
@@ -294,14 +294,10 @@ require("lazy").setup({
                         case_mode = "smart_case",
                     },
 
-                    project = {
-                        theme = "ivy",
-                    },
-
                     file_browser = {
                         initial_mode = "normal",
                         hijack_netrw = true,
-                        theme = "ivy",
+                        -- theme = "default",
                         hidden = true,
                     },
                 },
@@ -336,11 +332,7 @@ require("lazy").setup({
             "ms-jpq/coq_nvim",
         },
         config = function()
-            require("mason").setup({
-                ui = {
-                    -- border = "rounded",
-                },
-            })
+            require("mason").setup({})
 
             require("mason-lspconfig").setup({
                 ensure_installed = {
@@ -415,10 +407,6 @@ require("lazy").setup({
                 },
             }
 
-            -- keymaps
-            keymap("i", "<c-h>", "<Nop>", keymap_opts)
-            keymap("i", "<c-h>", "<ESC><c-h>", keymap_opts)
-
             vim.cmd([[
 
                 " init
@@ -432,8 +420,8 @@ require("lazy").setup({
             ]])
 
             -- keymaps
-            keymap("i", "<c-h>", "<Nop>", keymap_opts)
-            keymap("i", "<c-h>", "<ESC><c-h>", keymap_opts)
+            -- keymap("i", "<c-h>", "<Nop>", keymap_opts)
+            -- keymap("i", "<c-h>", "<ESC><c-h>", keymap_opts)
 
         end,
     },
@@ -506,7 +494,10 @@ require("lazy").setup({
 
 })
 
--- lazy highlight groups
+-- highlights ---------------------------------------------------
+highlight("Normal", { bg = "#252525" })
+highlight("NormalNC", { link = "Normal" })
+highlight("NormalFloat", { bg = "#272f35" })
 highlight("LazyNormal", { link = "NormalFloat" })
 
 -- keymaps ------------------------------------------------------
