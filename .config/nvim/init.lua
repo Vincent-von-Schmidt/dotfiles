@@ -242,7 +242,6 @@ require("lazy").setup({
             "nvim-tree/nvim-web-devicons",
             "sharkdp/fd",
             "BurntSushi/ripgrep",
-            -- "neovim/nvim-lspconfig",
 
             -- plugins
             "nvim-telescope/telescope-project.nvim",
@@ -265,6 +264,10 @@ require("lazy").setup({
                         n = {
                             ["<leader>o"] = "select_vertical",
                             ["<leader>p"] = "select_horizontal",
+                            ["K"] = "preview_scrolling_up",
+                            ["J"] = "preview_scrolling_down",
+                            ["<c-e>"] = "close",
+                            ["<ESC>"] = "close",
                         },
                     },
                     -- design config
@@ -519,10 +522,7 @@ keymap("v", "k", "kzz", keymap_opts)
 keymap("v", "J", "Jzz", keymap_opts)
 keymap("v", "K", "Kzz", keymap_opts)
 
--- no auto center
-keymap("n", "J", "j", keymap_opts)
-keymap("n", "K", "k", keymap_opts)
-
+-- visual mode quality of live
 keymap("v", "<CR>", "<ESC>", keymap_opts)
 
 -- substitute highlighted word
