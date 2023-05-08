@@ -355,11 +355,6 @@ require("lazy").setup({
             keymap("n", "<c-l>d", require('definition-or-references').definition_or_references, keymap_opts)
             keymap("n", "<c-l>i", vim.lsp.buf.hover, keymap_opts)
 
-            -- cmd
-            command("LSP", function()
-                vim.cmd("Mason")
-            end)
-
         end,
     },
 
@@ -503,9 +498,12 @@ require("lazy").setup({
 
 -- cmd ----------------------------------------------------------
 
-command("Plugin", function()
-    vim.cmd("Lazy")
-end)
+-- TODO
+vim.api.nvim_create_autocmd(
+    { "FileType", "FileWriteCmd" }, {
+    pattern = { "json" },
+    command = "execute '%!python3 -m json.tool'",
+})
 
 -- highlights ---------------------------------------------------
 
