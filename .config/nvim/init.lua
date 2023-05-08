@@ -15,6 +15,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
+-- commands
+function command(cmd, behavior)
+    vim.api.nvim_create_user_command(cmd, behavior, {})
+end
+
 -- highlight groups
 function highlight(group, args)
     vim.api.nvim_set_hl(0, group, args)
@@ -117,6 +122,7 @@ require("lazy").setup({
                     "vim",
                     "regex",
                     "lua",
+                    "markdown_inline",
                     "python",
                     "markdown",
                     "bash",
@@ -181,9 +187,12 @@ require("lazy").setup({
         },
         config = function()
             require("noice").setup({
-                override = {
-                    ["vim.lsp.util.convert_input_to_lines"] = true,
-                    ["vim.lsp.util.stylize_markdown"] = true,
+                lsp = {
+                    override = {
+                        ["vim.lsp.util.convert_input_to_lines"] = true,
+                        ["vim.lsp.util.stylize_markdown"] = true,
+                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    },
                 },
                 views = {
                     cmdline_popup = {
@@ -234,6 +243,7 @@ require("lazy").setup({
             { "<leader>q", "<CMD> Telescope file_browser <CR>" },
             { "<leader>c", "<CMD> Telescope project <CR>" },
         },
+        cmd = "Telescope",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
@@ -345,6 +355,11 @@ require("lazy").setup({
             keymap("n", "<c-l>d", require('definition-or-references').definition_or_references, keymap_opts)
             keymap("n", "<c-l>i", vim.lsp.buf.hover, keymap_opts)
 
+            -- cmd
+            command("LSP", function()
+                vim.cmd("Mason")
+            end)
+
         end,
     },
 
@@ -416,10 +431,6 @@ require("lazy").setup({
 
             ]])
 
-            -- keymaps
-            -- keymap("i", "<c-h>", "<Nop>", keymap_opts)
-            -- keymap("i", "<c-h>", "<ESC><c-h>", keymap_opts)
-
         end,
     },
 
@@ -437,11 +448,10 @@ require("lazy").setup({
         end,
     },
 
-    -- TODO -> visual
     { -- surround -> ysiw) / ds) -> (word) / word
         "kylechui/nvim-surround",
-        lazy = true,
-        event = "InsertEnter",
+        lazy = false,
+        -- event = "InsertEnter",
         config = function()
             require("nvim-surround").setup()
         end,
@@ -491,7 +501,14 @@ require("lazy").setup({
 
 })
 
+-- cmd ----------------------------------------------------------
+
+command("Plugin", function()
+    vim.cmd("Lazy")
+end)
+
 -- highlights ---------------------------------------------------
+
 highlight("Normal", { bg = "#252525" })
 highlight("NormalNC", { link = "Normal" })
 highlight("NormalFloat", { bg = "#272f35" })
