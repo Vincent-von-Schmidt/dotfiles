@@ -152,7 +152,6 @@ require("lazy").setup({
         end,
     },
 
-    -- TODO -> complete hightlight, not just underlineing
     { -- hightlight same vars
         "RRethy/vim-illuminate",
         lazy = false,
@@ -160,7 +159,7 @@ require("lazy").setup({
             require("illuminate").configure()
 
             -- highlights
-            highlight("illuminatedWordText", { bold = true, underline = true })
+            highlight("illuminatedWordText", { fg = "#fcf7c0", })
             highlight("illuminatedWordRead", { link = "illuminatedWordText" })
             highlight("illuminatedWordWrite", { link = "illuminatedWordText" })
         end,
