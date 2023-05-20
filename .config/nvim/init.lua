@@ -462,8 +462,8 @@ require("lazy").setup({
 
     { -- file switcher
         "Vincent-von-Schmidt/harpoon",
-        lazy = true,
         keys = {
+            lazy = true,
             { "<leader>ta", "<CMD> lua require(\"harpoon.mark\").add_file() <CR>" },
             { "<leader>ti", "<CMD> lua require(\"harpoon.ui\").toggle_quick_menu() <CR>" },
             { "<leader>1", "<CMD> lua require(\"harpoon.ui\").nav_file(1) <CR>" },
@@ -510,6 +510,8 @@ highlight("Normal", { bg = "#252525" })
 highlight("NormalNC", { link = "Normal" })
 highlight("NormalFloat", { bg = "#272f35" })
 highlight("LazyNormal", { link = "NormalFloat" })
+
+highlight("Visual", { link = "CursorLine" })
 
 -- keymaps ------------------------------------------------------
 
