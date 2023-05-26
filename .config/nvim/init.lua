@@ -290,6 +290,11 @@ require("lazy").setup({
                     borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
                     color_devicons = true,
                 },
+                pickers = {
+                    find_files = {
+                        hidden = true,
+                    },
+                },
                 extensions = {
                     fzf = {
                         fuzzy = true,
