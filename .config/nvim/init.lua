@@ -540,6 +540,9 @@ keymap("v", "K", "Kzz", keymap_opts)
 -- visual mode quality of live
 keymap("v", "<CR>", "<ESC>", keymap_opts)
 
+-- visual block mode
+keymap("n", "<m-v>", "<c-v>", keymap_opts)
+
 -- substitute highlighted word
 keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", keymap_opts)
 
