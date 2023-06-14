@@ -42,3 +42,15 @@ vnoremap J Jzz
 vnoremap K Kzz
 
 nnoremap <leader>a :Ex <cr>
+
+highlight Normal ctermbg=235
+highlight CursorLine cterm=None ctermbg=237
+highlight! ColorColumn ctermbg=236
+
+highlight! link Visual CursorLine
+
+highlight NonText ctermfg=0
+highlight LineNr ctermfg=242
+highlight! CursorLineNr cterm=None ctermfg=141
+
+highlight Comment ctermfg=239
