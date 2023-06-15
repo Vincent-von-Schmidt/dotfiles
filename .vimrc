@@ -54,3 +54,6 @@ highlight LineNr ctermfg=242
 highlight! CursorLineNr cterm=None ctermfg=141
 
 highlight Comment ctermfg=239
+highlight Statement ctermfg=141
+highlight Special ctermfg=30
+highlight PreProc ctermfg=30
