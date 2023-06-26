@@ -491,11 +491,15 @@ require("lazy").setup({
     },
 
     { -- movement
-        "ggandor/leap.nvim",
-        lazy = false,
-        config = function()
-            require('leap').add_default_mappings()
-        end,
+        "folke/flash.nvim",
+        lazy = True,
+        event = "VeryLazy",
+        keys = {
+            { "s", function() require("flash").jump() end },
+            -- TODO
+            -- { "S", function() require("flash").treesitter() end },
+            -- { "r", function() require("flash").remote() end }
+        },
     },
 
 })
