@@ -19,7 +19,7 @@ eval "$(starship init zsh)"
 STARSHIP_CONFIG=~/.config/starship.toml
 
 # alias
-alias ll="ls -alF --color=always" 
+alias ll="ls -alF --color=always | sort -r" 
 alias tree="tree -a"
 alias home="cd /mnt/c/Users/Vincent/"
 
