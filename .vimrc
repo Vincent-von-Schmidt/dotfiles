@@ -1,5 +1,5 @@
 " VIMRC - only for server use
-" usecase: edit of config files
+" usecase: edit of config files and Vallies config file
 
 set noswapfile
 
@@ -18,22 +18,24 @@ set nohlsearch
 set colorcolumn=90
 set cursorline
 
+" leader key - like ctrl or alt
 let mapleader = " "
 
+" esc rebinds
 inoremap <c-e> <esc>
 vnoremap <c-e> <esc>
 
-nnoremap J j
-nnoremap K k
-
+" shift highlighted lines in visual mode
 vnoremap <silent> J :m '>+1<cr>gv=gv'
 vnoremap <silent> K :m '<-2<cr>gv=gv'
 vnoremap <silent> H <gv
 vnoremap <silent> L >gv
 
+" view always centered - search
 nnoremap n nzz
 nnoremap N Nzz
 
+" view always centered - general movement
 nnoremap j jzz
 nnoremap k kzz
 vnoremap j jzz
@@ -41,7 +43,23 @@ vnoremap k kzz
 vnoremap J Jzz
 vnoremap K Kzz
 
+" auto closing tag
+inoremap ( ()<esc>i
+inoremap [ []<esc>i
+inoremap { {}<esc>i
+inoremap " ""<esc>i
+inoremap ' ''<esc>i
+inoremap ) <esc>f)a
+inoremap ] <esc>f]a
+inoremap } <esc>f}a
+
+" Valli für dich - save auf ctrl-s
+nnoremap <c-s> :w<cr>
+
+" open explorer - leader a
 nnoremap <leader>a :Ex <cr>
+
+" design
 
 highlight Normal ctermbg=235
 highlight CursorLine cterm=None ctermbg=237
