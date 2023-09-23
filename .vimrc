@@ -1,20 +1,29 @@
 " VIMRC - only for server use
 " usecase: edit of config files and Vallies config file
 
+" undo
 set noswapfile
+set nobackup
+set undofile
 
+" linenumbers
 set number
 set relativenumber
 
+" tabs as 4 spaces
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
 
+" line behavior
 set nowrap
 
+" visual search behavior
 set nohlsearch
+
+" visual position
 set colorcolumn=90
 set cursorline
 
@@ -32,32 +41,46 @@ vnoremap <silent> H <gv
 vnoremap <silent> L >gv
 
 " view always centered - search
-nnoremap n nzz
-nnoremap N Nzz
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
 
 " view always centered - general movement
-nnoremap j jzz
-nnoremap k kzz
-vnoremap j jzz
-vnoremap k kzz
-vnoremap J Jzz
-vnoremap K Kzz
+nnoremap <silent> j jzz
+nnoremap <silent> k kzz
+vnoremap <silent> j jzz
+vnoremap <silent> k kzz
+vnoremap <silent> J Jzz
+vnoremap <silent> K Kzz
 
 " auto closing tag
-inoremap ( ()<esc>i
-inoremap [ []<esc>i
-inoremap { {}<esc>i
-inoremap " ""<esc>i
-inoremap ' ''<esc>i
-inoremap ) <esc>f)a
-inoremap ] <esc>f]a
-inoremap } <esc>f}a
+inoremap <silent> ( ()<esc>i
+inoremap <silent> [ []<esc>i
+inoremap <silent> { {}<esc>i
+inoremap <silent> ) <esc>f)a
+inoremap <silent> ] <esc>f]a
+inoremap <silent> } <esc>f}a
+" inoremap <silent><expr> ) getline(".")[col(".")-1] == ")" || getline(".")[col(".")-1:col(".")] == " )" ? "<esc>f)a" : ")"
+" inoremap <silent><expr> ] getline(".")[col(".")-1] == "]" || getline(".")[col(".")-1:col(".")] == " ]" ? "<esc>f]a" : "]"
+" inoremap <silent><expr> } getline(".")[col(".")-1] == "}" || getline(".")[col(".")-1:col(".")] == " }" ? "<esc>f}a" : "}"
+inoremap <silent><expr> " getline(".")[col(".")-1] == "\"" ? "<esc>f\"a" : "\"\"<esc>i"
+inoremap <silent><expr> ' getline(".")[col(".")-1] == "'" ? "<esc>f'a" : "''<esc>i"
+inoremap <silent><expr> <space> getline(".")[col(".")-2] == "(" ? "<space><space><esc>i" : "<space>"
+
+" run python3 script
+nnoremap <silent><expr> <F5> "!python3" . expand("%")
+
+" visual mode
+vnoremap <cr> <esc>
+nnoremap <m-v> <c-v>
+
+" substitute highlighted word
+nnoremap <leader>g :%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>
 
 " Valli für dich - save auf ctrl-s
 nnoremap <c-s> :w<cr>
 
 " open explorer - leader a
-nnoremap <leader>a :Ex <cr>
+nnoremap <leader>q :Ex <cr>
 
 " design
 
@@ -75,3 +98,5 @@ highlight Comment ctermfg=239
 highlight Statement ctermfg=141
 highlight Special ctermfg=30
 highlight PreProc ctermfg=30
+
+highlight! MatchParen ctermbg=None ctermfg=221
