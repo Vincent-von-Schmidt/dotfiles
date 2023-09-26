@@ -30,21 +30,29 @@ set cursorline
 " leader key - like ctrl or alt
 let mapleader = " "
 
-" esc rebinds
+"-- esc rebinds --------------------------------------------
+
 inoremap <c-e> <esc>
 vnoremap <c-e> <esc>
 
-" shift highlighted lines in visual mode
+"-- visual mode --------------------------------------------
+
+vnoremap <cr> <esc>
+nnoremap <m-v> <c-v>
+
+" shift highlighted lines
 vnoremap <silent> J :m '>+1<cr>gv=gv'
 vnoremap <silent> K :m '<-2<cr>gv=gv'
 vnoremap <silent> H <gv
 vnoremap <silent> L >gv
 
-" view always centered - search
+"-- view always centerd ------------------------------------
+
+" search
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
 
-" view always centered - general movement
+" general movement
 nnoremap <silent> j jzz
 nnoremap <silent> k kzz
 vnoremap <silent> j jzz
@@ -52,72 +60,61 @@ vnoremap <silent> k kzz
 vnoremap <silent> J Jzz
 vnoremap <silent> K Kzz
 
-function Closing_parantiesies(char)
+"-- auto closing tag ---------------------------------------
 
-    let a:currentLine = getline(".")
-    let a:first = a:currentLine[col(".")-1]
-    let a:second = a:currentLine[col(".")-1:col(".")]
+function CloseTag(char)
+
+    let currentLine = getline(".")
+    let first = currentLine[col(".")-1]
+    let second = currentLine[col(".")-1:col(".")]
 
     if a:char == ")"
-
-        if a:first == ")" || a:second == " )"
-            return "<esc>f)a"
-        else
-            return ")"
-        endif
+        return first == ")" || second == " )" ? "<esc>f)a" : ")"
+        " execute first == ")" || second == " )" ? "<esc>f)a" : ")"
 
     elseif a:char == "]"
-
-        if a:first == "]" || a:second == " ]"
-            return "<esc>f]a"
-        else
-            return "]"
-        endif
+        return first == "]" || second == " ]" ? "<esc>f]a" : "]"
+        " execute first == "]" || second == " ]" ? "<esc>f]a" : "]"
 
     elseif a:char == "}"
-
-        if a:first == "}" || a:second == " }"
-            return "<esc>f}a"
-        else
-            return ")"
-        endif
+        return first == "}" || second == " }" ? "<esc>f}a" : "}"
+        " execute first == "}" || second == " }" ? "<esc>f}a" : "}"
 
     endif
 
 endfunction
 
-" auto closing tag
 inoremap <silent> ( ()<esc>i
 inoremap <silent> [ []<esc>i
 inoremap <silent> { {}<esc>i
-" inoremap <silent> ) <esc>f)a
-" inoremap <silent> ] <esc>f]a
-" inoremap <silent> } <esc>f}a
-inoremap <silent><expr> ) Closing_parantiesies(")")
-" inoremap <silent><expr> ) getline(".")[col(".")-1] == ")" || getline(".")[col(".")-1:col(".")] == " )" ? "<esc>f)a" : ")"
-" inoremap <silent><expr> ] getline(".")[col(".")-1] == "]" || getline(".")[col(".")-1:col(".")] == " ]" ? "<esc>f]a" : "]"
-" inoremap <silent><expr> } getline(".")[col(".")-1] == "}" || getline(".")[col(".")-1:col(".")] == " }" ? "<esc>f}a" : "}"
+inoremap <silent><expr> ) CloseTag(")")
+inoremap <silent><expr> ] CloseTag("]")
+inoremap <silent><expr> } CloseTag("}")
 inoremap <silent><expr> " getline(".")[col(".")-1] == "\"" ? "<esc>f\"a" : "\"\"<esc>i"
 inoremap <silent><expr> ' getline(".")[col(".")-1] == "'" ? "<esc>f'a" : "''<esc>i"
 inoremap <silent><expr> <space> getline(".")[col(".")-2] == "(" ? "<space><space><esc>i" : "<space>"
 
-" run python3 script
-nnoremap <silent><expr> <F5> "!python3" . expand("%")
+"-- surround -----------------------------------------------
 
-" visual mode
-vnoremap <cr> <esc>
-nnoremap <m-v> <c-v>
+function Test()
+    echo expand("<cword>")
+endfunction
+
+nnoremap <silent><expr> ysiw) ":%s/".expand("<cword>")."/(".expand("<cword>").")/gI<cr>"
+" nnoremap <silent><expr> ysiw) ":%s/".expand("<cword>")."/(".expand("<cword>")."/gI<cr>"
+nnoremap <silent> ysiw( :%s/\<<c-r><c-w>\>/( <c-r><c-w> )/gI<cr>
+" vnoremap <silent> S) :'<,'>s/\<<c-r><c-w>\>/(<c-r><c-w>)/gI
+
+"-- run python3 script -------------------------------------
+nnoremap <silent><expr> <F5> "!python3" . expand("%")
 
 " substitute highlighted word
 nnoremap <leader>g :%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>
 
-" Valli für dich - save auf ctrl-s
-nnoremap <c-s> :w<cr>
-
 " open explorer - leader a
 nnoremap <leader>q :Ex <cr>
 
-" design
+"-- design -------------------------------------------------
 
 highlight Normal ctermbg=235
 highlight CursorLine cterm=None ctermbg=237
