@@ -52,13 +52,48 @@ vnoremap <silent> k kzz
 vnoremap <silent> J Jzz
 vnoremap <silent> K Kzz
 
+function Closing_parantiesies(char)
+
+    let a:currentLine = getline(".")
+    let a:first = a:currentLine[col(".")-1]
+    let a:second = a:currentLine[col(".")-1:col(".")]
+
+    if a:char == ")"
+
+        if a:first == ")" || a:second == " )"
+            return "<esc>f)a"
+        else
+            return ")"
+        endif
+
+    elseif a:char == "]"
+
+        if a:first == "]" || a:second == " ]"
+            return "<esc>f]a"
+        else
+            return "]"
+        endif
+
+    elseif a:char == "}"
+
+        if a:first == "}" || a:second == " }"
+            return "<esc>f}a"
+        else
+            return ")"
+        endif
+
+    endif
+
+endfunction
+
 " auto closing tag
 inoremap <silent> ( ()<esc>i
 inoremap <silent> [ []<esc>i
 inoremap <silent> { {}<esc>i
-inoremap <silent> ) <esc>f)a
-inoremap <silent> ] <esc>f]a
-inoremap <silent> } <esc>f}a
+" inoremap <silent> ) <esc>f)a
+" inoremap <silent> ] <esc>f]a
+" inoremap <silent> } <esc>f}a
+inoremap <silent><expr> ) Closing_parantiesies(")")
 " inoremap <silent><expr> ) getline(".")[col(".")-1] == ")" || getline(".")[col(".")-1:col(".")] == " )" ? "<esc>f)a" : ")"
 " inoremap <silent><expr> ] getline(".")[col(".")-1] == "]" || getline(".")[col(".")-1:col(".")] == " ]" ? "<esc>f]a" : "]"
 " inoremap <silent><expr> } getline(".")[col(".")-1] == "}" || getline(".")[col(".")-1:col(".")] == " }" ? "<esc>f}a" : "}"
