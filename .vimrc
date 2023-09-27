@@ -138,6 +138,12 @@ highlight! CursorLineNr cterm=None ctermfg=141
 highlight Comment ctermfg=239
 highlight Statement ctermfg=141
 highlight Special ctermfg=30
+
+highlight! String ctermfg=10
+highlight! link Character String
+highlight! Number ctermfg=9
+highlight! link Float Number
+
 highlight PreProc ctermfg=30
 
 highlight! MatchParen ctermbg=None ctermfg=221
