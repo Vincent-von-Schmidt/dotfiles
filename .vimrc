@@ -30,14 +30,14 @@ set cursorline
 " leader key - like ctrl or alt
 let mapleader = " "
 
-"-- esc rebinds --------------------------------------------
+"-- Esc rebinds --------------------------------------------
 
-inoremap <c-e> <esc>
-vnoremap <c-e> <esc>
+inoremap <c-e> <Esc>
+vnoremap <c-e> <Esc>
 
 "-- visual mode --------------------------------------------
 
-vnoremap <cr> <esc>
+vnoremap <cr> <Esc>
 nnoremap <m-v> <c-v>
 
 " shift highlighted lines
@@ -90,44 +90,32 @@ endfunction
 function <SID>if_last_and_next_char()
     
     let line = getline(".")
+    let charCombo = line[col(".")-2].line[col(".")-1]
 
-    let lastChar = line[col(".")-2]
-    let nextChar = line[col(".")]
-
-    let charCombo = lastChar.nextChar
-
-    if charCombo == "()" || charCombo == "[]" || charCombo == "{}" || charCombo == "\"\"" || charCombo == "\'\'" || charCombo == "<space><space>"
-        return 1
-    else
-        return 0
-    endif
+    return charCombo == "()" || charCombo == "[]" || charCombo == "{}" || charCombo == "\"\"" || charCombo == "\'\'" ? 1 : 0 
 
 endfunction
 
-inoremap <silent> ( ()<esc>i
-inoremap <silent> [ []<esc>i
-inoremap <silent> { {}<esc>i
-inoremap <silent><expr> ) <SID>close_tag(")") ? "<esc>f)a" : ")"
-inoremap <silent><expr> ] <SID>close_tag("]") ? "<esc>f]a" : "]"
-inoremap <silent><expr> } <SID>close_tag("}") ? "<esc>f}a" : "}"
-inoremap <silent><expr> " getline(".")[col(".")-1] == "\"" ? "<esc>f\"a" : "\"\"<esc>i"
-inoremap <silent><expr> ' getline(".")[col(".")-1] == "'" ? "<esc>f'a" : "''<esc>i"
-inoremap <silent><expr> <space> <SID>if_last_char() ? "<space><space><esc>i" : "<space>"
-inoremap <silent><expr> <bs> <SID>if_last_and_next_char() ? "<esc>xxi" : "<bs>"
+inoremap <silent> ( ()<Esc>i
+inoremap <silent> [ []<Esc>i
+inoremap <silent> { {}<Esc>i
+inoremap <silent><expr> ) <SID>close_tag(")") ? "<Esc>f)a" : ")"
+inoremap <silent><expr> ] <SID>close_tag("]") ? "<Esc>f]a" : "]"
+inoremap <silent><expr> } <SID>close_tag("}") ? "<Esc>f}a" : "}"
+inoremap <silent><expr> " getline(".")[col(".")-1] == "\"" ? "<Esc>f\"a" : "\"\"<Esc>i"
+inoremap <silent><expr> ' getline(".")[col(".")-1] == "'" ? "<Esc>f'a" : "''<Esc>i"
+inoremap <silent><expr> <Space> <SID>if_last_char() ? "<Space><Space><Esc>i" : "<Space>"
+inoremap <silent><expr> <BS> <SID>if_last_and_next_char() ? "<Esc>xxi" : "<BS>"
 
 "-- surround -----------------------------------------------
 
-function Test()
-    echo expand("<cword>")
-endfunction
-
-nnoremap <silent><expr> ysiw) ":%s/".expand("<cword>")."/(".expand("<cword>").")/gI<cr>"
+" nnoremap <silent><expr> ysiw) ":%s/".expand("<cword>")."/(".expand("<cword>").")/gI<cr>"
 " nnoremap <silent><expr> ysiw) ":%s/".expand("<cword>")."/(".expand("<cword>")."/gI<cr>"
-nnoremap <silent> ysiw( :%s/\<<c-r><c-w>\>/( <c-r><c-w> )/gI<cr>
+" nnoremap <silent> ysiw( :%s/\<<c-r><c-w>\>/( <c-r><c-w> )/gI<cr>
 " vnoremap <silent> S) :'<,'>s/\<<c-r><c-w>\>/(<c-r><c-w>)/gI
 
 "-- run python3 script -------------------------------------
-nnoremap <silent><expr> <F5> "!python3" . expand("%")
+" nnoremap <silent><expr> <F5> "!python3" . expand("%")
 
 " substitute highlighted word
 nnoremap <leader>g :%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>
