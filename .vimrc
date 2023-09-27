@@ -62,24 +62,44 @@ vnoremap <silent> K Kzz
 
 "-- auto closing tag ---------------------------------------
 
-function CloseTag(char)
+function <SID>close_tag(char)
 
     let currentLine = getline(".")
     let first = currentLine[col(".")-1]
     let second = currentLine[col(".")-1:col(".")]
 
     if a:char == ")"
-        return first == ")" || second == " )" ? "<esc>f)a" : ")"
-        " execute first == ")" || second == " )" ? "<esc>f)a" : ")"
+        return first == ")" || second == " )" ? 1 : 0
 
     elseif a:char == "]"
-        return first == "]" || second == " ]" ? "<esc>f]a" : "]"
-        " execute first == "]" || second == " ]" ? "<esc>f]a" : "]"
+        return first == "]" || second == " ]" ? 1 : 0
 
     elseif a:char == "}"
-        return first == "}" || second == " }" ? "<esc>f}a" : "}"
-        " execute first == "}" || second == " }" ? "<esc>f}a" : "}"
+        return first == "}" || second == " }" ? 1 : 0
 
+    endif
+endfunction
+
+function <SID>if_last_char()
+
+    let lastChar = getline(".")[col(".")-2]
+    return lastChar == "(" || lastChar == "[" || lastChar == "{" || lastChar == "\"" || lastChar == "\'" ? 1 : 0
+
+endfunction
+
+function <SID>if_last_and_next_char()
+    
+    let line = getline(".")
+
+    let lastChar = line[col(".")-2]
+    let nextChar = line[col(".")]
+
+    let charCombo = lastChar.nextChar
+
+    if charCombo == "()" || charCombo == "[]" || charCombo == "{}" || charCombo == "\"\"" || charCombo == "\'\'" || charCombo == "<space><space>"
+        return 1
+    else
+        return 0
     endif
 
 endfunction
@@ -87,12 +107,13 @@ endfunction
 inoremap <silent> ( ()<esc>i
 inoremap <silent> [ []<esc>i
 inoremap <silent> { {}<esc>i
-inoremap <silent><expr> ) CloseTag(")")
-inoremap <silent><expr> ] CloseTag("]")
-inoremap <silent><expr> } CloseTag("}")
+inoremap <silent><expr> ) <SID>close_tag(")") ? "<esc>f)a" : ")"
+inoremap <silent><expr> ] <SID>close_tag("]") ? "<esc>f]a" : "]"
+inoremap <silent><expr> } <SID>close_tag("}") ? "<esc>f}a" : "}"
 inoremap <silent><expr> " getline(".")[col(".")-1] == "\"" ? "<esc>f\"a" : "\"\"<esc>i"
 inoremap <silent><expr> ' getline(".")[col(".")-1] == "'" ? "<esc>f'a" : "''<esc>i"
-inoremap <silent><expr> <space> getline(".")[col(".")-2] == "(" ? "<space><space><esc>i" : "<space>"
+inoremap <silent><expr> <space> <SID>if_last_char() ? "<space><space><esc>i" : "<space>"
+inoremap <silent><expr> <bs> <SID>if_last_and_next_char() ? "<esc>xxi" : "<bs>"
 
 "-- surround -----------------------------------------------
 
