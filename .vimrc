@@ -114,14 +114,38 @@ inoremap <silent><expr> <BS> <SID>if_last_and_next_char() ? "<Esc>xxi" : "<BS>"
 " nnoremap <silent> ysiw( :%s/\<<c-r><c-w>\>/( <c-r><c-w> )/gI<cr>
 " vnoremap <silent> S) :'<,'>s/\<<c-r><c-w>\>/(<c-r><c-w>)/gI
 
-"-- run python3 script -------------------------------------
-" nnoremap <silent><expr> <F5> "!python3" . expand("%")
-
 " substitute highlighted word
 nnoremap <leader>g :%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>
 
 " open explorer - leader a
 nnoremap <leader>q :Ex <cr>
+
+"-- per file type ------------------------------------------
+
+augroup filetype_python
+    autocmd!
+
+    " press F5 to run current open file with python3
+    autocmd FileType python nnoremap <silent><expr> <F5> ":!python3 ".expand("%")."<cr>"
+
+    autocmd FileType python highlight! SpecialStatement ctermfg=160
+    autocmd FileType python syntax match SpecialStatement /self/
+    autocmd FileType python syntax match SpecialStatement /cls/
+
+    " TODO -> check just for the word instead for the chars
+    autocmd FileType python highlight! Operator ctermfg=250
+    autocmd FileType python syntax match Operator /and/
+    autocmd FileType python syntax match Operator /or/
+
+    autocmd FileType python highlight! SpecialState ctermfg=30
+    autocmd FileType python syntax match SpecialState /None/
+    autocmd FileType python syntax match SpecialState /True/
+    autocmd FileType python syntax match SpecialState /False/
+
+    autocmd FileType python highlight! DoubleUnderScore ctermfg=40
+    autocmd FileType python syntax match DoubleUnderScore /__*__/
+
+augroup END
 
 "-- design -------------------------------------------------
 
@@ -139,11 +163,20 @@ highlight Comment ctermfg=239
 highlight Statement ctermfg=141
 highlight Special ctermfg=30
 
-highlight! String ctermfg=10
+highlight! String ctermfg=35
 highlight! link Character String
-highlight! Number ctermfg=9
+highlight! Number ctermfg=80
 highlight! link Float Number
 
-highlight PreProc ctermfg=30
+highlight PreProc ctermfg=161
 
 highlight! MatchParen ctermbg=None ctermfg=221
+
+"-- debug --------------------------------------------------
+
+function! SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfunction
+
+nnoremap <leader>t :call SynGroup() <cr>
