@@ -149,6 +149,12 @@ highlight! MatchParen ctermbg=None ctermfg=221
 " highlight! SpecialComment ctermbg=100
 " syntax match SpecialComment /.*TODO.*/
 
+"-- comment ------------------------------------------------ 
+
+function! Comment(char)
+    echo a:char
+endfunction
+
 "-- per file type ------------------------------------------
 
 " python ---------------------
@@ -159,24 +165,21 @@ augroup filetype_python
     autocmd FileType python nnoremap <silent><expr> <F5> ":!python3 ".expand("%")."<cr>"
 
     " comment -> TODO
-    autocmd FileType python nnoremap <silent><expr> gcc "I# <esc>"
-
-    autocmd FileType python abbr RUN if __name__=="__main__":<cr><tab>
+    autocmd FileType python nnoremap <silent> gcc :set opfunc=Comment("#")g@
 
     autocmd FileType python highlight! link SpecialStatement PreProc
     autocmd FileType python syntax match SpecialStatement /self/
     autocmd FileType python syntax match SpecialStatement /cls/
 
-    " TODO -> check just for the word instead for the chars
     autocmd FileType python highlight! Operator ctermfg=250
-    autocmd FileType python syntax match Operator /and/
-    autocmd FileType python syntax match Operator /or/
+    autocmd FileType python syntax match Operator / and /
+    autocmd FileType python syntax match Operator / or /
 
     " autocmd FileType python highlight! SpecialState ctermfg=30
     autocmd FileType python highlight! link SpecialState Number
-    autocmd FileType python syntax match SpecialState /None/
-    autocmd FileType python syntax match SpecialState /True/
-    autocmd FileType python syntax match SpecialState /False/
+    autocmd FileType python syntax match SpecialState / None /
+    autocmd FileType python syntax match SpecialState / True /
+    autocmd FileType python syntax match SpecialState / False /
 
     autocmd FileType python highlight! DoubleUnderScore ctermfg=40
     autocmd FileType python syntax match DoubleUnderScore /__*__/
