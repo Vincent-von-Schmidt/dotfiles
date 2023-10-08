@@ -120,15 +120,50 @@ nnoremap <leader>g :%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>
 " open explorer - leader a
 nnoremap <leader>q :Ex <cr>
 
+"-- general highlightgroups --------------------------------
+
+highlight Normal ctermbg=235
+highlight CursorLine cterm=None ctermbg=237
+highlight! ColorColumn ctermbg=236
+highlight! link Visual CursorLine
+highlight NonText ctermfg=0
+highlight LineNr ctermfg=242
+highlight! CursorLineNr cterm=None ctermfg=141
+
+highlight Comment ctermfg=239
+highlight Statement ctermfg=141
+highlight Special ctermfg=30
+highlight! String ctermfg=35
+highlight! link Character String
+highlight! Number ctermfg=80
+highlight! link Float Number
+highlight! link Boolean Number
+
+" imports
+highlight PreProc ctermfg=161
+
+" color conected tag
+highlight! MatchParen ctermbg=None ctermfg=221
+
+" todo highlight
+" highlight! SpecialComment ctermbg=100
+" syntax match SpecialComment /.*TODO.*/
+
 "-- per file type ------------------------------------------
 
+" python ---------------------
 augroup filetype_python
     autocmd!
 
     " press F5 to run current open file with python3
     autocmd FileType python nnoremap <silent><expr> <F5> ":!python3 ".expand("%")."<cr>"
 
-    autocmd FileType python highlight! SpecialStatement ctermfg=160
+    " comment -> TODO
+    autocmd FileType python nnoremap <silent><expr> gcc "I# <esc>"
+
+    autocmd FileType python abbr RUN if __name__=="__main__":<cr><tab>
+
+    autocmd FileType python highlight! link SpecialStatement PreProc
     autocmd FileType python syntax match SpecialStatement /self/
     autocmd FileType python syntax match SpecialStatement /cls/
 
@@ -137,7 +172,8 @@ augroup filetype_python
     autocmd FileType python syntax match Operator /and/
     autocmd FileType python syntax match Operator /or/
 
-    autocmd FileType python highlight! SpecialState ctermfg=30
+    " autocmd FileType python highlight! SpecialState ctermfg=30
+    autocmd FileType python highlight! link SpecialState Number
     autocmd FileType python syntax match SpecialState /None/
     autocmd FileType python syntax match SpecialState /True/
     autocmd FileType python syntax match SpecialState /False/
@@ -147,30 +183,23 @@ augroup filetype_python
 
 augroup END
 
-"-- design -------------------------------------------------
+" latex ----------------------
+augroup filetype_tex
+    autocmd!
 
-highlight Normal ctermbg=235
-highlight CursorLine cterm=None ctermbg=237
-highlight! ColorColumn ctermbg=236
+    " press F5 to compile the file with pdflatex
+    autocmd FileType tex nnoremap <silent><expr> <F5> ":!pdflatex ".expand("%")."<cr>"
 
-highlight! link Visual CursorLine
+augroup END
 
-highlight NonText ctermfg=0
-highlight LineNr ctermfg=242
-highlight! CursorLineNr cterm=None ctermfg=141
+" haskell --------------------
+augroup filetype_haskell
+    autocmd!
+    
+    " open file with ghci
+    autocmd FileType haskell nnoremap <silent><expr> <F5> ":!ghci ".expand("%")."<cr>"
 
-highlight Comment ctermfg=239
-highlight Statement ctermfg=141
-highlight Special ctermfg=30
-
-highlight! String ctermfg=35
-highlight! link Character String
-highlight! Number ctermfg=80
-highlight! link Float Number
-
-highlight PreProc ctermfg=161
-
-highlight! MatchParen ctermbg=None ctermfg=221
+augroup END
 
 "-- debug --------------------------------------------------
 
