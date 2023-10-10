@@ -139,6 +139,15 @@ highlight! Number ctermfg=80
 highlight! link Float Number
 highlight! link Boolean Number
 
+highlight! SpecialHighlight ctermfg=250
+syntax match SpecialHighlight /\[/
+syntax match SpecialHighlight /\]/
+syntax match SpecialHighlight /(/
+syntax match SpecialHighlight /)/
+syntax match SpecialHighlight /\:/
+syntax match SpecialHighlight /\./
+syntax match SpecialHighlight /\,/
+
 " imports
 highlight PreProc ctermfg=161
 
@@ -151,7 +160,7 @@ highlight! MatchParen ctermbg=None ctermfg=221
 
 "-- comment ------------------------------------------------ 
 
-function! Comment(char)
+function! <SID>Comment(char)
     echo a:char
 endfunction
 
@@ -165,21 +174,16 @@ augroup filetype_python
     autocmd FileType python nnoremap <silent><expr> <F5> ":!python3 ".expand("%")."<cr>"
 
     " comment -> TODO
-    autocmd FileType python nnoremap <silent> gcc :set opfunc=Comment("#")g@
+    autocmd FileType python nnoremap <silent> gcc :set opfunc=<SID>Comment("#")g@
 
     autocmd FileType python highlight! link SpecialStatement PreProc
-    autocmd FileType python syntax match SpecialStatement /self/
-    autocmd FileType python syntax match SpecialStatement /cls/
+    autocmd FileType python syntax keyword SpecialStatement self cls
 
-    autocmd FileType python highlight! Operator ctermfg=250
-    autocmd FileType python syntax match Operator / and /
-    autocmd FileType python syntax match Operator / or /
+    autocmd FileType python highlight! link PythonSpecialLogicalGate SpecialHighlight
+    autocmd FileType python syntax keyword PythonSpecialLogicalGate and or
 
-    " autocmd FileType python highlight! SpecialState ctermfg=30
     autocmd FileType python highlight! link SpecialState Number
-    autocmd FileType python syntax match SpecialState / None /
-    autocmd FileType python syntax match SpecialState / True /
-    autocmd FileType python syntax match SpecialState / False /
+    autocmd FileType python syntax keyword SpecialState None True False
 
     autocmd FileType python highlight! DoubleUnderScore ctermfg=40
     autocmd FileType python syntax match DoubleUnderScore /__*__/
