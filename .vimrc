@@ -160,9 +160,39 @@ highlight! MatchParen ctermbg=None ctermfg=221
 
 "-- comment ------------------------------------------------ 
 
-function! <SID>Comment(char)
-    echo a:char
+function <SID>tt()
+    let line = getline(".")
+    execute ":.s/".line."/# ".line."/g <cr>"
 endfunction
+
+nnoremap <silent><exec> tt <SID>tt()
+
+function! <SID>Comment(type)
+
+    let sel_save = &selection
+    let &selection = "inclusive"
+    let reg_save = @@
+
+    if a:0
+        silent execute "normal! ´< ". a:type . "´>y"
+    endif
+
+    let &selection = sel_save
+    let @@ = reg_save
+
+endfunction
+
+function <SID>Test(char)
+
+    let type = a:char
+    let pos = getpos(".")[2]
+    let position = pos == 0 ? 0 : pos-1
+    execute "normal! I# "
+    execute "0 ".position."l"
+
+endfunction
+
+nnoremap <c-b> :set operatorfunc=<SID>Comment@g<cr>
 
 "-- per file type ------------------------------------------
 
@@ -170,11 +200,15 @@ endfunction
 augroup filetype_python
     autocmd!
 
+    autocmd FileType python nnoremap <silent> gcc mqI# \<esc>`q
+
     " press F5 to run current open file with python3
     autocmd FileType python nnoremap <silent><expr> <F5> ":!python3 ".expand("%")."<cr>"
 
     " comment -> TODO
-    autocmd FileType python nnoremap <silent> gcc :set opfunc=<SID>Comment("#")g@
+    "  autocmd FileType python nnoremap gc :set opfunc=<SID>Test<cr>g@
+    autocmd FileType python nnoremap gcc :call <SID>Test("#")<cr>
+    autocmd FileType python nnoremap <expr> bb "I# <esc>0".(getpos(".")[2]-1)."l"
 
     autocmd FileType python highlight! link SpecialStatement PreProc
     autocmd FileType python syntax keyword SpecialStatement self cls
