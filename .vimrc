@@ -109,11 +109,6 @@ inoremap <silent><expr> <BS> <SID>if_last_and_next_char() ? "<Esc>xxi" : "<BS>"
 
 "-- surround -----------------------------------------------
 
-" nnoremap <silent><expr> ysiw) ":%s/".expand("<cword>")."/(".expand("<cword>").")/gI<cr>"
-" nnoremap <silent><expr> ysiw) ":%s/".expand("<cword>")."/(".expand("<cword>")."/gI<cr>"
-" nnoremap <silent> ysiw( :%s/\<<c-r><c-w>\>/( <c-r><c-w> )/gI<cr>
-" vnoremap <silent> S) :'<,'>s/\<<c-r><c-w>\>/(<c-r><c-w>)/gI
-
 " substitute highlighted word
 nnoremap <leader>g :%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>
 
@@ -158,7 +153,7 @@ highlight! MatchParen ctermbg=None ctermfg=221
 " highlight! SpecialComment ctermbg=100
 " syntax match SpecialComment /.*TODO.*/
 
-"-- comment ------------------------------------------------ 
+"-- misc functions ---------------------------------------- 
 
 function <SID>tt()
     let line = getline(".")
@@ -185,13 +180,43 @@ nnoremap <silent><exec> tt <SID>tt()
 function! <SID>Comment(char)
 
     if split(getline("."), " ") != []
-        let first_char =  split(getline("."), " ")[0][0]
-        execute first_char == a:char ? "normal! mq_df " : "normal! mqI".a:char." \<esc>"
+        let first_char = split(getline("."), " ")[0][0]
+
+        " mark current position 
+        execute "normal! mq"
+
+        " delete/add comment 
+        execute first_char == a:char ? "normal! _df " : "normal! I".a:char." \<esc>"
+
+        " go back to marked position and delete the used mark
         execute "normal! `q"
         execute "delmark q"
     endif
 
 endfunction
+
+" function! <SID>Surround(char)
+"
+"     " mark current position 
+"     execute "normal! mq"
+"
+"     " add surrounding parenthesis
+"     execute "normal! bi".a:char[0]."\<esc>ea".a:char[1]."\<esc>"
+"
+"     " go back to marked position and delete the used mark
+"     execute "normal! `q"
+"     execute "delmark q"
+"
+" endfunction
+"
+" nnoremap <silent> ysiw( :call <SID>Surround(['( ', ' )'])<cr>
+" nnoremap <silent> ysiw) :call <SID>Surround(['(', ')'])")<cr>
+" nnoremap <silent> ysiw[ :call <SID>Surround(['[ ', ' ]'])<cr>
+" nnoremap <silent> ysiw] :call <SID>Surround(['[', ']'])<cr>
+" nnoremap <silent> ysiw{ :call <SID>Surround(['{ ', ' }'])<cr>
+" nnoremap <silent> ysiw} :call <SID>Surround(['{', '}'])<cr>
+" nnoremap <silent> ysiw" :call <SID>Surround(['\"', '\"'])<cr>
+" nnoremap <silent> ysiw' :call <SID>Surround(['\'', '\''])<cr>
 
 "-- per file type ------------------------------------------
 
