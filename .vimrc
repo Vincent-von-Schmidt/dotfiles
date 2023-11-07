@@ -167,48 +167,57 @@ endfunction
 
 nnoremap <silent><exec> tt <SID>tt()
 
-function! <SID>Comment(type)
+" function! <SID>Comment(type)
+"
+"     let sel_save = &selection
+"     let &selection = "inclusive"
+"     let reg_save = @@
+"
+"     if a:0
+"         silent execute "normal! ´< ". a:type . "´>y"
+"     endif
+"
+"     let &selection = sel_save
+"     let @@ = reg_save
+"
+" endfunction
 
-    let sel_save = &selection
-    let &selection = "inclusive"
-    let reg_save = @@
+function! <SID>Comment(char)
 
-    if a:0
-        silent execute "normal! ´< ". a:type . "´>y"
+    if split(getline("."), " ") != []
+        let first_char =  split(getline("."), " ")[0][0]
+        execute first_char == a:char ? "normal! mq_df " : "normal! mqI".a:char." \<esc>"
+        execute "normal! `q"
+        execute "delmark q"
     endif
 
-    let &selection = sel_save
-    let @@ = reg_save
-
 endfunction
-
-function <SID>Test(char)
-
-    let type = a:char
-    let pos = getpos(".")[2]
-    let position = pos == 0 ? 0 : pos-1
-    execute "normal! I# "
-    execute "0 ".position."l"
-
-endfunction
-
-nnoremap <c-b> :set operatorfunc=<SID>Comment@g<cr>
 
 "-- per file type ------------------------------------------
+
+" vimscript ------------------ 
+augroup filetype_vim
+    autocmd!
+    
+    " comment
+    autocmd FileType vim nnoremap <silent> gcc :call <SID>Comment("\"")<cr>
+
+    " press F5 to reload .vimrc
+    autocmd FileType vim nnoremap <silent><expr> <F5> ":source ~/.vimrc<cr>"
+
+augroup END
 
 " python ---------------------
 augroup filetype_python
     autocmd!
-
-    autocmd FileType python nnoremap <silent> gcc mqI# \<esc>`q
 
     " press F5 to run current open file with python3
     autocmd FileType python nnoremap <silent><expr> <F5> ":!python3 ".expand("%")."<cr>"
 
     " comment -> TODO
     "  autocmd FileType python nnoremap gc :set opfunc=<SID>Test<cr>g@
-    autocmd FileType python nnoremap gcc :call <SID>Test("#")<cr>
-    autocmd FileType python nnoremap <expr> bb "I# <esc>0".(getpos(".")[2]-1)."l"
+    autocmd FileType python nnoremap <silent> gcc :call <SID>Comment("#")<cr>
+    " autocmd FileType python nnoremap <expr> bb "I# <esc>0".(getpos(".")[2]-1)."l"
 
     autocmd FileType python highlight! link SpecialStatement PreProc
     autocmd FileType python syntax keyword SpecialStatement self cls
@@ -228,6 +237,9 @@ augroup END
 augroup filetype_tex
     autocmd!
 
+    " comment
+    autocmd FileType tex nnoremap <silent> gcc :call <SID>Comment("%")<cr>
+    
     " press F5 to compile the file with pdflatex
     autocmd FileType tex nnoremap <silent><expr> <F5> ":!pdflatex ".expand("%")."<cr>"
 
@@ -236,6 +248,9 @@ augroup END
 " haskell --------------------
 augroup filetype_haskell
     autocmd!
+    
+    " comment
+    autocmd FileType haskell nnoremap <silent> gcc :call <SID>Comment("--")<cr>
     
     " open file with ghci
     autocmd FileType haskell nnoremap <silent><expr> <F5> ":!ghci ".expand("%")."<cr>"
