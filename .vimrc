@@ -65,19 +65,8 @@ vnoremap <silent> K Kzz
 function <SID>close_tag(char)
 
     let currentLine = getline(".")
-    let first = currentLine[col(".")-1]
-    let second = currentLine[col(".")-1:col(".")]
+    execute currentLine[col(".")] == a:char || currentLine[col("."):col(".")+1] == " ".a:char ? "normal! f".a:char : "normal! a".a:char
 
-    if a:char == ")"
-        return first == ")" || second == " )" ? 1 : 0
-
-    elseif a:char == "]"
-        return first == "]" || second == " ]" ? 1 : 0
-
-    elseif a:char == "}"
-        return first == "}" || second == " }" ? 1 : 0
-
-    endif
 endfunction
 
 function <SID>if_last_char()
@@ -99,9 +88,12 @@ endfunction
 inoremap <silent> ( ()<Esc>i
 inoremap <silent> [ []<Esc>i
 inoremap <silent> { {}<Esc>i
-inoremap <silent><expr> ) <SID>close_tag(")") ? "<Esc>f)a" : ")"
-inoremap <silent><expr> ] <SID>close_tag("]") ? "<Esc>f]a" : "]"
-inoremap <silent><expr> } <SID>close_tag("}") ? "<Esc>f}a" : "}"
+" inoremap <silent><expr> ) <SID>close_tag(")") ? "<Esc>f)a" : ")"
+" inoremap <silent><expr> ] <SID>close_tag("]") ? "<Esc>f]a" : "]"
+" inoremap <silent><expr> } <SID>close_tag("}") ? "<Esc>f}a" : "}"
+inoremap <silent> ) <esc>:call <SID>close_tag(")")<cr>a
+inoremap <silent> ] <esc>:call <SID>close_tag("]")<cr>a
+inoremap <silent> } <esc>:call <SID>close_tag("}")<cr>a
 inoremap <silent><expr> " getline(".")[col(".")-1] == "\"" ? "<Esc>f\"a" : "\"\"<Esc>i"
 inoremap <silent><expr> ' getline(".")[col(".")-1] == "'" ? "<Esc>f'a" : "''<Esc>i"
 inoremap <silent><expr> <Space> <SID>if_last_char() ? "<Space><Space><Esc>i" : "<Space>"
@@ -134,6 +126,7 @@ highlight! Number ctermfg=80
 highlight! link Float Number
 highlight! link Boolean Number
 
+" TODO 
 highlight! SpecialHighlight ctermfg=250
 syntax match SpecialHighlight /\[/
 syntax match SpecialHighlight /\]/
@@ -142,6 +135,7 @@ syntax match SpecialHighlight /)/
 syntax match SpecialHighlight /\:/
 syntax match SpecialHighlight /\./
 syntax match SpecialHighlight /\,/
+syntax match SpecialHighlight /\*/
 
 " imports
 highlight PreProc ctermfg=161
@@ -179,6 +173,7 @@ nnoremap <silent><exec> tt <SID>tt()
 
 function! <SID>Comment(char)
 
+    " if line is not empty
     if split(getline("."), " ") != []
         let first_char = split(getline("."), " ")[0][0]
 
@@ -195,20 +190,31 @@ function! <SID>Comment(char)
 
 endfunction
 
-" function! <SID>Surround(char)
-"
-"     " mark current position 
-"     execute "normal! mq"
-"
-"     " add surrounding parenthesis
-"     execute "normal! bi".a:char[0]."\<esc>ea".a:char[1]."\<esc>"
-"
-"     " go back to marked position and delete the used mark
-"     execute "normal! `q"
-"     execute "delmark q"
-"
-" endfunction
-"
+function! <SID>Surround(type, ...)
+    let selection_start = getpos("'<")
+    let selection_end = getpos("'>")
+
+    let selected_text = join(getline(selection_start[1], selection_end[1]), "\n")
+    let result = '('.selected_text.')'
+
+    call setline(selection_start[1], result)
+    call cursor(selection_end[1] + 1, selection_end[2])
+    
+    " " mark current position 
+    " execute "normal! mq"
+    "
+    " " add surrounding parenthesis
+    " execute "normal! bi".a:char[0]."\<esc>ea".a:char[1]."\<esc>"
+    "
+    " " go back to marked position and delete the used mark
+    " execute "normal! `q"
+    " execute "delmark q"
+
+endfunction
+
+nnoremap <silent> <c-f> :set opfunc=<SID>Surround<CR>g@
+vnoremap <silent> <c-f> :set opfunc=<SID>Surround<CR>g@
+
 " nnoremap <silent> ysiw( :call <SID>Surround(['( ', ' )'])<cr>
 " nnoremap <silent> ysiw) :call <SID>Surround(['(', ')'])")<cr>
 " nnoremap <silent> ysiw[ :call <SID>Surround(['[ ', ' ]'])<cr>
