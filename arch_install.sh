@@ -12,7 +12,7 @@ mount /dev/sda1 /mnt/boot/efi
 swapon /dev/sda2
 
 # install packages
-pacstrap /mnt base linux linux-firmware sof-firmware base-devel grub efibootmgr vim networkmanager plasma sddm alacritty git
+pacstrap /mnt base linux linux-firmware base-devel grub efibootmgr networkmanager gnome gnome-tweaks alacritty git vim
 
 # generate filesystem table
 genfstab /mnt > /mnt/etc/fstab
@@ -49,7 +49,7 @@ echo "%wheel ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
 
 # enable services
 systemctl enable NetworkManager
-systemctl enable sddm
+systemctl enable gdm
 
 # grub
 grub-install /dev/sda
