@@ -12,9 +12,9 @@ mount /dev/sda1 /mnt/boot/efi
 swapon /dev/sda2
 
 # install packages
-pacstrap /mnt base linux linux-firmware sof-firmware base-devel grub efibootmgr vim networkmanager plasma sddm terminator
+pacstrap /mnt base linux linux-firmware sof-firmware base-devel grub efibootmgr vim networkmanager plasma sddm alacritty git
 
-# generate filesystem
+# generate filesystem table
 genfstab /mnt > /mnt/etc/fstab
 
 # -- config in new root --
@@ -26,7 +26,8 @@ arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc
 
-# local -> TODO
+# local
+echo "en_US.UTF-8 UTF-8" > /etc/locale.gen 
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf 
 
