@@ -34,10 +34,10 @@ arch-chroot /mnt echo "KEYMAP=de" > /etc/vconsole.conf
 # hostname
 arch-chroot /mnt echo "arch" > /etc/hostname 
 
-# root passwd -> TODO: does not work
+# root passwd
 arch-chroot /mnt echo "root:1234" | chpasswd --crypt-method SHA256 
 
-# add user -> TODO: does not work
+# add user
 arch-chroot /mnt useradd -m -G wheel -s /bin/zsh vincent
 arch-chroot /mnt echo "vincent:1234" | chpasswd --crypt-method SHA256 
 
@@ -55,12 +55,12 @@ arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 # -----------------------
 
 # copy the config
-cp /dotfiles/.zshrc /mnt/home/vincent/.zshrc
-cp /dotfiles/.vimrc /mnt/home/vincent/.vimrc
-cp -r /dotfiles/.config /mnt/home/vincent/.config
+cp ./.zshrc /mnt/home/vincent/.zshrc
+cp ./.vimrc /mnt/home/vincent/.vimrc
+cp -r ./.config /mnt/home/vincent/.config
 
 # umount every unused disk
 umount -a
 
-# reboot
-reboot
+# shutdown
+shutdown -h now
