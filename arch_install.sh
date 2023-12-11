@@ -19,44 +19,38 @@ genfstab /mnt > /mnt/etc/fstab
 
 # -- config in new root --
 
-# change root
-arch-chroot /mnt
-
 # timezone
-ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-hwclock --systohc
+arch-chroot /mnt ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+arch-chroot /mnt hwclock --systohc
 
 # local
-echo "en_US.UTF-8 UTF-8" > /etc/locale.gen 
+arch-chroot /mnt echo "en_US.UTF-8 UTF-8" > /etc/locale.gen 
 locale-gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf 
+arch-chroot /mnt echo "LANG=en_US.UTF-8" > /etc/locale.conf 
 
 # keyboard layout
-echo "KEYMAP=de" > /etc/vconsole.conf 
+arch-chroot /mnt echo "KEYMAP=de" > /etc/vconsole.conf 
 
 # hostname
-echo "arch" > /etc/hostname 
+arch-chroot /mnt echo "arch" > /etc/hostname 
 
 # root passwd
-echo "root:1234" | chpasswd --crypt-method SHA256 
+arch-chroot /mnt echo "root:1234" | chpasswd --crypt-method SHA256 
 
 # add user
-useradd -m -G wheel -s /bin/bash vincent
-echo "vincent:1234" | chpasswd --crypt-method SHA256 
+arch-chroot /mnt useradd -m -G wheel -s /bin/bash vincent
+arch-chroot /mnt echo "vincent:1234" | chpasswd --crypt-method SHA256 
 
 # set sudoerfile -> allow group wheel to use sudo
-echo "%wheel ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo) 
+arch-chroot /mnt echo "%wheel ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo) 
 
 # enable services
-systemctl enable NetworkManager
-systemctl enable gdm
+arch-chroot /mnt systemctl enable NetworkManager
+arch-chroot /mnt systemctl enable gdm
 
 # grub
-grub-install /dev/sda
-grub-mkconfig -o /boot/grub/grub.cfg
-
-# logout of system and go back the usb env
-exit
+arch-chroot /mnt grub-install /dev/sda
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
 # -----------------------
 
