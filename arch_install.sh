@@ -12,7 +12,7 @@ mount /dev/sda1 /mnt/boot/efi
 swapon /dev/sda2
 
 # install packages
-pacstrap /mnt base linux linux-firmware base-devel grub efibootmgr networkmanager gnome gnome-tweaks alacritty git vim
+pacstrap /mnt base linux linux-firmware base-devel grub efibootmgr networkmanager gnome gnome-tweaks alacritty git vim zsh starship tmux
 
 # generate filesystem table
 genfstab /mnt > /mnt/etc/fstab
@@ -38,7 +38,7 @@ arch-chroot /mnt echo "arch" > /etc/hostname
 arch-chroot /mnt echo "root:1234" | chpasswd --crypt-method SHA256 
 
 # add user
-arch-chroot /mnt useradd -m -G wheel -s /bin/bash vincent
+arch-chroot /mnt useradd -m -G wheel -s /bin/zsh vincent
 arch-chroot /mnt echo "vincent:1234" | chpasswd --crypt-method SHA256 
 
 # set sudoerfile -> allow group wheel to use sudo
@@ -53,6 +53,11 @@ arch-chroot /mnt grub-install /dev/sda
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
 # -----------------------
+
+# copy the config
+cp ./.zshrc /mnt/home/vincent/.zshrc
+cp ./.vimrc /mnt/home/vincent/.vimrc
+cp -r ./.config /mnt/home/vincent/.config
 
 # umount every unused disk
 umount -a
