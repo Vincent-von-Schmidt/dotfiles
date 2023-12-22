@@ -1,9 +1,9 @@
 # arch install script
 
 # format partitions
-mkfs.ext4 /dev/sda3
-mkfs.fat -F 32 /dev/sda1
-mkswap /dev/sda2
+mkfs.ext4 /dev/sda3 # root
+mkfs.fat -F 32 /dev/sda1 # boot
+mkswap /dev/sda2 # swap
 
 # mount partitions
 mount /dev/sda3 /mnt
@@ -12,7 +12,21 @@ mount /dev/sda1 /mnt/boot/efi
 swapon /dev/sda2
 
 # install packages
-pacstrap /mnt base linux linux-firmware base-devel grub efibootmgr networkmanager gnome gnome-tweaks alacritty git vim zsh starship tmux
+pacstrap /mnt \\
+    linux \\
+    linux-firmware \\
+    base \\
+    base-devel \\  # sudo, etc.
+    grub \\ # bootloader
+    efibootmgr \\ # enables efi boot
+    networkmanager \\ # handels the network
+    gnome gnome-tweaks \\ # desktop
+    git \\
+    vim \\ # text editor
+    zsh \\ # prompt
+    starship \\ # prompt design
+    tmux # terminal tilling window manager
+    alacritty \\ # terminal emulator
 
 # generate filesystem table
 genfstab /mnt > /mnt/etc/fstab
@@ -33,6 +47,9 @@ arch-chroot /mnt echo "KEYMAP=de" > /etc/vconsole.conf
 
 # hostname
 arch-chroot /mnt echo "arch" > /etc/hostname 
+
+# hosts
+arch-chroot /mnt echo 127.0.0.1 localhost > /etc/hosts
 
 # root passwd -> TODO: does not work
 arch-chroot /mnt echo "root:1234" | chpasswd --crypt-method SHA256 

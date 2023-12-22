@@ -109,7 +109,8 @@ nnoremap <leader>q :Ex <cr>
 
 "-- general highlightgroups --------------------------------
 
-highlight Normal ctermbg=235
+" highlight Normal ctermbg=235
+highlight Normal ctermbg=None
 highlight CursorLine cterm=None ctermbg=237
 highlight! ColorColumn ctermbg=236
 highlight! link Visual CursorLine
@@ -285,6 +286,15 @@ augroup filetype_haskell
     
     " open file with ghci
     autocmd FileType haskell nnoremap <silent><expr> <F5> ":!ghci ".expand("%")."<cr>"
+
+augroup END
+
+" sh -------------------------
+augroup filetype_sh
+    autocmd!
+
+    " comment
+    autocmd FileType sh nnoremap <silent> gcc :call <SID>Comment("#")<cr>
 
 augroup END
 

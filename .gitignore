@@ -2,3 +2,4 @@
 ./.ssh
 ./.local
 ./.config/TabNine
+*.un~
