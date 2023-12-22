@@ -9,7 +9,6 @@ return {
         keys = {
             { "<leader>a", "<CMD> Telescope find_files <CR>" },
             { "<leader>s", "<CMD> Telescope live_grep <CR>" },
-            { "<leader>la" },
         },
         config = function()
 
@@ -25,6 +24,11 @@ return {
                             ["<c-e>"] = "close",
                             ["<ESC>"] = "close",
                         }
+                    },
+                    layout_config = {
+                        horizontal = {
+                            prompt_position = "top",
+                        },
                     },
                 },
                 pickers = {
@@ -46,17 +50,13 @@ return {
             package.load_extension("fzf")
 
             -- highlight groups
-
-            local normal_bg = "#272f35"
-            local prompt_bg = "#323a40"
-
-            vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = normal_bg })
-            vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = prompt_bg })
-            vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = normal_bg, bg = normal_bg })
-            vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = prompt_bg, bg = prompt_bg })
+            vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "NormalFloat" })
+            vim.api.nvim_set_hl(0, "TelescopePromptNormal", { link = "NormalFloat2" })
+            vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "FloatBorder" })
+            vim.api.nvim_set_hl(0, "TelescopePromptBorder", { link = "Float2Border" })
             vim.api.nvim_set_hl(0, "TelescopeTitle", { link = "TelescopeBorder" })
-            vim.api.nvim_set_hl(0, "TelescopePromptTitle", { fg = "#2b3339", bg = "#e67e80" })
-            vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = "#2b3339", bg = "#83c092" })
+            vim.api.nvim_set_hl(0, "TelescopePromptTitle", { link = "FLoatTitle" })
+            vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { link = "Float2Title" })
 
         end,
     },

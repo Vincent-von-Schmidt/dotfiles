@@ -21,6 +21,7 @@ vim.opt.termguicolors = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
+vim.opt.undodir = "$HOME/.vim/undodir"
 
 -- design
 vim.opt.hlsearch = false
@@ -29,54 +30,37 @@ vim.opt.cursorline = true
 vim.o.showtabline = 0
 
 -- keybinds - non plugin specific ------------------------------
-local keymap = vim.keymap.set
-local default_args = { silent = true, noremap = true }
+local opts = { silent = true, noremap = true }
 
 -- leader
-keymap("", "<Space>", "<Nop>", default_args)
+vim.keymap.set("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 
 -- esc
-keymap("i", "<c-e>", "<esc>", default_args)
-keymap("v", "<c-e>", "<esc>", default_args)
-keymap("c", "<c-e>", "<esc>", default_args)
-keymap("n", "<c-e>", "<esc>", default_args)
-keymap("v", "<cr>", "<esc>", default_args)
+vim.keymap.set("i", "<c-e>", "<esc>", opts)
+vim.keymap.set("v", "<c-e>", "<esc>", opts)
+vim.keymap.set("c", "<c-e>", "<esc>", opts)
+vim.keymap.set("n", "<c-e>", "<esc>", opts)
+vim.keymap.set("v", "<cr>", "<esc>", opts)
 
 -- auto center
-keymap("n", "n", "nzz", default_args)
-keymap("n", "N", "Nzz", default_args)
-keymap("n", "j", "jzz", default_args)
-keymap("n", "k", "kzz", default_args)
-keymap("v", "j", "jzz", default_args)
-keymap("v", "k", "kzz", default_args)
-keymap("v", "J", "Jzz", default_args)
-keymap("v", "K", "Kzz", default_args)
+vim.keymap.set("n", "n", "nzz", opts)
+vim.keymap.set("n", "N", "Nzz", opts)
+vim.keymap.set("n", "j", "jzz", opts)
+vim.keymap.set("n", "k", "kzz", opts)
+vim.keymap.set("v", "j", "jzz", opts)
+vim.keymap.set("v", "k", "kzz", opts)
+vim.keymap.set("v", "J", "Jzz", opts)
+vim.keymap.set("v", "K", "Kzz", opts)
 
 -- substitute highlighted word
-keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
+vim.keymap.set("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
 
 -- move highlighted
-keymap("v", "J", ":m '>+1<CR>gv=gvzz", default_args)
-keymap("v", "K", ":m '<-2<CR>gv=gvzz", default_args)
-keymap("v", "H", "<gv", default_args)
-keymap("v", "L", ">gv", default_args)
-
--- highlight groups --------------------------------------------
-function highlight(group, args)
-    vim.api.nvim_set_hl(0, group, args)
-end
-
-highlight("Normal", { bg = "None" })
-highlight("NormalNC", { link = "Normal" })
-
-highlight("CursorLine", { bg = "#3a3a3a" })
-highlight("Visual", { link = "CursorLine" })
-
-highlight("NonText", { fg = "#000000" })
-
-highlight("LineNr", { fg = "#6c6c6c" })
-highlight("CursorLineNr", { fg = "#af87ff" })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gvzz", opts)
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gvzz", opts)
+vim.keymap.set("v", "H", "<gv", opts)
+vim.keymap.set("v", "L", ">gv", opts)
 
 -- plugins -----------------------------------------------------
 

@@ -1,4 +1,5 @@
 return {
     "jiangmiao/auto-pairs",
-    lazy = false,
+    lazy = true,
+    event = "InsertEnter",
 }
