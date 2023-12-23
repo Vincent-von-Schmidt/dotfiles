@@ -58,9 +58,30 @@ return {
                 { name = "luasnip" },
                 { name = "buffer" },
             },
-            mapping = cmp.mapping.preset.insert({
+            mapping = {
                 ["<c-y>"] = cmp.mapping.confirm({ select = true }),
-            }),
+
+                ["<c-n>"] = cmp.mapping(function()
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    elseif luasnip.expand_or_jumpable() then
+                        luasnip.expand_or_jump()
+                    else
+                        fallback()
+                    end
+                end),
+
+                ["<c-p>"] = cmp.mapping(function()
+                    if cmp.visible() then
+                        cmp.select_prev_item()
+                    elseif luasnip.jumpable(-1) then
+                        luasnip.jump(-1)
+                    else
+                        fallback()
+                    end
+                end),
+
+            },
         })
 
     end,

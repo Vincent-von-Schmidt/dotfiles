@@ -20,8 +20,16 @@ vim.opt.termguicolors = true
 -- backups
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undofile = true
+vim.cmd([[
+    if !isdirectory($HOME."/.vim")
+        call mkdir($HOME."/.vim", "", 0770)
+    endif
+    if !isdirectory($HOME."/.vim/undodir")
+        call mkdir($HOME."/.vim/undodir", "", 0700)
+    endif
+]])
 vim.opt.undodir = "$HOME/.vim/undodir"
+vim.opt.undofile = true
 
 -- design
 vim.opt.hlsearch = false
