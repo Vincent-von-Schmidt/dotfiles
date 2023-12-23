@@ -27,9 +27,10 @@ vim.cmd([[
     if !isdirectory($HOME."/.vim/undodir")
         call mkdir($HOME."/.vim/undodir", "", 0700)
     endif
+
+    set undodir=~/.vim/undodir
+    set undofile
 ]])
-vim.opt.undodir = "$HOME/.vim/undodir"
-vim.opt.undofile = true
 
 -- design
 vim.opt.hlsearch = false
