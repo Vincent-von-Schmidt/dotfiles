@@ -6,6 +6,7 @@ return {
     lazy = true,
     keys = {
         { "<leader>q", ":Oil --float . <CR>", { silent = true, noremap = true }, },
+        { "<leader>w", ":Oil --float <CR>", { silent = true, noremap = true } },
     },
     config = function()
 
