@@ -221,6 +221,48 @@ font:
 #draw_bold_text_with_bright_colors: true
 
 # Colors (Tomorrow Night Bright)
+# colors:
+#   # Default colors
+#   primary:
+#     # background: '0x1A1A1A'
+#     background: '0x111111'
+#     foreground: '0xF2F2F2'
+#
+#   # Colors the cursor will use if `custom_cursor_colors` is true
+#   cursor:
+#     text: '0x002b36'
+#     cursor: '0xFFFFFF'
+#
+#   # Normal colors
+#   normal:
+#     black:   '0x0C0C0C'
+#     red:     '0xC50F1F'
+#     green:   '0x13A10E'
+#     yellow:  '0xC19C00'
+#     blue:    '0x0037DA'
+#     magenta: '0x881798'
+#     cyan:    '0x3A96DD'
+#     white:   '0xCCCCCC'
+#
+#   # Bright colors
+#   bright:
+#     black:   '0x767676'
+#     red:     '0xE74856'
+#     green:   '0x16C606'
+#     yellow:  '0xF9F1A5'
+#     blue:    '0x3B78FF'
+#     magenta: '0xB4009E'
+#     cyan:    '0x61D6D6'
+#     white:   '0xF2F2F2'
+#
+#   indexed_colors:
+#     - { index: 16, color: '0xcb4b16' }
+#     - { index: 17, color: '0xd33682' }
+#     - { index: 18, color: '0x073642' }
+#     - { index: 19, color: '0x586e75' }
+#     - { index: 20, color: '0x839496' }
+#     - { index: 21, color: '0xeee8d5' }
+
 colors:
   # Default colors
   primary:
