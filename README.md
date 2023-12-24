@@ -1,11 +1,7 @@
 # dotfiles
-## used software
-- zsh
-- starship
-- tmux
-- neovim
-- fzf
-- fd
-- ripgrep
-- cmake
-- make
+## install neovim
+````sh
+add-apt-repository ppa:neovim-ppa/unstable
+apt-get update
+apt-get install -y neovim npm unzip make
+````
