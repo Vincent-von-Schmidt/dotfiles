@@ -71,6 +71,34 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gvzz", opts)
 vim.keymap.set("v", "H", "<gv", opts)
 vim.keymap.set("v", "L", ">gv", opts)
 
+-- autocmd -----------------------------------------------------
+
+-- python
+local filetype_python = vim.api.nvim_create_augroup("python", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*.py",
+    group = filetype_python,
+    callback = function()
+
+        -- press F5 to execute current file
+        vim.keymap.set("n", "<F5>", string.format(":!python3 %s <CR>", vim.fn.expand("%")), opts)
+
+    end
+})
+
+-- rust
+local filetype_rust = vim.api.nvim_create_augroup("rust", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*.rs",
+    group = filetype_rust,
+    callback = function()
+
+        -- press F5 to execute current cargo project
+        vim.keymap.set("n", "<F5>", ":!cargo run <CR>", opts)
+
+    end
+})
+
 -- plugins -----------------------------------------------------
 
 -- bootstrap lazy.nvim

@@ -16,6 +16,7 @@ return {
             "clangd",
             "pyright",
             "rust_analyzer",
+            "hls",
         }
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()
