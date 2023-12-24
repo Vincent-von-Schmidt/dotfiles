@@ -19,12 +19,14 @@ eval "$(starship init zsh)"
 STARSHIP_CONFIG=~/.config/starship.toml
 
 # alias
-alias ll="ls -alF --color=always | sort -r" 
+alias ll="ls -alF --color=always" 
 alias tree="tree -a"
 alias home="cd /mnt/c/Users/Vincent/"
+alias v="fzf | xargs nvim {}"
 
 # config files
 export XDG_CONFIG_HOME=$HOME/.config/
+export WIN_HOME=/mnt/c/Users/Vincent/
 
 # auto tmux
 [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
