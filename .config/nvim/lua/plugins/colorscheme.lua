@@ -3,7 +3,7 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-        
+
         require("nightfox").setup({
             options = {
                 transparent = true,
@@ -18,6 +18,9 @@ return {
         vim.api.nvim_set_hl(0, "Float2Border", { fg = "#2f2f2f", bg = "#2f2f2f" })
         vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#2b3339", bg = "#e67e80" })
         vim.api.nvim_set_hl(0, "Float2Title", { fg = "#2b3339", bg = "#83c092" })
+
+        -- visual selection
+        vim.api.nvim_set_hl(0, "Visual", { link = "CursorLine" })
 
     end,
 }
