@@ -1,4 +1,4 @@
--- editor ------------------------------------------------------  
+-- editor ------------------------------------------------------
 
 -- linenumbers
 vim.opt.relativenumber = true
@@ -79,11 +79,9 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     pattern = "*.py",
     group = filetype_python,
     callback = function()
-
         -- press F5 to execute current file
         vim.keymap.set("n", "<F5>", string.format(":!python3 %s <CR>", vim.fn.expand("%")), opts)
-
-    end
+    end,
 })
 
 -- rust
@@ -92,11 +90,9 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     pattern = "*.rs",
     group = filetype_rust,
     callback = function()
-
         -- press F5 to execute current cargo project
         vim.keymap.set("n", "<F5>", ":!cargo run <CR>", opts)
-
-    end
+    end,
 })
 
 -- plugins -----------------------------------------------------

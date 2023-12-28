@@ -1,6 +1,7 @@
 return {
-    "williamboman/mason.nvim",
+    "neovim/nvim-lspconfig",
     dependencies = {
+        "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
         "hrsh7th/nvim-cmp",
@@ -10,8 +11,9 @@ return {
     },
     lazy = false,
     config = function()
+        require("mason").setup()
 
-        local lsp_servers = {
+        local lsp_server = {
             "lua_ls",
             "clangd",
             "pyright",
@@ -28,15 +30,13 @@ return {
             vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
         end
 
-        require("mason").setup()
-
         require("mason-lspconfig").setup({
-            ensure_installed = lsp_servers,
+            ensure_installed = lsp_server,
         })
 
         local lspconfig = require("lspconfig")
 
-        for _, lsp in ipairs(lsp_servers) do
+        for _, lsp in ipairs(lsp_server) do
             lspconfig[lsp].setup({
                 on_attach = on_attach,
                 capabilities = capabilities,
@@ -64,8 +64,6 @@ return {
                 ["<c-n>"] = cmp.mapping(function()
                     if cmp.visible() then
                         cmp.select_next_item()
-                    elseif luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump()
                     else
                         fallback()
                     end
@@ -81,8 +79,22 @@ return {
                     end
                 end),
 
+                ["<tab>"] = cmp.mapping(function()
+                    if luasnip.expand_or_jumpable() then
+                        luasnip.expand_or_jump()
+                    else
+                        fallback()
+                    end
+                end),
+
+                ["<s-tab>"] = cmp.mapping(function()
+                    if luasnip.jumpable(-1) then
+                        luasnip.jump(-1)
+                    else
+                        fallback()
+                    end
+                end),
             },
         })
-
     end,
 }
