@@ -4,7 +4,6 @@ return {
         build = ":TSUpdate",
         lazy = false,
         config = function()
-
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
                     "vim",
@@ -14,10 +13,10 @@ return {
                     "rust",
                     "haskell",
                 },
-                highlight = { enable = true, },
-                indent = { enable = true, },
+                auto_install = true,
+                highlight = { enable = true },
+                indent = { enable = true },
             })
-
         end,
     },
     { -- sticky strolling
@@ -27,10 +26,8 @@ return {
         },
         lazy = false,
         config = function()
-
             require("treesitter-context").setup()
             vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#1e1e1e" })
-
         end,
     },
 }

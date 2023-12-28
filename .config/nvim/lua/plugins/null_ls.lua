@@ -13,12 +13,10 @@ return {
             "stylua", -- lua
             "black", -- python
             "isort", -- python
-            "clang-format", -- python
             "rustfmt", -- rust
         }
 
         local linter = {
-            "selene", -- lua
             "pylint", -- python
             "cpplint", -- c / c++
         }
@@ -49,6 +47,7 @@ return {
         vim.api.nvim_create_autocmd({ "BufWritePre" }, {
             callback = function()
                 vim.lsp.buf.format()
+                vim.cmd('execute "normal! zz"') -- TODO
             end,
         })
     end,
