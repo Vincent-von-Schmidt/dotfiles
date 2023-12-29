@@ -47,8 +47,11 @@ return {
         luasnip.config.setup({})
 
         -- load snippets
-        require("luasnip.loaders.from_lua").lazy_load({
-            paths = { "./lua/luasnippets" },
+        -- require("luasnip.loaders.from_lua").lazy_load({
+        --     paths = { "./lua/luasnippets" },
+        -- })
+        require("luasnip.loaders.from_snipmate").lazy_load({
+            paths = { "./lua/snippets" },
         })
 
         local cmp = require("cmp")
@@ -70,7 +73,7 @@ return {
                     if cmp.visible() then
                         cmp.select_next_item()
                     else
-                        fallback()
+                        vim.cmd('execute "normal! i\\<c-n>"')
                     end
                 end),
 
@@ -80,7 +83,7 @@ return {
                     elseif luasnip.jumpable(-1) then
                         luasnip.jump(-1)
                     else
-                        fallback()
+                        vim.cmd('execute "normal! i\\<c-p>"')
                     end
                 end),
 
@@ -88,17 +91,17 @@ return {
                     if luasnip.expand_or_jumpable() then
                         luasnip.expand_or_jump()
                     else
-                        fallback()
+                        vim.cmd('execute "normal! i\\<tab> "')
                     end
-                end),
+                end, { "i", "s" }),
 
                 ["<s-tab>"] = cmp.mapping(function()
                     if luasnip.jumpable(-1) then
                         luasnip.jump(-1)
                     else
-                        fallback()
+                        vim.cmd('execute "normal! i\\<s-tab>"')
                     end
-                end),
+                end, { "i", "s" }),
             },
         })
     end,

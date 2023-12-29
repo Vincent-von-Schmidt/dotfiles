@@ -1,6 +1,10 @@
 {
     "diagnostics.globals": [
         "vim",
-        "t"
+        "t",
+        "i",
+        "sn",
+        "s",
+        "isn"
     ]
 }
