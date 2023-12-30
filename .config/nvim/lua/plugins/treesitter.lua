@@ -27,7 +27,7 @@ return {
         lazy = false,
         config = function()
             require("treesitter-context").setup()
-            vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#1e1e1e" })
+            vim.api.nvim_set_hl(0, "TreesitterContext", { link = "NormalFloat" })
         end,
     },
 }

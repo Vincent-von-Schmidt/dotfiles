@@ -9,31 +9,37 @@ return {
     config = function()
         require("mason").setup()
 
-        local formatter = {
-            "stylua", -- lua
-            "black", -- python
-            "isort", -- python
-            "rustfmt", -- rust
-        }
-
-        local linter = {
-            "pylint", -- python
-            "cpplint", -- c / c++
+        -- filetype / formatter / linter
+        local apps = {
+            -- { { "lua" },      { "stylua" },         {} },
+            { { "python" },        { "black", "isort" }, { "pylint" } },
+            { { "rust" },          { "rustfmt" },        {} },
+            { { "c", "cpp", "h" }, {},                   { "cpplint" } },
         }
 
         local install = {}
         local sources = {}
+        local filetypes = {}
 
         local null_ls = require("null-ls")
 
-        for _, el in ipairs(formatter) do
-            table.insert(sources, null_ls.builtins.formatting[el])
-            table.insert(install, el)
-        end
+        for _, type in ipairs(apps) do
+            -- filetypes
+            for _, filetype in ipairs(type[1]) do
+                table.insert(type, string.format("*.%s", filetype))
+            end
 
-        for _, el in ipairs(linter) do
-            table.insert(sources, null_ls.builtins.diagnostics[el])
-            table.insert(install, el)
+            -- formatter
+            for _, formatter in ipairs(type[2]) do
+                table.insert(install, formatter)
+                table.insert(sources, null_ls.builtins.formatting[formatter])
+            end
+
+            -- linter
+            for _, linter in ipairs(type[3]) do
+                table.insert(install, linter)
+                table.insert(sources, null_ls.builtins.diagnostics[linter])
+            end
         end
 
         require("mason-null-ls").setup({
@@ -45,6 +51,7 @@ return {
         })
 
         vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+            pattern = filetypes,
             callback = function()
                 vim.lsp.buf.format()
                 vim.cmd('execute "normal! zz"') -- TODO

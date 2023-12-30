@@ -5,6 +5,10 @@
         "i",
         "sn",
         "s",
-        "isn"
+        "isn",
+        "d"
+    ],
+    "diagnostics.disable": [
+        "unused-local"
     ]
 }
