@@ -50,9 +50,6 @@ return {
         require("luasnip.loaders.from_lua").lazy_load({
             paths = { "./lua/luasnippets" },
         })
-        -- require("luasnip.loaders.from_snipmate").lazy_load({
-        --     paths = { "./lua/snippets" },
-        -- })
 
         local cmp = require("cmp")
         cmp.setup({
@@ -62,45 +59,50 @@ return {
                 end,
             },
             sources = {
-                { name = "nvim_lsp" },
                 { name = "luasnip" },
+                { name = "nvim_lsp" },
                 { name = "buffer" },
             },
             mapping = {
                 ["<c-y>"] = cmp.mapping.confirm({ select = true }),
+                ["<c-k>"] = cmp.mapping.scroll_docs(-4),
+                ["<c-j>"] = cmp.mapping.scroll_docs(4),
 
-                ["<c-n>"] = cmp.mapping(function()
+                ["<c-n>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
                     else
-                        vim.cmd('execute "normal! i\\<c-n>"')
+                        fallback()
                     end
                 end),
 
-                ["<c-p>"] = cmp.mapping(function()
+                ["<c-p>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_prev_item()
                     else
-                        vim.cmd('execute "normal! i\\<c-p>"')
+                        fallback()
                     end
                 end),
 
-                ["<tab>"] = cmp.mapping(function()
+                ["<tab>"] = cmp.mapping(function(fallback)
                     if luasnip.expand_or_jumpable() then
                         luasnip.expand_or_jump()
                     else
-                        vim.cmd('execute "normal! i\\<tab> "')
+                        fallback()
                     end
                 end, { "i", "s" }),
 
-                ["<s-tab>"] = cmp.mapping(function()
+                ["<s-tab>"] = cmp.mapping(function(fallback)
                     if luasnip.jumpable(-1) then
                         luasnip.jump(-1)
                     else
-                        vim.cmd('execute "normal! i\\<s-tab>"')
+                        fallback()
                     end
                 end, { "i", "s" }),
             },
         })
+
+        -- design
+        -- vim.api.nvim_set_highlight(0, "CmpItemMenu", { link = "NormalFloat" })
     end,
 }
