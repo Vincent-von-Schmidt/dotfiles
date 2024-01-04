@@ -40,6 +40,7 @@ vim.o.showtabline = 0
 
 -- keybinds - non plugin specific ------------------------------
 local opts = { silent = true, noremap = true }
+-- vim.env.key_opts = { silent = true, noremap = true }
 
 -- leader
 vim.keymap.set("", "<Space>", "<Nop>", opts)
@@ -80,7 +81,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = filetype_python,
     callback = function()
         -- press F5 to execute current file
-        vim.keymap.set("n", "<F5>", string.format(":!python3 %s <CR>", vim.fn.expand("%")), opts)
+        vim.keymap.set("n", "<F5>", string.format(":vs term://python3 %s <CR>", vim.fn.expand("%")), opts)
     end,
 })
 
@@ -91,8 +92,36 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = filetype_rust,
     callback = function()
         -- press F5 to execute current cargo project
-        vim.keymap.set("n", "<F5>", ":!cargo run <CR>", opts)
+        vim.keymap.set("n", "<F5>", ":vs term://cargo run <CR>", opts)
     end,
+})
+
+-- terminal ----------------------------------------------------
+
+local terminal = vim.api.nvim_create_augroup("term", { clear = true })
+
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+    group = terminal,
+    callback = function()
+        -- esc
+        vim.keymap.set("t", "<c-e>", "<c-\\><c-n>", opts)
+    end
+})
+vim.api.nvim_create_autocmd({ "TermEnter" }, {
+    group = terminal,
+    callback = function()
+        -- terminal mode
+        vim.opt.relativenumber = false
+        vim.opt.number = false
+    end
+})
+vim.api.nvim_create_autocmd({ "TermLeave" }, {
+    group = terminal,
+    callback = function()
+        -- normal mode
+        vim.opt.relativenumber = true
+        vim.opt.number = true
+    end
 })
 
 -- plugins -----------------------------------------------------
@@ -113,3 +142,10 @@ vim.opt.rtp:prepend(lazypath)
 
 -- lazy.nvim
 require("lazy").setup("plugins")
+
+-- gui ---------------------------------------------------------
+
+-- gui test -> for windows use through wsl
+if vim.g.neovide then
+    vim.o.guifont = "JetBrainsMono Nerd Font Mono:h11"
+end
