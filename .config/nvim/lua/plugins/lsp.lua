@@ -6,6 +6,9 @@ return {
         "neovim/nvim-lspconfig",
         "hrsh7th/nvim-cmp",
         "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "andersevenrud/cmp-tmux",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
     },
@@ -62,6 +65,8 @@ return {
                 { name = "luasnip" },
                 { name = "nvim_lsp" },
                 { name = "buffer" },
+                { name = "path" },
+                { name = "tmux" },
             },
             mapping = {
                 ["<c-y>"] = cmp.mapping.confirm({ select = true }),

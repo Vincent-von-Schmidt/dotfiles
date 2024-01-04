@@ -12,8 +12,8 @@ return {
         -- filetype / formatter / linter
         local apps = {
             -- { { "lua" },      { "stylua" },         {} },
-            { { "python" },        { "black", "isort" }, { "pylint" } },
-            { { "rust" },          { "rustfmt" },        {} },
+            { { "py" },            { "black", "isort" }, { "pylint" } },
+            { { "rs" },            { "rustfmt" },        {} },
             { { "c", "cpp", "h" }, {},                   { "cpplint" } },
         }
 
@@ -50,8 +50,10 @@ return {
             sources = sources,
         })
 
+        local null = vim.api.nvim_create_augroup("null", { clear = true })
         vim.api.nvim_create_autocmd({ "BufWritePre" }, {
             pattern = filetypes,
+            group = null,
             callback = function()
                 vim.lsp.buf.format()
                 vim.cmd('execute "normal! zz"') -- TODO
