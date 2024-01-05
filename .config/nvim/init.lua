@@ -117,7 +117,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
 -- terminal ----------------------------------------------------
 
--- open new terminal bufffer in current working directory on the left
+-- open new terminal bufffer in current working directory
 vim.keymap.set("n", "<leader>o", ":vs term://zsh <CR>i", opts)
 vim.keymap.set("n", "<leader>c", ":enew<CR>:terminal zsh<CR>i", opts)
 
@@ -128,10 +128,10 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
     callback = function()
         -- esc
         vim.keymap.set("t", "<c-e>", "<c-\\><c-n>", opts)
-        vim.keymap.set("t", execute_project_keymap, "<c-\\><c-n>:q!<CR>", opts)
+        vim.keymap.set("t", execute_project_keymap, "<c-\\><c-n>:bunload!<CR>", opts)
 
         -- close terminal buffer
-        vim.keymap.set("n", execute_project_keymap, ":q! <CR>", opts)
+        vim.keymap.set("n", execute_project_keymap, ":bunload! <CR>", opts)
     end,
 })
 
