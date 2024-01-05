@@ -12,10 +12,11 @@ return {
 
         -- filetype / formatter / linter
         local apps = {
-            -- { { "lua" },      { "stylua" },         {} },
+            { { "lua" },           { "stylua" },         {} },
             { { "py" },            { "black", "isort" }, { "pylint" } },
             { { "rs" },            { "rustfmt" },        {} },
             { { "c", "cpp", "h" }, {},                   { "cpplint" } },
+            { { "hs" },            { "fourmolu" },       {} },
         }
 
         local install = {}

@@ -84,7 +84,12 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = filetype_python,
     callback = function()
         -- execute current python file
-        vim.keymap.set("n", execute_project_keymap, string.format(":vs term://python3 %s <CR>", vim.fn.expand("%")), opts)
+        vim.keymap.set(
+            "n",
+            execute_project_keymap,
+            string.format(":vs term://python3 %s <CR>", vim.fn.expand("%")),
+            opts
+        )
     end,
 })
 
@@ -127,7 +132,7 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 
         -- close terminal buffer
         vim.keymap.set("n", execute_project_keymap, ":q! <CR>", opts)
-    end
+    end,
 })
 
 -- terminal mode
@@ -136,7 +141,7 @@ vim.api.nvim_create_autocmd({ "TermEnter" }, {
     callback = function()
         vim.opt.relativenumber = false
         vim.opt.number = false
-    end
+    end,
 })
 
 -- normal mode
@@ -145,7 +150,7 @@ vim.api.nvim_create_autocmd({ "TermLeave" }, {
     callback = function()
         vim.opt.relativenumber = true
         vim.opt.number = true
-    end
+    end,
 })
 
 -- plugins -----------------------------------------------------

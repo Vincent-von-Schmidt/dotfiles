@@ -17,11 +17,18 @@ end
 
 return {
     s("debug", {
-        t('print(f"{'), i(0, "()"), t(' = }")'),
+        t('print(f"{'),
+        i(0, "()"),
+        t(' = }")'),
     }),
     s("function", {
-        t("def "), i(1, "NAME"), t("("), i(2, "ARGS", { key = "args-key" }), t(") -> "),
-        i(3, "RETURN", { key = "return-key" }), t(":"),
+        t("def "),
+        i(1, "NAME"),
+        t("("),
+        i(2, "ARGS", { key = "args-key" }),
+        t(") -> "),
+        i(3, "RETURN", { key = "return-key" }),
+        t(":"),
         isn(4, {
             t({ "", '"""', "" }),
             i(1, "DESC"),
@@ -38,7 +45,7 @@ return {
 
                     table.insert(output, t(string.format(":param %s %s: ", declaration_split[2], declaration_split[1])))
                     table.insert(output, i(jump_index))
-                    table.insert(output, t { "", "" })
+                    table.insert(output, t({ "", "" }))
 
                     jump_index = jump_index + 1
                 end
