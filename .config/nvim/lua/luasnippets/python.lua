@@ -1,4 +1,3 @@
--- require("util.string")
 local k = require("luasnip.nodes.key_indexer").new_key
 
 local function string_trim(input_string)

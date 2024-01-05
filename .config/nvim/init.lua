@@ -72,6 +72,9 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gvzz", opts)
 vim.keymap.set("v", "H", "<gv", opts)
 vim.keymap.set("v", "L", ">gv", opts)
 
+-- execute project
+local execute_project_keymap = "<leader>r"
+
 -- autocmd -----------------------------------------------------
 
 -- python
@@ -80,8 +83,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     pattern = "*.py",
     group = filetype_python,
     callback = function()
-        -- press F5 to execute current file
-        vim.keymap.set("n", "<F5>", string.format(":vs term://python3 %s <CR>", vim.fn.expand("%")), opts)
+        -- execute current python file
+        vim.keymap.set("n", execute_project_keymap, string.format(":vs term://python3 %s <CR>", vim.fn.expand("%")), opts)
     end,
 })
 
@@ -91,12 +94,26 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     pattern = "*.rs",
     group = filetype_rust,
     callback = function()
-        -- press F5 to execute current cargo project
-        vim.keymap.set("n", "<F5>", ":vs term://cargo run <CR>", opts)
+        -- execute current cargo project
+        vim.keymap.set("n", execute_project_keymap, ":vs term://cargo run <CR>", opts)
+    end,
+})
+
+-- haskell
+local filetype_haskell = vim.api.nvim_create_augroup("haskell", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*.hs",
+    group = filetype_haskell,
+    callback = function()
+        -- open current file with ghci
+        vim.keymap.set("n", execute_project_keymap, string.format(":vs term://ghci %s <CR>i", vim.fn.expand("%")), opts)
     end,
 })
 
 -- terminal ----------------------------------------------------
+
+-- open new terminal bufffer in current working directory on the left
+vim.keymap.set("n", "<leader>o", ":vs term://zsh <CR>i", opts)
 
 local terminal = vim.api.nvim_create_augroup("term", { clear = true })
 
@@ -105,20 +122,26 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
     callback = function()
         -- esc
         vim.keymap.set("t", "<c-e>", "<c-\\><c-n>", opts)
+        vim.keymap.set("t", execute_project_keymap, "<c-\\><c-n>:q!<CR>", opts)
+
+        -- close terminal buffer
+        vim.keymap.set("n", execute_project_keymap, ":q! <CR>", opts)
     end
 })
+
+-- terminal mode
 vim.api.nvim_create_autocmd({ "TermEnter" }, {
     group = terminal,
     callback = function()
-        -- terminal mode
         vim.opt.relativenumber = false
         vim.opt.number = false
     end
 })
+
+-- normal mode
 vim.api.nvim_create_autocmd({ "TermLeave" }, {
     group = terminal,
     callback = function()
-        -- normal mode
         vim.opt.relativenumber = true
         vim.opt.number = true
     end
