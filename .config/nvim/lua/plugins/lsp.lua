@@ -12,7 +12,8 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
     },
-    lazy = false,
+    lazy = true,
+    event = "BufReadPre",
     config = function()
         require("mason").setup()
 

@@ -5,7 +5,8 @@ return {
         "nvim-lua/plenary.nvim",
         "jay-babu/mason-null-ls.nvim",
     },
-    lazy = false,
+    lazy = true,
+    event = "BufReadPre",
     config = function()
         require("mason").setup()
 
