@@ -118,6 +118,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 -- terminal ----------------------------------------------------
 
 -- open new terminal bufffer in current working directory
+-- temporary -> just a test -> TODO
 vim.keymap.set("n", "<leader>o", ":vs term://zsh <CR>i", opts)
 vim.keymap.set("n", "<leader>c", ":enew<CR>:terminal zsh<CR>i", opts)
 
@@ -171,10 +172,3 @@ vim.opt.rtp:prepend(lazypath)
 
 -- lazy.nvim
 require("lazy").setup("plugins")
-
--- gui ---------------------------------------------------------
-
--- gui test -> for windows use through wsl
-if vim.g.neovide then
-    vim.o.guifont = "JetBrainsMono Nerd Font Mono:h11"
-end
