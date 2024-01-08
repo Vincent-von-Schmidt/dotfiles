@@ -115,6 +115,17 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     end,
 })
 
+-- lua
+local filetype_lua = vim.api.nvim_create_augroup("lua", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*.lua",
+    group = filetype_lua,
+    callback = function()
+        -- source current file in neovim
+        vim.keymap.set("n", execute_project_keymap, ":so<CR>", opts)
+    end,
+})
+
 -- terminal ----------------------------------------------------
 
 -- open new terminal bufffer in current working directory
