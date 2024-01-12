@@ -130,8 +130,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
 -- open new terminal bufffer in current working directory
 -- temporary -> just a test -> TODO
-vim.keymap.set("n", "<leader>o", ":vs term://zsh <CR>i", opts)
-vim.keymap.set("n", "<leader>c", ":enew<CR>:terminal zsh<CR>i", opts)
+-- vim.keymap.set("n", "<leader>o", ":vs term://zsh <CR>i", opts)
+-- vim.keymap.set("n", "<leader>c", ":enew<CR>:terminal zsh<CR>i", opts)
 
 local terminal = vim.api.nvim_create_augroup("term", { clear = true })
 
