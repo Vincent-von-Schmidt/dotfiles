@@ -3,8 +3,6 @@ return {
     lazy = true,
     event = "VeryLazy",
     config = function()
-
         require("nvim-surround").setup()
-
     end,
 }
