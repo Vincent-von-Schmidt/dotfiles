@@ -14,8 +14,8 @@ vim.opt.smartindent = true
 -- global clipboard
 vim.o.clipboard = "unnamedplus"
 
--- color mode
-vim.opt.termguicolors = true
+-- disable mouse
+vim.cmd("set mouse = ")
 
 -- backups
 vim.opt.swapfile = false
@@ -31,6 +31,9 @@ vim.cmd([[
     set undodir=~/.vim/undodir
     set undofile
 ]])
+
+-- color mode
+vim.opt.termguicolors = true
 
 -- design
 vim.opt.hlsearch = false
