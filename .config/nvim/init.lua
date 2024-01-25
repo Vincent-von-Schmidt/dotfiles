@@ -135,7 +135,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     pattern = "*.c",
     group = filetype_c,
     callback = function()
-        -- source current file in neovim
+        -- compile the current c file, run the binary and delete the binary
         vim.keymap.set(
             "n",
             execute_project_keymap,
