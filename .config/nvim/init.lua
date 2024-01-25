@@ -129,6 +129,22 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     end,
 })
 
+-- c
+local filetype_c = vim.api.nvim_create_augroup("c", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*.c",
+    group = filetype_c,
+    callback = function()
+        -- source current file in neovim
+        vim.keymap.set(
+            "n",
+            execute_project_keymap,
+            string.format(":vs term://gcc -o a.out %s && ./a.out && rm a.out <CR>", vim.fn.expand("%")),
+            opts
+        )
+    end,
+})
+
 -- terminal ----------------------------------------------------
 
 -- open new terminal bufffer in current working directory
