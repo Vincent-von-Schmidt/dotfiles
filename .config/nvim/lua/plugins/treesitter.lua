@@ -1,3 +1,5 @@
+local vim_util = require("utils.vim")
+
 return {
     {
         "nvim-treesitter/nvim-treesitter",
@@ -32,7 +34,7 @@ return {
         event = "UIEnter",
         config = function()
             require("treesitter-context").setup()
-            vim.api.nvim_set_hl(0, "TreesitterContext", { link = "NormalFloat" })
+            vim_util.highlight("TreesitterContext", { link = "NormalFloat" })
         end,
     },
 }

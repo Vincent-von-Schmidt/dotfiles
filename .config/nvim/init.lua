@@ -1,3 +1,5 @@
+local vim_util = require("utils.vim")
+
 -- editor ------------------------------------------------------
 
 -- linenumbers
@@ -42,105 +44,109 @@ vim.opt.cursorline = true
 vim.o.showtabline = 0
 
 -- keybinds - non plugin specific ------------------------------
-local opts = { silent = true, noremap = true }
--- vim.env.key_opts = { silent = true, noremap = true }
 
 -- leader
-vim.keymap.set("", "<Space>", "<Nop>", opts)
+vim_util.keymap("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 
 -- esc
-vim.keymap.set("i", "<c-e>", "<esc>", opts)
-vim.keymap.set("v", "<c-e>", "<esc>", opts)
-vim.keymap.set("c", "<c-e>", "<esc>", opts)
-vim.keymap.set("n", "<c-e>", "<esc>", opts)
-vim.keymap.set("v", "<cr>", "<esc>", opts)
+vim_util.keymap("i", "<c-e>", "<esc>")
+vim_util.keymap("v", "<c-e>", "<esc>")
+vim_util.keymap("c", "<c-e>", "<esc>")
+vim_util.keymap("n", "<c-e>", "<esc>")
+vim_util.keymap("v", "<cr>", "<esc>")
 
 -- auto center
-vim.keymap.set("n", "n", "nzz", opts)
-vim.keymap.set("n", "N", "Nzz", opts)
-vim.keymap.set("n", "j", "jzz", opts)
-vim.keymap.set("n", "k", "kzz", opts)
-vim.keymap.set("v", "j", "jzz", opts)
-vim.keymap.set("v", "k", "kzz", opts)
-vim.keymap.set("v", "J", "Jzz", opts)
-vim.keymap.set("v", "K", "Kzz", opts)
+vim_util.keymap("n", "n", "nzz")
+vim_util.keymap("n", "N", "Nzz")
+vim_util.keymap("n", "j", "jzz")
+vim_util.keymap("n", "k", "kzz")
+vim_util.keymap("n", "}", "}zz")
+vim_util.keymap("n", "{", "{zz")
+vim_util.keymap("v", "j", "jzz")
+vim_util.keymap("v", "k", "kzz")
+vim_util.keymap("v", "J", "Jzz")
+vim_util.keymap("v", "K", "Kzz")
+vim_util.keymap("v", "}", "}zz")
+vim_util.keymap("v", "{", "{zz")
 
 -- substitute highlighted word
-vim.keymap.set("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
+vim_util.keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
 
 -- move highlighted
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gvzz", opts)
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gvzz", opts)
-vim.keymap.set("v", "H", "<gv", opts)
-vim.keymap.set("v", "L", ">gv", opts)
+vim_util.keymap("v", "J", ":m '>+1<CR>gv=gvzz")
+vim_util.keymap("v", "K", ":m '<-2<CR>gv=gvzz")
+vim_util.keymap("v", "H", "<gv")
+vim_util.keymap("v", "L", ">gv")
 
 -- execute project
 local execute_project_keymap = "<leader>r"
 
 -- autocmd -----------------------------------------------------
 
+local misc = vim_util.autogroup("misc")
+vim_util.autocmd({ "BufReadPost" }, {
+    desc = "go to last edited position on opening file",
+    group = misc,
+    pattern = "*",
+    command = 'silent! normal! g`"zvzz',
+})
+
 -- python
-local filetype_python = vim.api.nvim_create_augroup("python", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    pattern = "*.py",
-    group = filetype_python,
+vim_util.autocmd({ "FileType" }, {
+    desc = "filetype -> python",
+    pattern = "python",
+    group = vim_util.autogroup("python"),
     callback = function()
         -- execute current python file
-        vim.keymap.set(
-            "n",
-            execute_project_keymap,
-            string.format(":vs term://python3 %s <CR>", vim.fn.expand("%")),
-            opts
-        )
+        vim_util.keymap("n", execute_project_keymap, string.format(":vs term://python3 %s <CR>", vim.fn.expand("%")))
     end,
 })
 
 -- rust
-local filetype_rust = vim.api.nvim_create_augroup("rust", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    pattern = "*.rs",
-    group = filetype_rust,
+vim_util.autocmd({ "FileType" }, {
+    desc = "filetype -> rust",
+    pattern = "rust",
+    group = vim_util.autogroup("rust"),
     callback = function()
         -- execute current cargo project
-        vim.keymap.set("n", execute_project_keymap, ":vs term://cargo run <CR>", opts)
+        vim_util.keymap("n", execute_project_keymap, ":vs term://cargo run <CR>")
     end,
 })
 
 -- haskell
-local filetype_haskell = vim.api.nvim_create_augroup("haskell", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    pattern = "*.hs",
-    group = filetype_haskell,
+vim_util.autocmd({ "FileType" }, {
+    desc = "filetype -> haskell",
+    pattern = "haskell",
+    group = vim_util.autogroup("haskell"),
     callback = function()
         -- open current file with ghci
-        vim.keymap.set("n", execute_project_keymap, string.format(":vs term://ghci %s <CR>i", vim.fn.expand("%")), opts)
+        vim_util.keymap("n", execute_project_keymap, string.format(":vs term://ghci %s <CR>i", vim.fn.expand("%")))
     end,
 })
 
 -- lua
-local filetype_lua = vim.api.nvim_create_augroup("lua", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    pattern = "*.lua",
-    group = filetype_lua,
+vim_util.autocmd({ "FileType" }, {
+    desc = "filetype -> lua",
+    pattern = "lua",
+    group = vim_util.autogroup("lua"),
     callback = function()
         -- source current file in neovim
-        vim.keymap.set("n", execute_project_keymap, ":so<CR>", opts)
+        vim_util.keymap("n", execute_project_keymap, ":so<CR>")
     end,
 })
 
 -- c
-local filetype_c = vim.api.nvim_create_augroup("c", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    pattern = "*.c",
-    group = filetype_c,
+vim_util.autocmd({ "FileType" }, {
+    desc = "filetype -> c",
+    pattern = "c",
+    group = vim_util.autogroup("c"),
     callback = function()
         -- compile the current c file, run the binary and delete the binary
-        vim.keymap.set(
+        vim_util.keymap(
             "n",
             execute_project_keymap,
-            string.format(":vs term://gcc -o a.out %s && ./a.out && rm a.out <CR>", vim.fn.expand("%")),
-            opts
+            string.format(":vs term://gcc -o a.out %s && ./a.out && rm a.out <CR>", vim.fn.expand("%"))
         )
     end,
 })
@@ -149,25 +155,25 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
 -- open new terminal bufffer in current working directory
 -- temporary -> just a test -> TODO
--- vim.keymap.set("n", "<leader>o", ":vs term://zsh <CR>i", opts)
--- vim.keymap.set("n", "<leader>c", ":enew<CR>:terminal zsh<CR>i", opts)
+-- vim_util.keymap("n", "<leader>o", ":vs term://zsh <CR>i")
+-- vim_util.keymap("n", "<leader>c", ":enew<CR>:terminal zsh<CR>i")
 
-local terminal = vim.api.nvim_create_augroup("term", { clear = true })
+local terminal = vim_util.autogroup("term")
 
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
+vim_util.autocmd({ "TermOpen" }, {
     group = terminal,
     callback = function()
         -- esc
-        vim.keymap.set("t", "<c-e>", "<c-\\><c-n>", opts)
-        vim.keymap.set("t", execute_project_keymap, "<c-\\><c-n>:bunload!<CR>", opts)
+        vim_util.keymap("t", "<c-e>", "<c-\\><c-n>")
+        vim_util.keymap("t", execute_project_keymap, "<c-\\><c-n>:bunload!<CR>")
 
         -- close terminal buffer
-        vim.keymap.set("n", execute_project_keymap, ":bunload! <CR>", opts)
+        vim_util.keymap("n", execute_project_keymap, ":bunload! <CR>")
     end,
 })
 
 -- terminal mode
-vim.api.nvim_create_autocmd({ "TermEnter" }, {
+vim_util.autocmd({ "TermEnter" }, {
     group = terminal,
     callback = function()
         vim.opt.relativenumber = false
@@ -176,7 +182,7 @@ vim.api.nvim_create_autocmd({ "TermEnter" }, {
 })
 
 -- normal mode
-vim.api.nvim_create_autocmd({ "TermLeave" }, {
+vim_util.autocmd({ "TermLeave" }, {
     group = terminal,
     callback = function()
         vim.opt.relativenumber = true

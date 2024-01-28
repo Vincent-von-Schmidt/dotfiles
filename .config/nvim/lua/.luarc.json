@@ -9,6 +9,7 @@
         "d"
     ],
     "diagnostics.disable": [
-        "unused-local"
+        "unused-local",
+        "missing-parameter"
     ]
 }
