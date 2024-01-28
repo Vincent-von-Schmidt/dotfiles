@@ -79,6 +79,10 @@ vim_util.keymap("v", "K", ":m '<-2<CR>gv=gvzz")
 vim_util.keymap("v", "H", "<gv")
 vim_util.keymap("v", "L", ">gv")
 
+-- command mode
+vim_util.keymap("c", "<c-h>", "<left>", { noremap = true })
+vim_util.keymap("c", "<c-l>", "<right>", { noremap = true })
+
 -- execute project
 local execute_project_keymap = "<leader>r"
 
