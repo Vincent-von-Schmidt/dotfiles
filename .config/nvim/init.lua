@@ -16,6 +16,10 @@ vim.opt.smartindent = true
 -- global clipboard
 vim.o.clipboard = "unnamedplus"
 
+-- spliting
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
 -- disable mouse
 vim.cmd("set mouse = ")
 
@@ -33,6 +37,9 @@ vim.cmd([[
     set undodir=~/.vim/undodir
     set undofile
 ]])
+
+-- sign column -> always on
+vim.opt.signcolumn = "yes"
 
 -- color mode
 vim.opt.termguicolors = true
