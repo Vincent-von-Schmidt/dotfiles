@@ -3,10 +3,9 @@ local M = {}
 ---@param mode string vim mode
 ---@param key string key to press
 ---@param map string behaviour on press
----@param opts table keymap opts
+---@param opts table|nil keymap opts
 function M.keymap(mode, key, map, opts)
-    local opts = opts or { silent = true, noremap = true }
-    vim.keymap.set(mode, key, map, opts)
+    vim.keymap.set(mode, key, map, opts or { silent = true, noremap = true })
 end
 
 ---@param group string vim highlight group
@@ -16,10 +15,9 @@ function M.highlight(group, hl)
 end
 
 ---@param name string name of the group
----@param opts table autogroup opts
+---@param opts table|nil autogroup opts
 function M.autogroup(name, opts)
-    local opts = opts or { clear = true }
-    return vim.api.nvim_create_augroup(name, opts)
+    return vim.api.nvim_create_augroup(name, opts or { clear = true })
 end
 
 ---@param events string[] events to trigger the autocmd

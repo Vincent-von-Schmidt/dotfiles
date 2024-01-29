@@ -10,6 +10,7 @@ return {
 
         require("lualine").setup({
             options = {
+                globalstatus = true,
                 icons_enabled = false,
                 -- component_separators = { left = "|", right = "|" },
                 -- section_separators = { left = "", right = "" },
