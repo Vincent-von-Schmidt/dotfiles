@@ -176,10 +176,10 @@ vim_util.autocmd({ "TermOpen" }, {
     callback = function()
         -- esc
         vim_util.keymap("t", "<c-e>", "<c-\\><c-n>")
-        vim_util.keymap("t", execute_project_keymap, "<c-\\><c-n>:bw!<CR>")
+        vim_util.keymap("t", execute_project_keymap, "<c-\\><c-n>:q!<CR>")
 
         -- close terminal buffer
-        vim_util.keymap("n", execute_project_keymap, ":bw! <CR>")
+        vim_util.keymap("n", execute_project_keymap, ":q! <CR>")
     end,
 })
 
