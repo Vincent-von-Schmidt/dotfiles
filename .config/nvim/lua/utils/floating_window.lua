@@ -4,7 +4,7 @@ local M = {}
 ---@param title string window title
 ---@param width integer width of the floating window
 ---@param height integer height of the floating window
----@return integer[]
+---@return number[]
 function M.create(title, width, height)
     local buf_nr = vim.api.nvim_create_buf(false, true)
 
@@ -25,9 +25,11 @@ end
 
 ---@param command string command to execute on term start
 function M.open_term(command)
-    local buf_nr, _ = M.create(util_string.split(command, " ")[1], 150, 30)
+    local width, height = 150, 30
+    local buf_nr, _ = M.create(util_string.split(command, " ")[1], width, height)
+
     local term_channel = vim.api.nvim_chan_send(vim.fn.termopen(command), "")
-    vim.api.nvim_open_term(buf_nr, term_channel)
+    vim.api.nvim_open_term(buf_nr, { term_channel })
 end
 
 return M

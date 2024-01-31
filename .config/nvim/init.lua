@@ -90,8 +90,8 @@ vim_util.keymap("v", "L", ">gv")
 vim_util.keymap("c", "<c-h>", "<left>", { noremap = true })
 vim_util.keymap("c", "<c-l>", "<right>", { noremap = true })
 
--- execute project
-local execute_project_keymap = "<leader>r"
+-- execute project -> command needs to be defined in filetype autocmd
+vim_util.keymap("n", "<leader>r", ":Run<CR>")
 
 -- autocmd -----------------------------------------------------
 
@@ -112,7 +112,9 @@ vim_util.autocmd({ "FileType" }, {
     group = vim_util.autogroup("python"),
     callback = function()
         -- execute current python file
-        vim_util.keymap("n", execute_project_keymap, string.format(":vs term://python3 %s <CR>", vim.fn.expand("%")))
+        vim.api.nvim_create_user_command("Run", function()
+            float_term("python3 " .. vim.fn.expand("%"))
+        end, { force = true })
     end,
 })
 
@@ -123,13 +125,9 @@ vim_util.autocmd({ "FileType" }, {
     group = vim_util.autogroup("rust"),
     callback = function()
         -- execute current cargo project
-        -- vim_util.keymap("n", execute_project_keymap, ":vs term://cargo run <CR>")
-
-        vim.api.nvim_create_user_command("run", function()
+        vim.api.nvim_create_user_command("Run", function()
             float_term("cargo run")
-        end, { nargs = 0, force = true })
-
-        vim_util.keymap("n", execute_project_keymap, ":run")
+        end, { force = true })
     end,
 })
 
@@ -140,7 +138,9 @@ vim_util.autocmd({ "FileType" }, {
     group = vim_util.autogroup("haskell"),
     callback = function()
         -- open current file with ghci
-        vim_util.keymap("n", execute_project_keymap, string.format(":vs term://ghci %s <CR>i", vim.fn.expand("%")))
+        vim.api.nvim_create_user_command("Run", function()
+            float_term("ghci " .. vim.fn.expand("%"))
+        end, { force = true })
     end,
 })
 
@@ -151,7 +151,7 @@ vim_util.autocmd({ "FileType" }, {
     group = vim_util.autogroup("lua"),
     callback = function()
         -- source current file in neovim
-        vim_util.keymap("n", execute_project_keymap, ":so<CR>")
+        vim_util.keymap("n", "<leader>r", ":so<CR>")
     end,
 })
 
@@ -162,11 +162,9 @@ vim_util.autocmd({ "FileType" }, {
     group = vim_util.autogroup("c"),
     callback = function()
         -- compile the current c file, run the binary and delete the binary
-        vim_util.keymap(
-            "n",
-            execute_project_keymap,
-            string.format(":vs term://gcc -o a.out %s && ./a.out && rm a.out <CR>", vim.fn.expand("%"))
-        )
+        vim.api.nvim_create_user_command("Run", function()
+            float_term("gcc -o a.out " .. vim.fn.expand("%") .. " && ./a.out && rm a.out")
+        end, { force = true })
     end,
 })
 
