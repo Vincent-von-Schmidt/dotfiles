@@ -95,6 +95,8 @@ local execute_project_keymap = "<leader>r"
 
 -- autocmd -----------------------------------------------------
 
+local float_term = require("utils.floating_window").open_term
+
 local misc = vim_util.autogroup("misc")
 vim_util.autocmd({ "BufReadPost" }, {
     desc = "go to last edited position on opening file",
@@ -121,7 +123,13 @@ vim_util.autocmd({ "FileType" }, {
     group = vim_util.autogroup("rust"),
     callback = function()
         -- execute current cargo project
-        vim_util.keymap("n", execute_project_keymap, ":vs term://cargo run <CR>")
+        -- vim_util.keymap("n", execute_project_keymap, ":vs term://cargo run <CR>")
+
+        vim.api.nvim_create_user_command("run", function()
+            float_term("cargo run")
+        end, { nargs = 0, force = true })
+
+        vim_util.keymap("n", execute_project_keymap, ":run")
     end,
 })
 
