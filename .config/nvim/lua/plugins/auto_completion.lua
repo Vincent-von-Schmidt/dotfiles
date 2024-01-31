@@ -16,7 +16,10 @@ return {
 
         -- load snippets
         require("luasnip.loaders.from_lua").lazy_load({
-            paths = { "./lua/luasnippets" },
+            paths = { "./lua/snip/luasnippets" },
+        })
+        require("luasnip.loaders.from_snipmate").lazy_load({
+            paths = { "./lua/snip/snippets" },
         })
 
         local cmp = require("cmp")

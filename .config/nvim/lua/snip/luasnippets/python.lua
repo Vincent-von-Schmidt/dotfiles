@@ -2,11 +2,6 @@ local util_string = require("utils.string")
 local k = require("luasnip.nodes.key_indexer").new_key
 
 return {
-    s("debug", {
-        t('print(f"{'),
-        i(0, "()"),
-        t(' = }")'),
-    }),
     s("function", {
         t("def "),
         i(1, "NAME"),
