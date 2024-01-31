@@ -24,16 +24,4 @@ function M.highlight(group, hl)
     vim.api.nvim_set_hl(0, group, hl)
 end
 
----@param name string name of the group
----@param opts table|nil autogroup opts
-function M.autogroup(name, opts)
-    return vim.api.nvim_create_augroup(name, opts or { clear = true })
-end
-
----@param events string[] events to trigger the autocmd
----@param opts table autocmd opts
-function M.autocmd(events, opts)
-    vim.api.nvim_create_autocmd(events, opts)
-end
-
 return M

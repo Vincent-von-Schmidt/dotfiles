@@ -1,5 +1,3 @@
-local vim_util = require("utils.vim")
-
 return {
     "nvimtools/none-ls.nvim",
     dependencies = {
@@ -54,8 +52,8 @@ return {
             sources = sources,
         })
 
-        local null = vim_util.autogroup("null")
-        vim_util.autocmd({ "BufWritePre" }, {
+        local null = vim.api.nvim_create_augroup("null", { clear = true })
+        vim.api.nvim_create_autocmd({ "BufWritePre" }, {
             pattern = filetypes,
             group = null,
             callback = function()

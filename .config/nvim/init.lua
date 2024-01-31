@@ -97,8 +97,8 @@ vim_util.keymap("n", "<leader>r", ":Run<CR>")
 
 local float_term = require("utils.floating_window").open_term
 
-local misc = vim_util.autogroup("misc")
-vim_util.autocmd({ "BufReadPost" }, {
+local misc = vim.api.nvim_create_augroup("misc", { clear = true })
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     desc = "go to last edited position on opening file",
     group = misc,
     pattern = "*",
@@ -106,10 +106,9 @@ vim_util.autocmd({ "BufReadPost" }, {
 })
 
 -- python
-vim_util.autocmd({ "FileType" }, {
-    desc = "filetype -> python",
+vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = "python",
-    group = vim_util.autogroup("python"),
+    group = vim.api.nvim_create_augroup("python", { clear = true }),
     callback = function()
         -- execute current python file
         vim.api.nvim_create_user_command("Run", function()
@@ -119,10 +118,9 @@ vim_util.autocmd({ "FileType" }, {
 })
 
 -- rust
-vim_util.autocmd({ "FileType" }, {
-    desc = "filetype -> rust",
+vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = "rust",
-    group = vim_util.autogroup("rust"),
+    group = vim.api.nvim_create_augroup("rust", { clear = true }),
     callback = function()
         -- execute current cargo project
         vim.api.nvim_create_user_command("Run", function()
@@ -132,10 +130,9 @@ vim_util.autocmd({ "FileType" }, {
 })
 
 -- haskell
-vim_util.autocmd({ "FileType" }, {
-    desc = "filetype -> haskell",
+vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = "haskell",
-    group = vim_util.autogroup("haskell"),
+    group = vim.api.nvim_create_augroup("haskell", { clear = true }),
     callback = function()
         -- open current file with ghci
         vim.api.nvim_create_user_command("Run", function()
@@ -145,21 +142,19 @@ vim_util.autocmd({ "FileType" }, {
 })
 
 -- lua
-vim_util.autocmd({ "FileType" }, {
-    desc = "filetype -> lua",
+vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = "lua",
-    group = vim_util.autogroup("lua"),
+    group = vim.api.nvim_create_augroup("lua", { clear = true }),
     callback = function()
         -- source current file in neovim
-        vim_util.keymap("n", "<leader>r", ":so<CR>")
+        vim.api.nvim_create_user_command("Run", "so", { force = true })
     end,
 })
 
 -- c
-vim_util.autocmd({ "FileType" }, {
-    desc = "filetype -> c",
+vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = "c",
-    group = vim_util.autogroup("c"),
+    group = vim.api.nvim_create_augroup("c", { clear = true }),
     callback = function()
         -- compile the current c file, run the binary and delete the binary
         vim.api.nvim_create_user_command("Run", function()
@@ -175,9 +170,9 @@ vim_util.autocmd({ "FileType" }, {
 -- vim_util.keymap("n", "<leader>o", ":vs term://zsh <CR>i")
 -- vim_util.keymap("n", "<leader>c", ":enew<CR>:terminal zsh<CR>i")
 
-local terminal = vim_util.autogroup("term")
+local terminal = vim.api.nvim_create_augroup("term", { clear = true })
 
-vim_util.autocmd({ "TermOpen" }, {
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
     group = terminal,
     callback = function()
         -- esc
@@ -190,7 +185,7 @@ vim_util.autocmd({ "TermOpen" }, {
 })
 
 -- terminal mode
-vim_util.autocmd({ "TermEnter" }, {
+vim.api.nvim_create_autocmd({ "TermEnter" }, {
     group = terminal,
     callback = function()
         vim.opt.relativenumber = false
@@ -199,7 +194,7 @@ vim_util.autocmd({ "TermEnter" }, {
 })
 
 -- normal mode
-vim_util.autocmd({ "TermLeave" }, {
+vim.api.nvim_create_autocmd({ "TermLeave" }, {
     group = terminal,
     callback = function()
         vim.opt.relativenumber = true
