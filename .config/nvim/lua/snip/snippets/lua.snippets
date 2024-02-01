@@ -7,3 +7,12 @@ snippet filetype
 			$0
 		end,
 	})
+
+snippet keymap
+	vim.keymap.set("${1:n}", "$2", $3, {${0: silent = true, noremap = true }})
+
+snippet lazy_keymap
+	{ "$1", $2${0:, silent = true, noremap = true} },
+
+snippet hightlight
+	vim.api.nvim_set_hl(0, "$1", { $0 })

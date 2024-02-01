@@ -1,5 +1,3 @@
-local vim_util = require("utils.vim")
-
 return {
     {
         "nvim-telescope/telescope.nvim",
@@ -51,13 +49,13 @@ return {
             package.load_extension("fzf")
 
             -- highlight groups
-            vim_util.highlight("TelescopeNormal", { link = "NormalFloat" })
-            vim_util.highlight("TelescopePromptNormal", { link = "NormalFloat2" })
-            vim_util.highlight("TelescopeBorder", { link = "FloatBorder" })
-            vim_util.highlight("TelescopePromptBorder", { link = "Float2Border" })
-            vim_util.highlight("TelescopeTitle", { link = "TelescopeBorder" })
-            vim_util.highlight("TelescopePromptTitle", { link = "FLoatTitle" })
-            vim_util.highlight("TelescopePreviewTitle", { link = "Float2Title" })
+            vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "NormalFloat" })
+            vim.api.nvim_set_hl(0, "TelescopePromptNormal", { link = "NormalFloat2" })
+            vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "FloatBorder" })
+            vim.api.nvim_set_hl(0, "TelescopePromptBorder", { link = "Float2Border" })
+            vim.api.nvim_set_hl(0, "TelescopeTitle", { link = "TelescopeBorder" })
+            vim.api.nvim_set_hl(0, "TelescopePromptTitle", { link = "FLoatTitle" })
+            vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { link = "Float2Title" })
         end,
     },
 }

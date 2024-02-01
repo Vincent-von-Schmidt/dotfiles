@@ -1,5 +1,3 @@
-local vim_util = require("utils.vim")
-
 -- editor ------------------------------------------------------
 
 -- linenumbers
@@ -53,45 +51,46 @@ vim.o.showtabline = 0
 -- keybinds - non plugin specific ------------------------------
 
 -- leader
-vim_util.keymap("", "<Space>", "<Nop>")
+vim.keymap.set("", "<SPACE>", "<Nop>", { silent = true, noremap = true })
 vim.g.mapleader = " "
 
 -- esc
-vim_util.keymap("i", "<c-e>", "<esc>")
-vim_util.keymap("v", "<c-e>", "<esc>")
-vim_util.keymap("c", "<c-e>", "<esc>")
-vim_util.keymap("n", "<c-e>", "<esc>")
-vim_util.keymap("v", "<cr>", "<esc>")
+vim.keymap.set("n", "<c-e>", "<ESC>", { silent = true, noremap = true })
+vim.keymap.set("i", "<c-e>", "<ESC>", { silent = true, noremap = true })
+vim.keymap.set("v", "<c-e>", "<ESC>", { silent = true, noremap = true })
+vim.keymap.set("c", "<c-e>", "<ESC>", { silent = true, noremap = true })
+vim.keymap.set("s", "<c-e>", "<ESC>", { silent = true, noremap = true })
+vim.keymap.set("v", "<cr>", "<ESC>", { silent = true, noremap = true })
 
 -- auto center
-vim_util.keymap("n", "n", "nzz")
-vim_util.keymap("n", "N", "Nzz")
-vim_util.keymap("n", "j", "jzz")
-vim_util.keymap("n", "k", "kzz")
-vim_util.keymap("n", "}", "}zz")
-vim_util.keymap("n", "{", "{zz")
-vim_util.keymap("v", "j", "jzz")
-vim_util.keymap("v", "k", "kzz")
-vim_util.keymap("v", "J", "Jzz")
-vim_util.keymap("v", "K", "Kzz")
-vim_util.keymap("v", "}", "}zz")
-vim_util.keymap("v", "{", "{zz")
+vim.keymap.set("n", "n", "nzz", { silent = true, noremap = true })
+vim.keymap.set("n", "N", "Nzz", { silent = true, noremap = true })
+vim.keymap.set("n", "j", "jzz", { silent = true, noremap = true })
+vim.keymap.set("n", "k", "kzz", { silent = true, noremap = true })
+vim.keymap.set("n", "}", "}zz", { silent = true, noremap = true })
+vim.keymap.set("n", "{", "{zz", { silent = true, noremap = true })
+vim.keymap.set("v", "j", "jzz", { silent = true, noremap = true })
+vim.keymap.set("v", "k", "kzz", { silent = true, noremap = true })
+vim.keymap.set("v", "J", "Jzz", { silent = true, noremap = true })
+vim.keymap.set("v", "K", "Kzz", { silent = true, noremap = true })
+vim.keymap.set("v", "}", "}zz", { silent = true, noremap = true })
+vim.keymap.set("v", "{", "{zz", { silent = true, noremap = true })
 
 -- substitute highlighted word
-vim_util.keymap("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
+vim.keymap.set("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
 
 -- move highlighted
-vim_util.keymap("v", "J", ":m '>+1<CR>gv=gvzz")
-vim_util.keymap("v", "K", ":m '<-2<CR>gv=gvzz")
-vim_util.keymap("v", "H", "<gv")
-vim_util.keymap("v", "L", ">gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gvzz", { silent = true, noremap = true })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gvzz", { silent = true, noremap = true })
+vim.keymap.set("v", "H", "<gv", { silent = true, noremap = true })
+vim.keymap.set("v", "L", ">gv", { silent = true, noremap = true })
 
 -- command mode
-vim_util.keymap("c", "<c-h>", "<left>", { noremap = true })
-vim_util.keymap("c", "<c-l>", "<right>", { noremap = true })
+vim.keymap.set("c", "<c-h>", "<left>", { noremap = true })
+vim.keymap.set("c", "<c-l>", "<right>", { noremap = true })
 
 -- execute project -> command needs to be defined in filetype autocmd
-vim_util.keymap("n", "<leader>r", ":Run<CR>")
+vim.keymap.set("n", "<leader>r", ":Run<CR>", { silent = true, noremap = true })
 
 -- autocmd -----------------------------------------------------
 
@@ -165,22 +164,17 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- terminal ----------------------------------------------------
 
--- open new terminal bufffer in current working directory
--- temporary -> just a test -> TODO
--- vim_util.keymap("n", "<leader>o", ":vs term://zsh <CR>i")
--- vim_util.keymap("n", "<leader>c", ":enew<CR>:terminal zsh<CR>i")
-
 local terminal = vim.api.nvim_create_augroup("term", { clear = true })
 
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
     group = terminal,
     callback = function()
         -- esc
-        vim_util.keymap("t", "<c-e>", "<c-\\><c-n>")
-        vim_util.keymap("t", execute_project_keymap, "<c-\\><c-n>:q!<CR>")
+        vim.keymap.set("t", "<c-e>", "<c-\\><c-n>", { silent = true, noremap = true })
+        vim.keymap.set("t", execute_project_keymap, "<c-\\><c-n>:q!<CR>", { silent = true, noremap = true })
 
         -- close terminal buffer
-        vim_util.keymap("n", execute_project_keymap, ":q! <CR>")
+        vim.keymap.set("n", execute_project_keymap, ":q! <CR>", { silent = true, noremap = true })
     end,
 })
 

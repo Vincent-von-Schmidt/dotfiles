@@ -28,8 +28,9 @@ function M.open_term(command)
     local width, height = 150, 30
     local buf_nr, _ = M.create(util_string.split(command, " ")[1], width, height)
 
-    local term_channel = vim.api.nvim_chan_send(vim.fn.termopen(command), "")
-    vim.api.nvim_open_term(buf_nr, { term_channel })
+    vim.api.nvim_open_term(buf_nr, {
+        on_input = vim.api.nvim_chan_send(vim.fn.termopen(command), ""),
+    })
 end
 
 return M

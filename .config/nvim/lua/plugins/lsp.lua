@@ -1,5 +1,3 @@
-local vim_util = require("utils.vim")
-
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -31,25 +29,25 @@ return {
             local opts = { silent = true, buffer = bufnr, noremap = true }
 
             -- get info of hoverd function
-            vim_util.keymap("n", "<leader>li", vim.lsp.buf.hover, opts)
+            vim.keymap.set("n", "<leader>li", vim.lsp.buf.hover, opts)
 
             -- go to definition
-            vim_util.keymap("n", "<leader>ld", function()
+            vim.keymap.set("n", "<leader>ld", function()
                 vim.lsp.buf.definition()
                 vim.cmd('execute "normal! zz"')
             end, opts)
 
             -- execute code action
-            vim_util.keymap("n", "<leader>la", vim.lsp.buf.code_action, opts)
+            vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
 
             -- goto next diagnostic info
-            vim_util.keymap("n", "<leader>ln", function()
+            vim.keymap.set("n", "<leader>ln", function()
                 vim.diagnostic.goto_next()
                 vim.cmd('execute "normal! zz"')
             end, opts)
 
             -- goto prev diagnostic info
-            vim_util.keymap("n", "<leader>lp", function()
+            vim.keymap.set("n", "<leader>lp", function()
                 vim.diagnostic.goto_prev()
                 vim.cmd('execute "normal! zz"')
             end, opts)
