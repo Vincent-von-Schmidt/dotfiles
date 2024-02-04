@@ -4,7 +4,10 @@ snippet filetype
 		pattern = "$1",
 		group = vim.api.nvim_create_augroup("$1", { clear = true }),
 		callback = function()
-			$0
+			-- ${2:execute current project}
+			vim.api.nvim_create_user_command("Run", function()
+				float_term($0)
+			end, { force = true })
 		end,
 	})
 
