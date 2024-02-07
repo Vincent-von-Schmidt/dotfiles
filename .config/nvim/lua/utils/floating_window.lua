@@ -1,6 +1,20 @@
 local util_string = require("utils.string")
 local M = {}
 
+---@class Float
+---@field buf_nr? number
+---@field win_id? number
+
+--Float.__index = Float
+
+---@param title string title of float window
+---@param width number width of floating window
+---@param height number height of floating window
+---@return Float
+--function Float:new(title, width, height)
+--    local buf_nr = vim.api.nvim_create_buf(false, true)
+--end
+
 ---@param title string window title
 ---@param width integer width of the floating window
 ---@param height integer height of the floating window
@@ -19,6 +33,10 @@ function M.create(title, width, height)
         style = "minimal",
         border = "single",
     })
+
+    -- vim.cmd([[
+    --     doautocmd FloatOpen
+    -- ]])
 
     return { buf_nr, win_id }
 end

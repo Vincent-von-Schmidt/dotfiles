@@ -6,7 +6,7 @@ snippet filetype
 		callback = function()
 			-- ${2:execute current project}
 			vim.api.nvim_create_user_command("Run", function()
-				float_term($0)
+				require("utils.floating_window").open_term($0)
 			end, { force = true })
 		end,
 	})

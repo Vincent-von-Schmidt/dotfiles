@@ -15,7 +15,7 @@ vim.opt.smartindent = true
 vim.o.clipboard = "unnamedplus"
 
 -- spliting
-vim.opt.splitbelow = true
+-- vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- disable mouse
@@ -94,8 +94,6 @@ vim.keymap.set("n", "<leader>r", ":Run<CR>", { silent = true, noremap = true })
 
 -- autocmd -----------------------------------------------------
 
-local float_term = require("utils.floating_window").open_term
-
 local misc = vim.api.nvim_create_augroup("misc", { clear = true })
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     desc = "go to last edited position on opening file",
@@ -111,7 +109,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     callback = function()
         -- execute current python file
         vim.api.nvim_create_user_command("Run", function()
-            float_term("python3 " .. vim.fn.expand("%"))
+            require("utils.floating_window").open_term("python3 " .. vim.fn.expand("%"))
         end, { force = true })
     end,
 })
@@ -123,7 +121,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     callback = function()
         -- execute current cargo project
         vim.api.nvim_create_user_command("Run", function()
-            float_term("cargo run")
+            require("utils.floating_window").open_term("cargo run")
         end, { force = true })
     end,
 })
@@ -135,7 +133,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     callback = function()
         -- open current file with ghci
         vim.api.nvim_create_user_command("Run", function()
-            float_term("ghci " .. vim.fn.expand("%"))
+            require("utils.floating_window").open_term("ghci " .. vim.fn.expand("%"))
         end, { force = true })
     end,
 })
@@ -157,8 +155,32 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     callback = function()
         -- compile the current c file, run the binary and delete the binary
         vim.api.nvim_create_user_command("Run", function()
-            float_term("gcc -o a.out " .. vim.fn.expand("%") .. " && ./a.out && rm a.out")
+            require("utils.floating_window").open_term(
+                "gcc -o a.out " .. vim.fn.expand("%") .. " && ./a.out && rm a.out"
+            )
         end, { force = true })
+    end,
+})
+
+-- latex
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = "tex",
+    group = vim.api.nvim_create_augroup("latex", { clear = true }),
+    callback = function()
+        -- compile current latex file with pdflatex
+        vim.api.nvim_create_user_command("Run", function()
+            require("utils.floating_window").open_term("pdflatex " .. vim.fn.expand("%"))
+        end, { force = true })
+
+        vim.cmd([[
+
+            set textwidth=0
+            set wrapmargin=0
+            set wrap
+            set linebreak
+            set columns=90
+
+        ]])
     end,
 })
 
