@@ -63,18 +63,23 @@ vim.keymap.set("s", "<c-e>", "<ESC>", { silent = true, noremap = true })
 vim.keymap.set("v", "<cr>", "<ESC>", { silent = true, noremap = true })
 
 -- auto center
-vim.keymap.set("n", "n", "nzz", { silent = true, noremap = true })
-vim.keymap.set("n", "N", "Nzz", { silent = true, noremap = true })
-vim.keymap.set("n", "j", "jzz", { silent = true, noremap = true })
-vim.keymap.set("n", "k", "kzz", { silent = true, noremap = true })
-vim.keymap.set("n", "}", "}zz", { silent = true, noremap = true })
-vim.keymap.set("n", "{", "{zz", { silent = true, noremap = true })
-vim.keymap.set("v", "j", "jzz", { silent = true, noremap = true })
-vim.keymap.set("v", "k", "kzz", { silent = true, noremap = true })
-vim.keymap.set("v", "J", "Jzz", { silent = true, noremap = true })
-vim.keymap.set("v", "K", "Kzz", { silent = true, noremap = true })
-vim.keymap.set("v", "}", "}zz", { silent = true, noremap = true })
-vim.keymap.set("v", "{", "{zz", { silent = true, noremap = true })
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    group = vim.api.nvim_create_augroup("center", { clear = true }),
+    callback = function()
+        vim.keymap.set("n", "n", "nzz", { silent = true, noremap = true })
+        vim.keymap.set("n", "N", "Nzz", { silent = true, noremap = true })
+        vim.keymap.set("n", "j", "jzz", { silent = true, noremap = true })
+        vim.keymap.set("n", "k", "kzz", { silent = true, noremap = true })
+        vim.keymap.set("n", "}", "}zz", { silent = true, noremap = true })
+        vim.keymap.set("n", "{", "{zz", { silent = true, noremap = true })
+        vim.keymap.set("v", "j", "jzz", { silent = true, noremap = true })
+        vim.keymap.set("v", "k", "kzz", { silent = true, noremap = true })
+        vim.keymap.set("v", "J", "Jzz", { silent = true, noremap = true })
+        vim.keymap.set("v", "K", "Kzz", { silent = true, noremap = true })
+        vim.keymap.set("v", "}", "}zz", { silent = true, noremap = true })
+        vim.keymap.set("v", "{", "{zz", { silent = true, noremap = true })
+    end,
+})
 
 -- substitute highlighted word
 vim.keymap.set("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
@@ -236,3 +241,12 @@ vim.opt.rtp:prepend(lazypath)
 
 -- lazy.nvim
 require("lazy").setup("plugins")
+
+-- gui ---------------------------------------------------------
+
+-- for wsl passthrough to windows
+if vim.g.neovide then
+    vim.g.neovide_scale_factor = 0.7
+    vim.api.nvim_set_hl(0, "Normal", { bg = "#262626" })
+    vim.cmd("set mouse=a")
+end

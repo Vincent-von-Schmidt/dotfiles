@@ -10,6 +10,7 @@ return {
             { "<leader>a", "<CMD> Telescope find_files <CR>" },
             { "<leader>s", "<CMD> Telescope live_grep <CR>" },
         },
+        cmd = "Telescope",
         config = function()
             local package = require("telescope")
 
