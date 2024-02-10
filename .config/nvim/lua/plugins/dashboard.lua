@@ -47,5 +47,7 @@ return {
                 footer = { "" },
             },
         })
+
+        vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#6ba247" })
     end,
 }
