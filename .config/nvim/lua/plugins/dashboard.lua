@@ -7,25 +7,42 @@ return {
     event = "UIEnter",
     config = function()
         local logo = [[
-
-        /$$   /$$                     /$$    /$$ /$$
-        | $$$ | $$                    | $$   | $$|__/
-        | $$$$| $$  /$$$$$$   /$$$$$$ | $$   | $$ /$$ /$$$$$$/$$$$
-        | $$ $$ $$ /$$__  $$ /$$__  $$|  $$ / $$/| $$| $$_  $$_  $$
-        | $$  $$$$| $$$$$$$$| $$  \ $$ \  $$ $$/ | $$| $$ \ $$ \ $$
-        | $$\  $$$| $$_____/| $$  | $$  \  $$$/  | $$| $$ | $$ | $$
-        | $$ \  $$|  $$$$$$$|  $$$$$$/   \  $/   | $$| $$ | $$ | $$
-        |__/  \__/ \_______/ \______/     \_/    |__/|__/ |__/ |__/
-
+           / | / /__  ____| |  / (_)___ ___
+          /  |/ / _ \/ __ \ | / / / __ `__ \
+         / /|  /  __/ /_/ / |/ / / / / / / /
+        /_/ |_/\___/\____/|___/_/_/ /_/ /_/
         ]]
-        logo = string.rep("\n", 8) .. logo .. "\n\n"
 
         require("dashboard").setup({
             theme = "hyper",
+            shortcut_type = "number",
             config = {
-                header = vim.split(logo, "\n"),
+                header = vim.split(string.rep("\n", 8) .. logo .. "\n\n", "\n"),
                 shortcut = {
-                    { desc = "new File ", action = "ene | startinsert", key = "i", group = "Number", icon = " " },
+                    {
+                        icon = " ",
+                        desc = "new File ",
+                        key = "i",
+                        action = "ene | startinsert",
+                    },
+                    {
+                        icon = " ",
+                        desc = "dotfiles ",
+                        key = "d",
+                        action = "cd ~/.config/nvim/ | Telescope find_files",
+                    },
+                    {
+                        icon = " ",
+                        desc = "ssh ",
+                        key = "s",
+                        action = "RemoteSSHFSConnect",
+                    },
+                    {
+                        icon = " ",
+                        desc = "terminal",
+                        key = "t",
+                        action = "edit term://zsh | startinsert",
+                    },
                 },
                 footer = { "" },
             },
