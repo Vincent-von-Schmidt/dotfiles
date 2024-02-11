@@ -12,7 +12,9 @@ return {
     config = function()
         -- load luansip
         local luasnip = require("luasnip")
-        luasnip.config.setup({})
+        luasnip.config.setup({
+            enable_autosnippets = true,
+        })
 
         -- load snippets
         require("luasnip.loaders.from_lua").lazy_load({

@@ -62,7 +62,6 @@ vim.keymap.set("c", "<c-e>", "<ESC>", { silent = true, noremap = true })
 vim.keymap.set("s", "<c-e>", "<ESC>", { silent = true, noremap = true })
 vim.keymap.set("v", "<cr>", "<ESC>", { silent = true, noremap = true })
 
--- auto center
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     group = vim.api.nvim_create_augroup("after_dashboard", { clear = true }),
     callback = function()

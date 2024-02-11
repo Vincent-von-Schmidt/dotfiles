@@ -17,9 +17,7 @@ snippet template
 
     \\usepackage{fancyhdr}
 
-
     \\pagestyle{fancy}
-
 
     \\fancyhead[l]{Vincent von Schmidt}
     \\fancyhead[c]{${2:HEADER}}
@@ -30,7 +28,6 @@ snippet template
     \\fancyfoot[L]{${1:TITLE}}
     \\fancyfoot[R]{\\thepage}
 
-
     %------------------------------------------------------------
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -40,10 +37,8 @@ snippet template
 
     \\begin{document}
 
-
     \\maketitle
     \\thispagestyle{fancy}
-
 
     %%% content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -53,12 +48,10 @@ snippet template
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
     \\end{document}
 
 snippet section
     %------------------------------------------------------------
-
     \\section{${1:NAME}}\\label{section-${0:REFERENCE}}
 
 snippet sidebyside
@@ -70,7 +63,6 @@ snippet sidebyside
             \\centering
 
             %--- left ----
-
 
             ${1:LEFT}
 
@@ -84,7 +76,6 @@ snippet sidebyside
             ${0:RIGHT}
 
             %-------------
-
 
         \\end{minipage}
     \\end{figure}
