@@ -198,10 +198,8 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
     callback = function()
         -- esc
         vim.keymap.set("t", "<c-e>", "<c-\\><c-n>", { silent = true, noremap = true })
-        vim.keymap.set("t", execute_project_keymap, "<c-\\><c-n>:q!<CR>", { silent = true, noremap = true })
 
-        -- close terminal buffer
-        vim.keymap.set("n", execute_project_keymap, ":q! <CR>", { silent = true, noremap = true })
+        vim.cmd("startinsert")
     end,
 })
 

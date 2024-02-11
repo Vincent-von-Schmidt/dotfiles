@@ -16,6 +16,7 @@ return {
         require("dashboard").setup({
             theme = "hyper",
             shortcut_type = "number",
+            change_to_vcs_root = true, -- change cwd to file in mru
             config = {
                 header = vim.split(string.rep("\n", 8) .. logo .. "\n\n", "\n"),
                 shortcut = {
@@ -41,7 +42,7 @@ return {
                         icon = " ",
                         desc = "terminal",
                         key = "t",
-                        action = "edit term://zsh | startinsert",
+                        action = "echo 'use ´nvr´ instead of ´nvim´' | edit term://zsh",
                     },
                 },
                 footer = { "" },
