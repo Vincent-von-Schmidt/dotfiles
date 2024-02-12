@@ -169,7 +169,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- latex
 vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = "tex",
+    pattern = { "tex", "plaintex" },
     group = vim.api.nvim_create_augroup("latex", { clear = true }),
     callback = function()
         -- compile current latex file with pdflatex
