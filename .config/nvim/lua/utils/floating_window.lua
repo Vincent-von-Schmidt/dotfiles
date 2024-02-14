@@ -25,11 +25,14 @@ end
 
 ---@param command string command to execute on term start
 function M.open_term(command)
+    local title = util_string.split(command, " ")[1] -- first word of command
     local width, height = 150, 30
-    local buf_nr, _ = M.create(util_string.split(command, " ")[1], width, height)
 
-    vim.api.nvim_open_term(buf_nr, {
-        on_input = vim.api.nvim_chan_send(vim.fn.termopen(command), ""),
+    local buf_nr, _ = M.create(title, width, height)
+    local chan = vim.fn.termopen(command)
+
+    vim.api.nvim_open_term(tonumber(buf_nr), {
+        on_input = vim.api.nvim_chan_send(chan, ""),
     })
 end
 

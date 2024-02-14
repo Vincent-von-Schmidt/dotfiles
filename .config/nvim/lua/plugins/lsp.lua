@@ -37,6 +37,12 @@ return {
                 vim.cmd('execute "normal! zz"')
             end, opts)
 
+            -- go to reference
+            vim.keymap.set("n", "<leader>lr", function()
+                vim.lsp.buf.references()
+                vim.cmd('execute "normal! zz"')
+            end, opts)
+
             -- execute code action
             vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
 
