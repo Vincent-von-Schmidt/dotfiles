@@ -15,5 +15,11 @@ return {
             },
         })
         require("telescope").load_extension("remote-sshfs")
+
+        vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
+            callback = function()
+                vim.cmd("RemoteSSHFSDiconnect")
+            end,
+        })
     end,
 }
