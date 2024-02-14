@@ -24,16 +24,12 @@ function M.create(title, width, height)
 end
 
 ---@param command string command to execute on term start
-function M.open_term(command)
+function M.term(command)
     local title = util_string.split(command, " ")[1] -- first word of command
     local width, height = 150, 30
 
-    local buf_nr, _ = M.create(title, width, height)
-    local chan = vim.fn.termopen(command)
-
-    vim.api.nvim_open_term(tonumber(buf_nr), {
-        on_input = vim.api.nvim_chan_send(chan, ""),
-    })
+    M.create(title, width, height)
+    vim.fn.termopen(command)
 end
 
 return M

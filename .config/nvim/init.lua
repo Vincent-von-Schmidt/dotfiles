@@ -1,3 +1,5 @@
+local float = require("utils.float")
+
 -- editor ------------------------------------------------------
 
 -- linenumbers
@@ -114,7 +116,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     callback = function()
         -- execute current python file
         vim.api.nvim_create_user_command("Run", function()
-            require("utils.floating_window").open_term("python3 " .. vim.fn.expand("%"))
+            float.term("python3 " .. vim.fn.expand("%"))
         end, { force = true })
     end,
 })
@@ -126,7 +128,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     callback = function()
         -- execute current cargo project
         vim.api.nvim_create_user_command("Run", function()
-            require("utils.floating_window").open_term("cargo run")
+            float.term("cargo run")
         end, { force = true })
     end,
 })
@@ -138,7 +140,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     callback = function()
         -- open current file with ghci
         vim.api.nvim_create_user_command("Run", function()
-            require("utils.floating_window").open_term("ghci " .. vim.fn.expand("%"))
+            float.term("ghci " .. vim.fn.expand("%"))
         end, { force = true })
     end,
 })
@@ -160,9 +162,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     callback = function()
         -- compile the current c file, run the binary and delete the binary
         vim.api.nvim_create_user_command("Run", function()
-            require("utils.floating_window").open_term(
-                "gcc -o a.out " .. vim.fn.expand("%") .. " && ./a.out && rm a.out"
-            )
+            float.term("gcc -o a.out " .. vim.fn.expand("%") .. " && ./a.out && rm a.out")
         end, { force = true })
     end,
 })
@@ -174,7 +174,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     callback = function()
         -- compile current latex file with pdflatex
         vim.api.nvim_create_user_command("Run", function()
-            require("utils.floating_window").open_term("pdflatex " .. vim.fn.expand("%"))
+            float.term("pdflatex " .. vim.fn.expand("%"))
         end, { force = true })
 
         vim.cmd([[
