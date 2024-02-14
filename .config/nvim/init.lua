@@ -238,7 +238,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- lazy.nvim
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+    install = {
+        colorscheme = { "carbonfox" },
+    },
+})
 
 -- gui ---------------------------------------------------------
 
