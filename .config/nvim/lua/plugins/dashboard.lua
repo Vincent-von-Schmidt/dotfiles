@@ -27,6 +27,12 @@ return {
                         action = "ene | startinsert",
                     },
                     {
+                        icon = " ",
+                        desc = "new type file ",
+                        key = "a",
+                        action = "Scratch",
+                    },
+                    {
                         icon = " ",
                         desc = "dotfiles ",
                         key = "d",
