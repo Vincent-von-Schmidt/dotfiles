@@ -198,6 +198,8 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
     callback = function()
         -- esc
         vim.keymap.set("t", "<c-e>", "<c-\\><c-n>", { silent = true, noremap = true })
+        -- TODO
+        -- vim.keymap.set("t", "<c-r>", "<c-\\><c-n>:q!<CR>", { silent = true, noremap = true })
 
         vim.cmd("startinsert")
     end,
