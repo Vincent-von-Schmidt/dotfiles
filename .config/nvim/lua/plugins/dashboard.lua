@@ -48,7 +48,7 @@ return {
                         icon = " ",
                         desc = "terminal",
                         key = "t",
-                        action = "echo 'use ´nvr´ instead of ´nvim´' | edit term://zsh",
+                        action = "edit term://zsh",
                     },
                 },
                 footer = { "" },
