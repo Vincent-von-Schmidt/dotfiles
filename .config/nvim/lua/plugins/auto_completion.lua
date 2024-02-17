@@ -6,6 +6,8 @@ return {
         "andersevenrud/cmp-tmux",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
+        "Exafunction/codeium.nvim",
+        "nvim-lua/plenary.nvim",
     },
     lazy = true,
     event = "InsertEnter",
@@ -24,6 +26,9 @@ return {
             paths = { "./lua/snip/snippets" },
         })
 
+        -- codium - ai - copilot
+        require("codeium").setup({})
+
         local cmp = require("cmp")
         cmp.setup({
             snippet = {
@@ -32,6 +37,7 @@ return {
                 end,
             },
             sources = {
+                { name = "codeium" },
                 { name = "luasnip" },
                 { name = "nvim_lsp" },
                 { name = "buffer" },
