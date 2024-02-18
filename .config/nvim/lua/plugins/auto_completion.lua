@@ -37,9 +37,9 @@ return {
                 end,
             },
             sources = {
-                { name = "codeium" },
                 { name = "luasnip" },
                 { name = "nvim_lsp" },
+                { name = "codeium" },
                 { name = "buffer" },
                 { name = "path" },
                 { name = "tmux" },

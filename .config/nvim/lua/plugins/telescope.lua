@@ -7,9 +7,10 @@ return {
     },
     lazy = true,
     keys = {
-        { "<leader>a", "<CMD> Telescope find_files <CR>",  silent = true, noremap = true },
-        { "<leader>s", "<CMD> Telescope live_grep <CR>",   silent = true, noremap = true },
-        { "<leader>d", "<CMD> Telescope grep_string <CR>", silent = true, noremap = true },
+        { "<leader>a", "<CMD> Telescope find_files <CR>",             silent = true, noremap = true },
+        { "<leader>s", "<CMD> Telescope live_grep <CR>",              silent = true, noremap = true },
+        { "<leader>d", "<CMD> Telescope grep_string <CR>",            silent = true, noremap = true },
+        { "<leader>b", "<CMD> Telescope buffers theme=dropdown <CR>", silent = true, noremap = true },
     },
     cmd = "Telescope",
     config = function()
