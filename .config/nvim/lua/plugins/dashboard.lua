@@ -36,7 +36,7 @@ return {
                         icon = " ",
                         desc = "dotfiles ",
                         key = "d",
-                        action = "cd ~/.config/nvim/ | Telescope find_files",
+                        action = 'lua require("pickers.dotfiles")',
                     },
                     {
                         icon = " ",
