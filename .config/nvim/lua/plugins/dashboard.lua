@@ -27,8 +27,8 @@ return {
                         action = "ene | startinsert",
                     },
                     {
-                        icon = " ",
-                        desc = "new type file ",
+                        icon = " ",
+                        desc = "tmp file ",
                         key = "a",
                         action = "Scratch",
                     },
