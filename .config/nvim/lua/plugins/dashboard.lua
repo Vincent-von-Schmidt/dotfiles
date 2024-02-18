@@ -36,7 +36,7 @@ return {
                         icon = " ",
                         desc = "dotfiles ",
                         key = "d",
-                        action = 'lua require("pickers.dotfiles")',
+                        action = 'lua require("pickers.dotfiles").picker()',
                     },
                     {
                         icon = " ",

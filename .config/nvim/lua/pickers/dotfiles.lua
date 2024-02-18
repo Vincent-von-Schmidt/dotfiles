@@ -4,6 +4,8 @@ local finders = require("telescope.finders")
 local pickers = require("telescope.pickers")
 local conf = require("telescope.config").values
 
+local M = {}
+
 local dotfiles = {
     ["neovim"] = "cd ~/.config/nvim/ | Telescope find_files",
     ["windows_terminal"] =
@@ -14,21 +16,13 @@ local dotfiles = {
     ["bash"] = "edit ~/.bashrc",
 }
 
-local function map_keys(map)
-    local keys = {}
-    for k, _ in pairs(map) do
-        table.insert(keys, k)
-    end
-    return keys
-end
-
-local dotfiles_picker = function(opts)
+function M.picker(opts)
     opts = opts or {}
     pickers
         .new(opts, {
             prompt_title = "dotfiles",
             finder = finders.new_table({
-                results = map_keys(dotfiles),
+                results = require("utils.map").map_keys(dotfiles),
             }),
             sorter = conf.generic_sorter(opts),
             attach_mappings = function(prompt_bufnr, map)
@@ -43,5 +37,4 @@ local dotfiles_picker = function(opts)
         :find()
 end
 
--- to execute the function
-dotfiles_picker()
+return M
