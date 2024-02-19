@@ -14,7 +14,37 @@ local dotfiles = {
     ["tmux"] = "edit ~/.config/tmux/tmux.conf",
     ["zsh"] = "edit ~/.zshrc",
     ["bash"] = "edit ~/.bashrc",
+    ["starship"] = "edit ~/.config/starship.toml",
 }
+
+-- vim.api.nvim_create_user_command("DPush", function(opts)
+--     for _, el in pairs(dotfiles) do
+--         local path = require("utils.string").split(el, " ")
+--         vim.fn.jobstart("cp " .. path[2] .. " /mnt/c/Users/Vincent/Documents/dotfiles/ -r")
+--     end
+--
+--     require("utils.float").term(string.format(
+--         [[
+--         cd /mnt/c/Users/Vincent/Documents/dotfiles/
+--         git add *
+--         git commit -m %s
+--         git push
+--     ]],
+--         opts.args or " "
+--     ))
+-- end, { force = true })
+--
+-- vim.api.nvim_create_user_command("DPull", function(opts)
+--     require("utils.float").term([[
+--         cd /mnt/c/Users/Vincent/Documents/dotfiles/
+--         git pull
+--     ]])
+--
+--     for _, el in pairs(dotfiles) do
+--         local path = require("utils.string").split(el, " ")
+--         vim.fn.jobstart("cp /mnt/c/Users/Vincent/Documents/dotfiles/ " .. path[2] .. " -r")
+--     end
+-- end, { force = true })
 
 function M.picker(opts)
     opts = opts or {}
