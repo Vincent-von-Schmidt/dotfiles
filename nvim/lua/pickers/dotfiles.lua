@@ -17,19 +17,21 @@ local dotfiles = {
     ["starship"] = "edit ~/.config/starship.toml",
 }
 
-vim.api.nvim_create_user_command("DSync", function(opts)
+vim.api.nvim_create_user_command("DPush", function(opts)
     for _, el in pairs(dotfiles) do
         local path = require("utils.string").split(el, " ")
         vim.fn.jobstart("cp " .. path[2] .. " /mnt/c/Users/Vincent/Documents/dotfiles/ -r")
     end
 
-    local commit_msg = opts.args or " "
-
-    require("utils.float").term(
-        'zsh -c "cd /mnt/c/Users/Vincent/Documents/dotfiles/ && git add * && git commit -m '
-        .. commit_msg
-        .. ' && git push"'
-    )
+    require("utils.float").term(string.format(
+        [[
+        cd /mnt/c/Users/Vincent/Documents/dotfiles/
+        git add *
+        git commit -m %s
+        git push
+    ]],
+        opts.args or " "
+    ))
 end, { force = true })
 
 function M.picker(opts)
