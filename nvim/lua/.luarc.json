@@ -1,0 +1,15 @@
+{
+    "diagnostics.globals": [
+        "vim",
+        "t",
+        "i",
+        "sn",
+        "s",
+        "isn",
+        "d"
+    ],
+    "diagnostics.disable": [
+        "unused-local",
+        "missing-parameter"
+    ]
+}
