@@ -82,7 +82,8 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
         vim.keymap.set("v", "{", "{zz", { silent = true, noremap = true })
 
         -- substitute highlighted word
-        vim.keymap.set("n", "<leader>g", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
+        vim.keymap.set("n", "<leader>gf", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
+        -- vim.keymap.set("n", "<leader>gl", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
 
         -- move highlighted
         vim.keymap.set("v", "J", ":m '>+1<CR>gv=gvzz", { silent = true, noremap = true })

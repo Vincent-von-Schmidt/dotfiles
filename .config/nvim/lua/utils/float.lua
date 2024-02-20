@@ -26,7 +26,8 @@ end
 ---@param command string command to execute on term start
 function M.term(command)
     local title = util_string.split(command, " ")[1] -- first word of command
-    local width, height = 150, 30
+    local width = math.floor(vim.o.columns * 0.8)
+    local height = math.floor(vim.o.lines * 0.8)
 
     M.create(title, width, height)
     vim.fn.termopen(command)
