@@ -12,7 +12,7 @@ snippet filetype
 	})
 
 snippet keymap
-	vim.keymap.set("${1:n}", "$2", $3, {${0: silent = true, noremap = true }})
+	vim.keymap.set("${1:n}", "$2", $3, ${0:{ silent = true, noremap = true }})
 
 snippet lazy_keymap
 	{ "$1", $2${0:, silent = true, noremap = true} },

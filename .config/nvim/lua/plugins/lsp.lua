@@ -46,17 +46,8 @@ return {
             -- execute code action
             vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
 
-            -- goto next diagnostic info
-            vim.keymap.set("n", "<leader>ln", function()
-                vim.diagnostic.goto_next()
-                vim.cmd('execute "normal! zz"')
-            end, opts)
-
-            -- goto prev diagnostic info
-            vim.keymap.set("n", "<leader>lp", function()
-                vim.diagnostic.goto_prev()
-                vim.cmd('execute "normal! zz"')
-            end, opts)
+            -- rename
+            vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, opts)
         end
 
         -- add all lsp servers installed via mason
