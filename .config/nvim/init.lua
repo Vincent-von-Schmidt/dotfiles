@@ -243,7 +243,7 @@ vim.opt.rtp:prepend(lazypath)
 -- lazy.nvim
 require("lazy").setup("plugins", {
     install = {
-        colorscheme = { "carbonfox" },
+        colorscheme = { "rose-pine" },
     },
 })
 

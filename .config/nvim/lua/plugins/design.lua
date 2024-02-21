@@ -1,15 +1,14 @@
 return {
     {
-        "EdenEast/nightfox.nvim",
+        "rose-pine/neovim",
         lazy = false,
         priority = 1000,
         config = function()
-            require("nightfox").setup({
-                options = {
-                    transparent = true,
-                },
-            })
-            vim.cmd("colorscheme carbonfox")
+            require("rose-pine").setup()
+            vim.cmd("colorscheme rose-pine")
+
+            vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
+            vim.api.nvim_set_hl(0, "NormalNC", { link = "Normal" })
 
             -- default float
             vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#191919" })
@@ -23,6 +22,29 @@ return {
             vim.api.nvim_set_hl(0, "Visual", { link = "CursorLine" })
         end,
     },
+    -- {
+    --     "EdenEast/nightfox.nvim",
+    --     lazy = true,
+    --     -- priority = 1000,
+    --     config = function()
+    --         require("nightfox").setup()
+    --         -- vim.cmd("colorscheme carbonfox")
+    --
+    --         vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
+    --         vim.api.nvim_set_hl(0, "NormalNC", { link = "Normal" })
+    --
+    --         -- default float
+    --         vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#191919" })
+    --         vim.api.nvim_set_hl(0, "NormalFloat2", { bg = "#2f2f2f" })
+    --         vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#191919", bg = "#191919" })
+    --         vim.api.nvim_set_hl(0, "Float2Border", { fg = "#2f2f2f", bg = "#2f2f2f" })
+    --         vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#2b3339", bg = "#e67e80" })
+    --         vim.api.nvim_set_hl(0, "Float2Title", { fg = "#2b3339", bg = "#83c092" })
+    --
+    --         -- visual selection
+    --         vim.api.nvim_set_hl(0, "Visual", { link = "CursorLine" })
+    --     end,
+    -- },
     {
         "nvim-lualine/lualine.nvim",
         dependencies = {
@@ -39,10 +61,10 @@ return {
                     icons_enabled = false,
                     -- component_separators = { left = "|", right = "|" },
                     -- section_separators = { left = "", right = "" },
-                    -- component_separators = { left = "", right = "" },
-                    -- section_separators = { left = "", right = "" },
-                    component_separators = { left = "\\", right = "/" },
-                    section_separators = { left = "", right = "" },
+                    component_separators = { left = "", right = "" },
+                    section_separators = { left = "", right = "" },
+                    -- component_separators = { left = "\\", right = "/" },
+                    -- section_separators = { left = "", right = "" },
                 },
                 sections = {
                     lualine_a = { "mode" },
@@ -59,6 +81,12 @@ return {
                     lualine_z = { "location" },
                 },
             })
+
+            vim.api.nvim_set_hl(0, "lualine_c_normal", { bg = "None" })
+            vim.api.nvim_set_hl(0, "lualine_c_insert", { link = "lualine_c_normal" })
+            vim.api.nvim_set_hl(0, "lualine_c_visual", { link = "lualine_c_normal" })
+            vim.api.nvim_set_hl(0, "lualine_c_command", { link = "lualine_c_normal" })
+            vim.api.nvim_set_hl(0, "lualine_c_replace", { link = "lualine_c_normal" })
         end,
     },
     {
