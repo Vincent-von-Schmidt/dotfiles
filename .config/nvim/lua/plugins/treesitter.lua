@@ -23,16 +23,4 @@ return {
             })
         end,
     },
-    { -- sticky strolling
-        "nvim-treesitter/nvim-treesitter-context",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-        },
-        lazy = true,
-        event = "UIEnter",
-        config = function()
-            require("treesitter-context").setup()
-            vim.api.nvim_set_hl(0, "TreesitterContext", { link = "NormalFloat" })
-        end,
-    },
 }

@@ -1,10 +1,15 @@
 return {
     {
         "rose-pine/neovim",
+        name = "rose-pine",
         lazy = false,
         priority = 1000,
         config = function()
-            require("rose-pine").setup()
+            require("rose-pine").setup({
+                styles = {
+                    transparency = false,
+                },
+            })
             vim.cmd("colorscheme rose-pine")
 
             vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
@@ -22,29 +27,6 @@ return {
             vim.api.nvim_set_hl(0, "Visual", { link = "CursorLine" })
         end,
     },
-    -- {
-    --     "EdenEast/nightfox.nvim",
-    --     lazy = true,
-    --     -- priority = 1000,
-    --     config = function()
-    --         require("nightfox").setup()
-    --         -- vim.cmd("colorscheme carbonfox")
-    --
-    --         vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
-    --         vim.api.nvim_set_hl(0, "NormalNC", { link = "Normal" })
-    --
-    --         -- default float
-    --         vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#191919" })
-    --         vim.api.nvim_set_hl(0, "NormalFloat2", { bg = "#2f2f2f" })
-    --         vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#191919", bg = "#191919" })
-    --         vim.api.nvim_set_hl(0, "Float2Border", { fg = "#2f2f2f", bg = "#2f2f2f" })
-    --         vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#2b3339", bg = "#e67e80" })
-    --         vim.api.nvim_set_hl(0, "Float2Title", { fg = "#2b3339", bg = "#83c092" })
-    --
-    --         -- visual selection
-    --         vim.api.nvim_set_hl(0, "Visual", { link = "CursorLine" })
-    --     end,
-    -- },
     {
         "nvim-lualine/lualine.nvim",
         dependencies = {
@@ -68,8 +50,8 @@ return {
                 },
                 sections = {
                     lualine_a = { "mode" },
-                    lualine_b = { "branch", "diff", "diagnostics" },
-                    lualine_c = { "filename" },
+                    lualine_b = { "branch", "diff", "diagnostics", "filename" },
+                    lualine_c = {},
                     lualine_x = {
                         {
                             require("noice").api.statusline.mode.get,
@@ -87,40 +69,12 @@ return {
             vim.api.nvim_set_hl(0, "lualine_c_visual", { link = "lualine_c_normal" })
             vim.api.nvim_set_hl(0, "lualine_c_command", { link = "lualine_c_normal" })
             vim.api.nvim_set_hl(0, "lualine_c_replace", { link = "lualine_c_normal" })
-        end,
-    },
-    {
-        "folke/noice.nvim",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-        },
-        lazy = true,
-        event = "UIEnter",
-        config = function()
-            require("noice").setup({
-                -- cmdline = {
-                --     view = "cmdline",
-                -- },
-                messages = {
-                    view = "mini",
-                },
-                views = {
-                    cmdline_popup = {
-                        position = {
-                            row = "25%",
-                            col = "50%",
-                        },
-                        border = {
-                            style = "none",
-                            padding = { 1, 2 },
-                        },
-                        filter_options = {},
-                        win_options = {
-                            winhighlight = "NormalFloat:NormalFloat, FloatBorder:FloatBorder",
-                        },
-                    },
-                },
-            })
+
+            -- vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_normal_to_lualine_c_normal", { bg = "None" })
+            -- vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_insert_to_lualine_c_insert", { bg = "None" })
+            -- vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_visual_to_lualine_c_visual", { bg = "None" })
+            -- vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_command_to_lualine_c_command", { bg = "None" })
+            -- vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_replace_to_lualine_c_replace", { bg = "None" })
         end,
     },
     {
