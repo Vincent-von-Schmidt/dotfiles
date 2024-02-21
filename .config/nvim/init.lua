@@ -206,23 +206,23 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
     end,
 })
 
--- terminal mode
-vim.api.nvim_create_autocmd({ "TermEnter" }, {
-    group = terminal,
-    callback = function()
-        vim.opt.relativenumber = false
-        vim.opt.number = false
-    end,
-})
-
--- normal mode
-vim.api.nvim_create_autocmd({ "TermLeave" }, {
-    group = terminal,
-    callback = function()
-        vim.opt.relativenumber = true
-        vim.opt.number = true
-    end,
-})
+-- -- terminal mode
+-- vim.api.nvim_create_autocmd({ "TermEnter" }, {
+--     group = terminal,
+--     callback = function()
+--         vim.opt.relativenumber = false
+--         vim.opt.number = false
+--     end,
+-- })
+--
+-- -- normal mode
+-- vim.api.nvim_create_autocmd({ "TermLeave" }, {
+--     group = terminal,
+--     callback = function()
+--         vim.opt.relativenumber = true
+--         vim.opt.number = true
+--     end,
+-- })
 
 -- plugins -----------------------------------------------------
 
