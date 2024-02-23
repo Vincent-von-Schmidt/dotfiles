@@ -186,6 +186,21 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
             set linebreak
             set columns=90
 
+            set spell
+
+        ]])
+    end,
+})
+
+-- markdown
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = "markdown",
+    group = vim.api.nvim_create_augroup("markdown", { clear = true }),
+    callback = function()
+        vim.cmd([[
+
+            set spell
+
         ]])
     end,
 })
@@ -200,29 +215,29 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
         -- esc
         vim.keymap.set("t", "<c-e>", "<c-\\><c-n>", { silent = true, noremap = true })
         -- TODO
-        -- vim.keymap.set("t", "<c-r>", "<c-\\><c-n>:q!<CR>", { silent = true, noremap = true })
+        vim.keymap.set("t", "<c-x>", "<c-\\><c-n>:q!<CR>", { silent = true, noremap = true })
 
         vim.cmd("startinsert")
     end,
 })
 
--- -- terminal mode
--- vim.api.nvim_create_autocmd({ "TermEnter" }, {
---     group = terminal,
---     callback = function()
---         vim.opt.relativenumber = false
---         vim.opt.number = false
---     end,
--- })
---
--- -- normal mode
--- vim.api.nvim_create_autocmd({ "TermLeave" }, {
---     group = terminal,
---     callback = function()
---         vim.opt.relativenumber = true
---         vim.opt.number = true
---     end,
--- })
+-- terminal mode
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+    group = terminal,
+    callback = function()
+        vim.opt.relativenumber = false
+        vim.opt.number = false
+    end,
+})
+
+-- normal mode
+vim.api.nvim_create_autocmd({ "TermClose" }, {
+    group = terminal,
+    callback = function()
+        vim.opt.relativenumber = true
+        vim.opt.number = true
+    end,
+})
 
 -- plugins -----------------------------------------------------
 
