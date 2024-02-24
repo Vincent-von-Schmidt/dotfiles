@@ -13,6 +13,9 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
+-- wrapping
+vim.opt.wrap = false
+
 -- global clipboard
 vim.o.clipboard = "unnamedplus"
 
@@ -225,19 +228,23 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
     group = terminal,
     callback = function()
-        vim.opt.relativenumber = false
-        vim.opt.number = false
+        vim.cmd([[
+
+            setlocal nonumber
+            setlocal norelativenumber
+
+        ]])
     end,
 })
 
--- normal mode
-vim.api.nvim_create_autocmd({ "TermClose" }, {
-    group = terminal,
-    callback = function()
-        vim.opt.relativenumber = true
-        vim.opt.number = true
-    end,
-})
+-- -- normal mode
+-- vim.api.nvim_create_autocmd({ "TermClose" }, {
+--     group = terminal,
+--     callback = function()
+--         vim.opt.relativenumber = true
+--         vim.opt.number = true
+--     end,
+-- })
 
 -- plugins -----------------------------------------------------
 
@@ -259,6 +266,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
     install = {
         colorscheme = { "rose-pine" },
+    },
+    dev = {
+        path = "/mnt/c/Users/Vincent/Documents/code/neovim/",
     },
 })
 

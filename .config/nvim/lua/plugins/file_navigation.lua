@@ -8,10 +8,10 @@ return {
         },
         lazy = true,
         keys = {
-            { "<leader>a", "<CMD> Telescope find_files <CR>",             silent = true, noremap = true },
-            { "<leader>s", "<CMD> Telescope live_grep <CR>",              silent = true, noremap = true },
-            { "<leader>d", "<CMD> Telescope grep_string <CR>",            silent = true, noremap = true },
-            { "<leader>b", "<CMD> Telescope buffers theme=dropdown <CR>", silent = true, noremap = true },
+            { "<leader>a", "<CMD> Telescope find_files <CR>",  silent = true, noremap = true },
+            { "<leader>s", "<CMD> Telescope live_grep <CR>",   silent = true, noremap = true },
+            { "<leader>d", "<CMD> Telescope grep_string <CR>", silent = true, noremap = true },
+            { "<leader>b", "<CMD> Telescope buffers <CR>",     silent = true, noremap = true },
         },
         cmd = "Telescope",
         config = function()
@@ -64,6 +64,15 @@ return {
             vim.api.nvim_set_hl(0, "TelescopeTitle", { link = "TelescopeBorder" })
             vim.api.nvim_set_hl(0, "TelescopePromptTitle", { link = "FLoatTitle" })
             vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { link = "Float2Title" })
+
+            local telescope_autogroup = vim.api.nvim_create_augroup("Telescope", { clear = true })
+
+            -- remove cursor line in insert prompt
+            vim.api.nvim_create_autocmd("FileType", {
+                group = telescope_autogroup,
+                pattern = "TelescopePrompt",
+                command = "setlocal nocursorline",
+            })
         end,
     },
     {
