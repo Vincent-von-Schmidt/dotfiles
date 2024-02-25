@@ -86,7 +86,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 
         -- substitute highlighted word
         vim.keymap.set("n", "<leader>gf", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
-        -- vim.keymap.set("n", "<leader>gl", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
+        vim.keymap.set("n", "<leader>gl", ":.s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
 
         -- move highlighted
         vim.keymap.set("v", "J", ":m '>+1<CR>gv=gvzz", { silent = true, noremap = true })
@@ -114,7 +114,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 })
 
 -- python
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
     pattern = "python",
     group = vim.api.nvim_create_augroup("python", { clear = true }),
     callback = function()
@@ -126,7 +126,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 -- rust
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
     pattern = "rust",
     group = vim.api.nvim_create_augroup("rust", { clear = true }),
     callback = function()
@@ -138,7 +138,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 -- haskell
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
     pattern = "haskell",
     group = vim.api.nvim_create_augroup("haskell", { clear = true }),
     callback = function()
@@ -150,7 +150,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 -- lua
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
     pattern = "lua",
     group = vim.api.nvim_create_augroup("lua", { clear = true }),
     callback = function()
@@ -160,7 +160,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 -- c
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
     pattern = "c",
     group = vim.api.nvim_create_augroup("c", { clear = true }),
     callback = function()
@@ -172,7 +172,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 -- latex
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
     pattern = { "tex", "plaintex" },
     group = vim.api.nvim_create_augroup("latex", { clear = true }),
     callback = function()
@@ -196,7 +196,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 -- markdown
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
     pattern = "markdown",
     group = vim.api.nvim_create_augroup("markdown", { clear = true }),
     callback = function()
@@ -265,6 +265,7 @@ vim.opt.rtp:prepend(lazypath)
 -- lazy.nvim
 require("lazy").setup("plugins", {
     install = {
+        missing = false,
         colorscheme = { "rose-pine" },
     },
     dev = {
