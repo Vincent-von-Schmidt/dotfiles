@@ -25,6 +25,14 @@ return {
 
             -- visual selection
             vim.api.nvim_set_hl(0, "Visual", { link = "CursorLine" })
+
+            vim.api.nvim_create_autocmd({ "BufEnter" }, {
+                command = "setlocal cursorline",
+            })
+
+            vim.api.nvim_create_autocmd({ "BufLeave" }, {
+                command = "setlocal nocursorline",
+            })
         end,
     },
     {

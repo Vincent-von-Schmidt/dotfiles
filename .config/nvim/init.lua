@@ -212,6 +212,31 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
 
 local terminal = vim.api.nvim_create_augroup("term", { clear = true })
 
+vim.keymap.set("n", "<leader>o", function()
+    vim.api.nvim_open_win(vim.api.nvim_create_buf(false, true), true, {
+        split = "right",
+        win = 0,
+    })
+    vim.fn.termopen("zsh")
+end, { silent = true, noremap = true })
+
+vim.keymap.set("n", "<leader>p", function()
+    vim.api.nvim_open_win(vim.api.nvim_create_buf(false, true), true, {
+        split = "below",
+        win = 0,
+    })
+    vim.fn.termopen("zsh")
+end, { silent = true, noremap = true })
+
+vim.keymap.set("n", "<leader>x", ":q!<CR>", { silent = true, noremap = true })
+vim.keymap.set("t", "<leader>x", "<c-\\><c-n> :q!<CR>", { silent = true, noremap = true })
+
+-- TODO -> check insert if moving to text buffer
+-- vim.keymap.set("t", "<c-w>h", "<c-\\><c-n> <c-w>h i", { silent = true, noremap = true })
+-- vim.keymap.set("t", "<c-w>j", "<c-\\><c-n> <c-w>j i", { silent = true, noremap = true })
+-- vim.keymap.set("t", "<c-w>k", "<c-\\><c-n> <c-w>k i", { silent = true, noremap = true })
+-- vim.keymap.set("t", "<c-w>l", "<c-\\><c-n> <c-w>l i", { silent = true, noremap = true })
+
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
     group = terminal,
     callback = function()
