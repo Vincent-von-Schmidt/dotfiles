@@ -20,9 +20,11 @@ pacstrap /mnt \\
     grub \\ # bootloader
     efibootmgr \\ # enables efi boot
     networkmanager \\ # handels the network
-    gnome gnome-tweaks \\ # desktop
+    plasma plasma-wayland-session plasma-framework plasma-wayland-protocols \\ # desktop
+    python \\
+    cmake extra-cmake-modules \\
     git \\
-    vim \\ # text editor
+    neovim \\ # text editor
     zsh \\ # prompt
     starship \\ # prompt design
     tmux # terminal tilling window manager
