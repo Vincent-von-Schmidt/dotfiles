@@ -6,7 +6,7 @@ return {
         "andersevenrud/cmp-tmux",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
-        "Exafunction/codeium.nvim",
+        -- "Exafunction/codeium.nvim",
         "nvim-lua/plenary.nvim",
     },
     lazy = true,
@@ -27,7 +27,7 @@ return {
         })
 
         -- codium - ai - copilot
-        require("codeium").setup({})
+        -- require("codeium").setup({})
 
         local cmp = require("cmp")
         cmp.setup({
@@ -42,7 +42,7 @@ return {
             sources = {
                 { name = "luasnip" },
                 { name = "nvim_lsp" },
-                { name = "codeium" },
+                -- { name = "codeium" },
                 { name = "buffer" },
                 { name = "path" },
                 { name = "tmux" },
