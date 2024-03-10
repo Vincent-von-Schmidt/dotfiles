@@ -6,8 +6,9 @@ return {
         "andersevenrud/cmp-tmux",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
-        "Exafunction/codeium.nvim",
-        "nvim-lua/plenary.nvim",
+        -- "Exafunction/codeium.nvim",
+        -- "nvim-lua/plenary.nvim",
+        "f3fora/cmp-spell",
     },
     lazy = true,
     event = "InsertEnter",
@@ -27,7 +28,7 @@ return {
         })
 
         -- codium - ai - copilot
-        require("codeium").setup({})
+        -- require("codeium").setup({})
 
         local cmp = require("cmp")
         cmp.setup({
@@ -40,9 +41,18 @@ return {
                 end,
             },
             sources = {
+                {
+                    name = "spell",
+                    option = {
+                        keep_all_entries = false,
+                        enable_in_context = function()
+                            return true
+                        end,
+                    },
+                },
                 { name = "luasnip" },
                 { name = "nvim_lsp" },
-                { name = "codeium" },
+                -- { name = "codeium" },
                 { name = "buffer" },
                 { name = "path" },
                 { name = "tmux" },
