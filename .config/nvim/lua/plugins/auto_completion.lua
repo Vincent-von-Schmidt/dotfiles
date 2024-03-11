@@ -7,7 +7,8 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         -- "Exafunction/codeium.nvim",
-        "nvim-lua/plenary.nvim",
+        -- "nvim-lua/plenary.nvim",
+        -- "f3fora/cmp-spell",
     },
     lazy = true,
     event = "InsertEnter",
@@ -40,6 +41,15 @@ return {
                 end,
             },
             sources = {
+                -- {
+                --     name = "spell",
+                --     option = {
+                --         keep_all_entries = false,
+                --         enable_in_context = function()
+                --             return true
+                --         end,
+                --     },
+                -- },
                 { name = "luasnip" },
                 { name = "nvim_lsp" },
                 -- { name = "codeium" },

@@ -181,17 +181,17 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
             float.term("pdflatex " .. vim.fn.expand("%"))
         end, { force = true })
 
-        vim.cmd([[
+        vim.opt.textwidth = 0
+        vim.opt.wrapmargin = 0
+        vim.opt.wrap = true
+        vim.opt.linebreak = true
+        vim.opt.columns = 90
 
-            set textwidth=0
-            set wrapmargin=0
-            set wrap
-            set linebreak
-            set columns=90
-
-            set spell
-
-        ]])
+        vim.opt.spell = true
+        vim.opt.spelllang = {
+            "en_us",
+            "de_de",
+        }
     end,
 })
 
@@ -200,11 +200,11 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
     pattern = "markdown",
     group = vim.api.nvim_create_augroup("markdown", { clear = true }),
     callback = function()
-        vim.cmd([[
-
-            set spell
-
-        ]])
+        vim.opt.spell = true
+        vim.opt.spelllang = {
+            "en_us",
+            "de_de",
+        }
     end,
 })
 
