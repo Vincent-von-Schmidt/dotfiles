@@ -33,6 +33,13 @@ return {
             vim.api.nvim_create_autocmd({ "BufLeave" }, {
                 command = "setlocal nocursorline",
             })
+
+            vim.api.nvim_create_autocmd("TextYankPost", {
+                group = vim.api.nvim_create_augroup("yank-highlight", { clear = true }),
+                callback = function()
+                    vim.highlight.on_yank()
+                end,
+            })
         end,
     },
     {
@@ -83,6 +90,24 @@ return {
             vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_visual_to_lualine_c_visual", { bg = "None" })
             vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_command_to_lualine_c_command", { bg = "None" })
             vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_replace_to_lualine_c_replace", { bg = "None" })
+        end,
+    },
+    {
+        "stevearc/dressing.nvim",
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+        },
+        lazy = false,
+        config = function()
+            require("dressing").setup({
+                input = {
+                    enabled = false,
+                },
+                select = {
+                    backend = { "telescope", "builtin" },
+                    telescope = require("telescope.themes").get_cursor({}),
+                },
+            })
         end,
     },
     {

@@ -48,7 +48,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.termguicolors = true
 
 -- design
-vim.opt.hlsearch = false
+-- vim.opt.hlsearch = false
 vim.opt.colorcolumn = "90"
 vim.opt.cursorline = true
 vim.o.showtabline = 0
@@ -66,6 +66,9 @@ vim.keymap.set("v", "<c-e>", "<ESC>", { silent = true, noremap = true })
 vim.keymap.set("c", "<c-e>", "<ESC>", { silent = true, noremap = true })
 vim.keymap.set("s", "<c-e>", "<ESC>", { silent = true, noremap = true })
 vim.keymap.set("v", "<cr>", "<ESC>", { silent = true, noremap = true })
+
+-- removes search highlight on esc
+vim.keymap.set("n", "<ESC>", "<cmd>nohlsearch<CR>", { silent = true, noremap = true })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     group = vim.api.nvim_create_augroup("after_dashboard", { clear = true }),
@@ -181,11 +184,12 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
             float.term("pdflatex " .. vim.fn.expand("%"))
         end, { force = true })
 
-        vim.opt.textwidth = 0
-        vim.opt.wrapmargin = 0
+        vim.opt.colorcolumn = "0"
+        -- vim.opt.textwidth = 0
+        -- vim.opt.wrapmargin = 0
         vim.opt.wrap = true
         vim.opt.linebreak = true
-        vim.opt.columns = 90
+        -- vim.opt.columns = 90
 
         vim.opt.spell = true
         vim.opt.spelllang = {
@@ -290,7 +294,6 @@ vim.opt.rtp:prepend(lazypath)
 -- lazy.nvim
 require("lazy").setup("plugins", {
     install = {
-        missing = false,
         colorscheme = { "rose-pine" },
     },
     dev = {
