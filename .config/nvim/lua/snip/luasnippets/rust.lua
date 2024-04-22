@@ -12,11 +12,12 @@ return {
 
             -- args
             local arguments = util_string.split(args[1][1], ",")
-            for _, el in ipairs(arguments) do
+            for _, el in pairs(arguments) do
                 local declaration_split = util_string.split(el, ": ") -- name, type
                 local var_name = declaration_split[1]
+                local var_type = declaration_split[2] or "*"
 
-                table.insert(output, t("/// * `" .. var_name .. "` - "))
+                table.insert(output, t(string.format("/// %s `%s` - ", var_type, var_name)))
                 table.insert(output, i(jump_index))
                 table.insert(output, t({ "", "" }))
 

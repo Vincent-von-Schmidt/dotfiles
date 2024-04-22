@@ -4,7 +4,7 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-            "nvim-telescope/telescope-ui-select.nvim",
+            -- "nvim-telescope/telescope-ui-select.nvim",
         },
         lazy = true,
         keys = {
@@ -46,15 +46,15 @@ return {
                         override_file_sorter = true,
                         case_mode = "smart_case",
                     },
-                    ["ui-select"] = {
-                        require("telescope.themes").get_cursor({}),
-                    },
+                    -- ["ui-select"] = {
+                    --     require("telescope.themes").get_cursor({}),
+                    -- },
                 },
             })
 
             -- load extension
             package.load_extension("fzf")
-            package.load_extension("ui-select")
+            -- package.load_extension("ui-select")
 
             -- highlight groups
             vim.api.nvim_set_hl(0, "TelescopeNormal", { link = "NormalFloat" })
@@ -73,6 +73,11 @@ return {
                 pattern = "TelescopePrompt",
                 command = "setlocal nocursorline",
             })
+
+            -- spell ui
+            vim.keymap.set("n", "z=", function()
+                require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor({}))
+            end, { silent = true, noremap = true })
         end,
     },
     {

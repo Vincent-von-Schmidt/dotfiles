@@ -41,16 +41,10 @@ return {
                 vim.keymap.set("n", "<leader>li", vim.lsp.buf.hover, opts)
 
                 -- go to definition
-                vim.keymap.set("n", "<leader>ld", function()
-                    vim.lsp.buf.definition()
-                    vim.cmd('execute "normal! zz"')
-                end, opts)
+                vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition(), opts)
 
                 -- go to reference
-                vim.keymap.set("n", "<leader>lr", function()
-                    vim.lsp.buf.references()
-                    vim.cmd('execute "normal! zz"')
-                end, opts)
+                vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references(), opts)
 
                 -- execute code action
                 vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
@@ -130,7 +124,7 @@ return {
                 group = null,
                 callback = function()
                     vim.lsp.buf.format()
-                    vim.cmd('execute "normal! zz"') -- TODO
+                    -- vim.cmd('execute "normal! zz"') -- TODO
                 end,
             })
         end,
