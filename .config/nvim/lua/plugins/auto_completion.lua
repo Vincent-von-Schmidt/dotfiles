@@ -95,5 +95,8 @@ return {
                 end, { "i", "s" }),
             },
         })
+
+        -- cmp design
+        vim.api.nvim_set_hl(0, "PmenuSel", { link = "FloatTitle", force = true })
     end,
 }

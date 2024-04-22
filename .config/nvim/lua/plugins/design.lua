@@ -87,19 +87,49 @@ return {
             vim.api.nvim_set_hl(0, "lualine_c_command", { link = "lualine_c_normal" })
             vim.api.nvim_set_hl(0, "lualine_c_replace", { link = "lualine_c_normal" })
 
-            vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_normal_to_lualine_c_normal", { bg = "None" })
-            vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_insert_to_lualine_c_insert", { bg = "None" })
-            vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_visual_to_lualine_c_visual", { bg = "None" })
-            vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_command_to_lualine_c_command", { bg = "None" })
-            vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_replace_to_lualine_c_replace", { bg = "None" })
+            -- vim.api.nvim_set_hl(
+            --     0,
+            --     "lualine_transitional_lualine_b_normal_to_lualine_c_normal",
+            --     { bg = "None", force = true }
+            -- )
+            -- vim.api.nvim_set_hl(
+            --     0,
+            --     "lualine_transitional_lualine_b_insert_to_lualine_c_insert",
+            --     { bg = "None", force = true }
+            -- )
+            -- vim.api.nvim_set_hl(
+            --     0,
+            --     "lualine_transitional_lualine_b_visual_to_lualine_c_visual",
+            --     { bg = "None", force = true }
+            -- )
+            -- vim.api.nvim_set_hl(
+            --     0,
+            --     "lualine_transitional_lualine_b_command_to_lualine_c_command",
+            --     { bg = "None", force = true }
+            -- )
+            -- vim.api.nvim_set_hl(
+            --     0,
+            --     "lualine_transitional_lualine_b_replace_to_lualine_c_replace",
+            --     { bg = "None", force = true }
+            -- )
+
+            vim.api.nvim_create_autocmd("BufEnter", {
+                command = [[
+                    highlight! lualine_transitional_lualine_b_normal_to_lualine_c_normal guibg=None
+                    highlight! lualine_transitional_lualine_b_insert_to_lualine_c_insert guibg=None
+                    highlight! lualine_transitional_lualine_b_visual_to_lualine_c_visual guibg=None
+                    highlight! lualine_transitional_lualine_b_command_to_lualine_c_command guibg=None
+                    highlight! lualine_transitional_lualine_b_replace_to_lualine_c_replace guibg=None
+                ]],
+            })
 
             -- vim.cmd([[
             --
-            --     highlight! lualine_transitional_lualine_b_normal_to_lualine_c_normal ctermbg=None
-            --     highlight! lualine_transitional_lualine_b_insert_to_lualine_c_insert ctermbg=None
-            --     highlight! lualine_transitional_lualine_b_visual_to_lualine_c_visual ctermbg=None
-            --     highlight! lualine_transitional_lualine_b_command_to_lualine_c_command ctermbg=None
-            --     highlight! lualine_transitional_lualine_b_replace_to_lualine_c_replace ctermbg=None
+            --     highlight! lualine_transitional_lualine_b_normal_to_lualine_c_normal guibg=None
+            --     highlight! lualine_transitional_lualine_b_insert_to_lualine_c_insert guibg=None
+            --     highlight! lualine_transitional_lualine_b_visual_to_lualine_c_visual guibg=None
+            --     highlight! lualine_transitional_lualine_b_command_to_lualine_c_command guibg=None
+            --     highlight! lualine_transitional_lualine_b_replace_to_lualine_c_replace guibg=None
             --
             -- ]])
         end,
