@@ -11,7 +11,17 @@ snippet template
 
     %-- font ----------------------------------------------------
 
-    \usepackage[T1]{fontenc}
+	% Arial
+	\usepackage{helvet}
+	\renewcommand{\familydefault}{\sfdefault}
+
+	% Times New Roman
+    % \usepackage[T1]{fontenc}
+
+	%-- misc ----------------------------------------------------
+
+	% hyperlinks
+	\usepackage[hidelinks]{hyperref}
 
     %-- head/foot -----------------------------------------------
 
@@ -80,8 +90,11 @@ snippet sidebyside
         \end{minipage}
     \end{figure}
 
-snippet url
-    \item ${1:AUTHOR}, ${2:TITLE}, ${3:DATE}, \newline \url{${4:URL}}
+snippet web_source
+    \item ${1:AUTHOR}, \textbf{${2:TITLE}}, ${3:DATE}, \newline \url{${4:URL}}
+
+snippet lit_source
+	\item ${1:AUTHOR}, \textbf{${2:TITLE}}, \newline ${3:PUBLISHER}, ${4:DATE}, ${5:LOCATION}
 
 snippet enumerate
 	\begin{enumerate}
@@ -95,3 +108,6 @@ snippet itemize
 
 autosnippet ->
 	$\rightarrow$
+
+autosnippet .b
+	\textbf{$1}$0

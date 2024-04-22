@@ -73,6 +73,11 @@ return {
                 pattern = "TelescopePrompt",
                 command = "setlocal nocursorline",
             })
+
+            -- spell ui
+            vim.keymap.set("n", "z=", function()
+                require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor({}))
+            end, { silent = true, noremap = true })
         end,
     },
     {

@@ -66,14 +66,14 @@ return {
                 sections = {
                     lualine_a = { "mode" },
                     lualine_b = { "branch", "diff", "diagnostics", "filename" },
-                    lualine_c = {},
-                    lualine_x = {
+                    lualine_c = {
                         {
                             require("noice").api.statusline.mode.get,
                             cond = require("noice").api.statusline.mode.has,
                             color = { fg = "#ff9e64" },
                         },
                     },
+                    lualine_x = {},
                     lualine_y = { "encoding", "fileformat", "filetype" },
                     lualine_z = { "location" },
                 },
@@ -90,6 +90,16 @@ return {
             vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_visual_to_lualine_c_visual", { bg = "None" })
             vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_command_to_lualine_c_command", { bg = "None" })
             vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_replace_to_lualine_c_replace", { bg = "None" })
+
+            -- vim.cmd([[
+            --
+            --     highlight! lualine_transitional_lualine_b_normal_to_lualine_c_normal ctermbg=None
+            --     highlight! lualine_transitional_lualine_b_insert_to_lualine_c_insert ctermbg=None
+            --     highlight! lualine_transitional_lualine_b_visual_to_lualine_c_visual ctermbg=None
+            --     highlight! lualine_transitional_lualine_b_command_to_lualine_c_command ctermbg=None
+            --     highlight! lualine_transitional_lualine_b_replace_to_lualine_c_replace ctermbg=None
+            --
+            -- ]])
         end,
     },
     {
