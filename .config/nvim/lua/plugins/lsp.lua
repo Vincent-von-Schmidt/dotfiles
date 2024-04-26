@@ -26,6 +26,7 @@ return {
                     "clangd", -- c / c++
                     "pyright", -- python
                     "rust_analyzer", -- rust
+                    "texlab", -- latex
                 },
             })
 

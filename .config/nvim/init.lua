@@ -109,7 +109,13 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
     callback = function()
         -- execute current python file
         vim.api.nvim_create_user_command("Run", function()
-            float.term("python3 " .. vim.fn.expand("%"))
+            if vim.fn.filereadable("./main.py") then
+                -- if python project execute main file
+                float.term("python3 main.py")
+            else
+                -- if idepended file execute just the file
+                float.term("python3 " .. vim.fn.expand("%"))
+            end
         end, { force = true })
     end,
 })
@@ -121,7 +127,13 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
     callback = function()
         -- execute current cargo project
         vim.api.nvim_create_user_command("Run", function()
-            float.term("cargo run")
+            if vim.fn.filereadable("./Cargo.toml") then
+                -- if cargo project then execute via cargo
+                float.term("cargo run")
+            else
+                -- if idepended rust file compile file with rustc, execute it and remote the executable
+                float.term("rustc -o a.out " .. vim.fn.expand("%") .. " && ./a.out && rm a.out")
+            end
         end, { force = true })
     end,
 })

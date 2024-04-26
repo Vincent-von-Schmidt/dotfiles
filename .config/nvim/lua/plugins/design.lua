@@ -114,6 +114,21 @@ return {
             -- )
 
             vim.api.nvim_create_autocmd("BufEnter", {
+                -- callback = function()
+                --     vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_normal_to_lualine_c_normal", { bg = "None" })
+                --     vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_insert_to_lualine_c_insert", { bg = "None" })
+                --     vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_visual_to_lualine_c_visual", { bg = "None" })
+                --     vim.api.nvim_set_hl(
+                --         0,
+                --         "lualine_transitional_lualine_b_command_to_lualine_c_command",
+                --         { bg = "None" }
+                --     )
+                --     vim.api.nvim_set_hl(
+                --         0,
+                --         "lualine_transitional_lualine_b_replace_to_lualine_c_replace",
+                --         { bg = "None" }
+                --     )
+                -- end,
                 command = [[
                     highlight! lualine_transitional_lualine_b_normal_to_lualine_c_normal guibg=None
                     highlight! lualine_transitional_lualine_b_insert_to_lualine_c_insert guibg=None
