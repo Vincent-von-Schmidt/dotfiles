@@ -48,7 +48,7 @@ return {
                         icon = " ",
                         desc = "terminal",
                         key = "t",
-                        action = "edit term://zsh",
+                        action = "edit term://bash",
                     },
                 },
                 footer = { "" },

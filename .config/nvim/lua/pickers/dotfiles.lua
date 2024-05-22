@@ -17,42 +17,42 @@ local dotfiles = {
     ["starship"] = "edit ~/.config/starship.toml",
 }
 
-vim.api.nvim_create_user_command("DPush", function(opts)
-    for _, el in pairs(dotfiles) do
-        local path = require("utils.string").split(el, " ")
-        vim.fn.jobstart("cp " .. path[2] .. " /mnt/c/Users/Vincent/Documents/dotfiles/ -r")
-    end
+-- vim.api.nvim_create_user_command("DPush", function(opts)
+--     for _, el in pairs(dotfiles) do
+--         local path = require("utils.string").split(el, " ")
+--         vim.fn.jobstart("cp " .. path[2] .. " /mnt/c/Users/Vincent/Documents/dotfiles/ -r")
+--     end
+--
+--     require("utils.float").term(string.format(
+--         [[
+--         cd /mnt/c/Users/Vincent/Documents/dotfiles/
+--         git add *
+--         git commit -m %s
+--         git push
+--     ]],
+--         opts.args or "..."
+--     ))
+-- end, { force = true })
 
-    require("utils.float").term(string.format(
-        [[
-        cd /mnt/c/Users/Vincent/Documents/dotfiles/
-        git add *
-        git commit -m %s
-        git push
-    ]],
-        opts.args or "..."
-    ))
-end, { force = true })
-
-vim.api.nvim_create_user_command("DPull", function(opts)
-    local split = require("utils.string").split
-    for i, el in pairs(dotfiles) do
-        local repo_file_path = split(split(el, " ")[2], "/")
-        local element = repo_file_path[#repo_file_path]
-
-        vim.fn.jobstart(string.format("cp /mnt/c/Users/Vincent/Documents/dotfiles/%s %s -r", element, dotfiles[i]))
-    end
-
-    -- require("utils.float").term([[
-    --     cd /mnt/c/Users/Vincent/Documents/dotfiles/
-    --     git pull
-    -- ]])
-    --
-    -- for _, el in pairs(dotfiles) do
-    --     local path = require("utils.string").split(el, " ")
-    --     vim.fn.jobstart("cp /mnt/c/Users/Vincent/Documents/dotfiles/ " .. path[2] .. " -r")
-    -- end
-end, { force = true })
+-- vim.api.nvim_create_user_command("DPull", function(opts)
+--     local split = require("utils.string").split
+--     for i, el in pairs(dotfiles) do
+--         local repo_file_path = split(split(el, " ")[2], "/")
+--         local element = repo_file_path[#repo_file_path]
+--
+--         vim.fn.jobstart(string.format("cp /mnt/c/Users/Vincent/Documents/dotfiles/%s %s -r", element, dotfiles[i]))
+--     end
+--
+--     -- require("utils.float").term([[
+--     --     cd /mnt/c/Users/Vincent/Documents/dotfiles/
+--     --     git pull
+--     -- ]])
+--     --
+--     -- for _, el in pairs(dotfiles) do
+--     --     local path = require("utils.string").split(el, " ")
+--     --     vim.fn.jobstart("cp /mnt/c/Users/Vincent/Documents/dotfiles/ " .. path[2] .. " -r")
+--     -- end
+-- end, { force = true })
 
 function M.picker(opts)
     opts = opts or {}

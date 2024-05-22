@@ -220,7 +220,7 @@ vim.keymap.set("n", "<leader>o", function()
         split = "right",
         win = 0,
     })
-    vim.fn.termopen("zsh")
+    vim.fn.termopen("bash")
 end, { silent = true, noremap = true })
 
 vim.keymap.set("n", "<leader>p", function()
@@ -228,7 +228,19 @@ vim.keymap.set("n", "<leader>p", function()
         split = "below",
         win = 0,
     })
-    vim.fn.termopen("zsh")
+    vim.fn.termopen("bash")
+end, { silent = true, noremap = true })
+
+vim.keymap.set("n", "<leader>c", function()
+    vim.cmd("tabnew")
+    vim.fn.termopen("bash")
+end, { silent = true, noremap = true })
+
+vim.keymap.set("n", "<leader>e", function()
+    local tabs_open = vim.api.nvim_list_tabpages()
+    vim.ui.select(vim.api.nvim_list_tabpages(), { prompt = "Vimux-Tabs" }, function(item)
+        vim.cmd(item .. "tabnext")
+    end)
 end, { silent = true, noremap = true })
 
 vim.keymap.set("n", "<leader>x", ":q!<CR>", { silent = true, noremap = true })
