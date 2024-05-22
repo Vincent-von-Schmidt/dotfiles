@@ -5,6 +5,6 @@ return {
         { "<leader>u", ":UndotreeToggle <CR> :UndotreeFocus <CR>", silent = true },
     },
     config = function()
-        vim.g.undotree_WindowLayout = 4
+        vim.g.undotree_WindowLayout = 3
     end,
 }

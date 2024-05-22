@@ -3,13 +3,12 @@ return {
     dependencies = {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        "andersevenrud/cmp-tmux",
+        -- "andersevenrud/cmp-tmux",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "onsails/lspkind.nvim",
         -- "Exafunction/codeium.nvim",
         -- "nvim-lua/plenary.nvim",
-        -- "f3fora/cmp-spell",
     },
     lazy = true,
     event = "InsertEnter",
@@ -56,7 +55,7 @@ return {
                 -- { name = "codeium" },
                 { name = "buffer" },
                 { name = "path" },
-                { name = "tmux" },
+                -- { name = "tmux" },
             },
             mapping = {
                 ["<c-y>"] = cmp.mapping.confirm({ select = true }),

@@ -15,17 +15,21 @@ return {
             "latex",
             "tex",
             "plaintex",
-            "markdown",
         },
         config = function()
-            -- vim.keymap.set("n", "<leader>j", function()
-            --     require("nabla").popup()
-            -- end, { silent = true, noremap = true })
-
             require("nabla").enable_virt({
                 autogen = true,
                 silent = true,
             })
+        end,
+    },
+    {
+        "HampusHauffman/block.nvim",
+        lazy = true,
+        event = "VeryLazy",
+        enabled = false,
+        config = function()
+            require("block").setup({})
         end,
     },
 }

@@ -33,27 +33,4 @@ return {
             })
         end,
     },
-    { -- sticky strolling
-        "nvim-treesitter/nvim-treesitter-context",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-        },
-        lazy = true,
-        event = "UIEnter",
-        config = function()
-            require("treesitter-context").setup()
-            vim.api.nvim_set_hl(0, "TreesitterContext", { link = "NormalFloat" })
-        end,
-    },
-    -- {
-    --     "nvim-telescope/telescope-ui-select.nvim",
-    --     dependencies = {
-    --         "nvim-telescope/telescope.nvim",
-    --     },
-    --     lazy = true,
-    --     event = "VeryLazy",
-    --     config = function()
-    --         require("telescope").load_extension("ui-select")
-    --     end,
-    -- },
 }
