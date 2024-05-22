@@ -239,7 +239,9 @@ end, { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>e", function()
     local tabs_open = vim.api.nvim_list_tabpages()
     vim.ui.select(vim.api.nvim_list_tabpages(), { prompt = "Vimux-Tabs" }, function(item)
-        vim.cmd(item .. "tabnext")
+        if item ~= nil then
+            vim.cmd(item .. "tabnext")
+        end
     end)
 end, { silent = true, noremap = true })
 
