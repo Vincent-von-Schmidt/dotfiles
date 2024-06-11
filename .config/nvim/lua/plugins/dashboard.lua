@@ -5,6 +5,9 @@ return {
     },
     lazy = true,
     event = "UIEnter",
+    keys = {
+        { "<leader>h", "<CMD>Dashboard<CR>", silent = true, noremap = true },
+    },
     config = function()
         local logo = [[
            / | / /__  ____| |  / (_)___ ___
@@ -36,13 +39,13 @@ return {
                         icon = " ",
                         desc = "dotfiles ",
                         key = "d",
-                        action = 'lua require("pickers.dotfiles").picker()',
+                        action = 'lua require("plugins.telescope.picker.dotfiles").picker()',
                     },
                     {
                         icon = " ",
                         desc = "ssh ",
                         key = "s",
-                        action = "RemoteSSHFSConnect",
+                        action = "RemoteStart",
                     },
                     {
                         icon = " ",

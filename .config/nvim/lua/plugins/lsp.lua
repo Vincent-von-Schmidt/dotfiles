@@ -54,6 +54,13 @@ return {
                 vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, opts)
             end
 
+            -- lspconfig opts
+            require("lspconfig").setup({
+                inlay_hints = {
+                    enabled = true,
+                },
+            })
+
             -- add all lsp servers installed via mason
             require("mason-lspconfig").setup_handlers({
                 function(server_name)
