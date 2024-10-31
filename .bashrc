@@ -2,34 +2,6 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
-# If not running interactively, don't do anything
-# case $- in
-#     *i*) ;;
-#       *) return;;
-# esac
-
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-# HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-# shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-# HISTSIZE=1000
-# HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-# shopt -s checkwinsize
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# make less more friendly for non-text input files, see lesspipe(1)
-# [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -57,9 +29,10 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n=> '
+    # PS1='\u - \h - \w\n=> '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\n - $ '
 fi
 unset color_prompt force_color_prompt
 
@@ -76,22 +49,11 @@ esac
 alias ll="ls -alF --color=always"
 
 # path
-export PATH=$PATH:/snap/bin
-export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 export PATH=$PATH:/home/vincent/.local/bin
 
 # config files
 export XDG_CONFIG_HOME=$HOME/.config/
-export WIN_HOME=/mnt/c/Users/Vincent/
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -104,21 +66,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-PS1='\[\e]0;\u@\h: \w\a\]\[\033[;32m\]┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)\[\033[;32m\])}(\[\033[1;32m\]\u@\h\[\033[;32m\])-[\[\033[0;34m\w\033[;32m\]]\n\[\033[;32m\]└─\[\033[1;34m\]\$\[\033[0m\] '
+# PS1='\[\e]0;\u@\h: \w\a\]\[\033[;32m\]┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)\[\033[;32m\])}(\[\033[1;32m\]\u@\h\[\033[;32m\])-[\[\033[0;34m\w\033[;32m\]]\n\[\033[;32m\]└─\[\033[1;34m\]\$\[\033[0m\] '
 # PS1='\[\e]0;\u@\h: \w\a\]\[\033[;32m\]${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)\[\033[;32m\])}\[\033[1;32m\]\u@\h\[\033[;32m\]-[\[\033[0;34m\w\033[;32m\]]\n\[\033[;32m\] - \[\033[1;34m\]\$\[\033[0m\] '
 # PS1="\[\]`export XIT=$? \ && [ ! -z "${GITHUB_USER}" ] && echo -n "\[\033[0;32m\]@${GITHUB_USER} " || echo -n "\[\033[0;32m\]\u " \ && [ "$XIT" -ne "0" ] && echo -n "\[\033[1;31m\]➜" || echo -n "\[\033[0m\]➜"` \[\033[1;34m\]\w `\ if [ "$(git config --get codespaces-theme.hide-status 2>/dev/null)" != 1 ]; then \ export BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null); \ if [ "${BRANCH}" != "" ]; then \ echo -n "\[\033[0;36m\](\[\033[1;31m\]${BRANCH}" \ && if git ls-files --error-unmatch -m --directory --no-empty-directory -o --exclude-standard ":/*" > /dev/null 2>&1; then \ echo -n " \[\033[1;33m\]✗"; \ fi \ && echo -n "\[\033[0;36m\]) "; \ fi; \ fi`\[\033[0m\]$ \[\]"
 
 # rust - cargo
-. "$HOME/.cargo/env"
-
-eval "$(starship init bash)"
-STARSHIP_CONFIG=$HOME/.config/starship.toml
+# . "$HOME/.cargo/env"
 
 # [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
-
-# init
-# zsh
