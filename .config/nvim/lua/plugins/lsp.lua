@@ -41,11 +41,13 @@ return {
 				-- get info of hoverd function
 				vim.keymap.set("n", "<leader>li", vim.lsp.buf.hover, opts)
 
+                -- TODO
 				-- go to definition
-				vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition(), opts)
+				-- vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition(), opts)
 
+                -- TODO
 				-- go to reference
-				vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references(), opts)
+				-- vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references(), opts)
 
 				-- execute code action
 				vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
