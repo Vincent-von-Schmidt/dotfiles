@@ -8,13 +8,7 @@ local M = {}
 
 local dotfiles = {
     ["neovim"] = "cd ~/.config/nvim/ | Telescope find_files",
-    ["windows_terminal"] =
-    "edit /mnt/c/Users/Vincent/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json",
-    ["powershell"] = "edit /mnt/c/Users/Vincent/Documents/PowerShell/Microsoft.PowerShell_profile.ps1",
-    ["tmux"] = "edit ~/.config/tmux/tmux.conf",
-    ["zsh"] = "edit ~/.zshrc",
     ["bash"] = "edit ~/.bashrc",
-    ["starship"] = "edit ~/.config/starship.toml",
 }
 
 function M.picker(opts)

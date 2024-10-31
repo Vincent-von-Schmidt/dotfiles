@@ -42,12 +42,6 @@ return {
                         action = 'lua require("plugins.telescope.picker.dotfiles").picker()',
                     },
                     {
-                        icon = " ",
-                        desc = "ssh ",
-                        key = "s",
-                        action = "RemoteStart",
-                    },
-                    {
                         icon = " ",
                         desc = "terminal",
                         key = "t",

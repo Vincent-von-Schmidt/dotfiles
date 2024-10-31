@@ -74,8 +74,8 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	group = vim.api.nvim_create_augroup("after_dashboard", { clear = true }),
 	callback = function()
 		-- substitute highlighted word
-		vim.keymap.set("n", "<leader>gf", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
-		vim.keymap.set("n", "<leader>gl", ":.s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
+        vim.keymap.set("n", "<leader>gf", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
+        vim.keymap.set("n", "<leader>gl", ":.s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { noremap = true })
 
 		-- move highlighted
 		vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true, noremap = true })
@@ -223,6 +223,7 @@ vim.keymap.set("n", "<leader>o", function()
 	vim.fn.termopen("bash")
 end, { silent = true, noremap = true })
 
+-- TODO
 -- vim.keymap.set("n", "<leader>o", function()
 --     vim.api.nvim_open_win(vim.api.nvim_create_buf(false, true), true, {
 --         split = "right",
@@ -323,13 +324,7 @@ require("lazy").setup("plugins", {
 	dev = {
 		path = "/mnt/c/Users/Vincent/Documents/code/neovim/",
 	},
+	rocks = {
+		enabled = false,
+	},
 })
-
--- gui ---------------------------------------------------------
-
--- for wsl passthrough to windows
-if vim.g.neovide then
-	vim.g.neovide_scale_factor = 0.7
-	vim.api.nvim_set_hl(0, "Normal", { bg = "#262626" })
-	vim.cmd("set mouse=a")
-end

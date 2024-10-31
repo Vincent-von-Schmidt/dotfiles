@@ -15,7 +15,7 @@ return {
                     "python",
                     "rust",
                     "haskell",
-                    "latex",
+                    -- "latex",
                 },
                 auto_install = true,
                 highlight = { enable = true },
