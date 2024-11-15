@@ -1,0 +1,63 @@
+
+exec --no-startup-id feh --no-fehbg --bg-fill "$HOME/git_repos/background.jpg"
+
+font pango:monospace 8
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+exec --not-startup-id xsetroot -solid "#333333"
+
+floating_modifier $mod
+tiling_drag modifier titlebar
+
+for_window [window_role="pop_up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+workspace_auto_back_and_forth yes
+
+set $mod Mod1
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+1 workspace number "1"
+bindsym $mod+2 workspace number "2"
+bindsym $mod+3 workspace number "3"
+bindsym $mod+4 workspace number "4"
+bindsym $mod+5 workspace number "5"
+bindsym $mod+6 workspace number "6"
+bindsym $mod+7 workspace number "7"
+bindsym $mod+8 workspace number "8"
+bindsym $mod+9 workspace number "9"
+bindsym $mod+0 workspace number "0"
+
+bindsym $mod+Shift+1 move container to workspace number "1"
+bindsym $mod+Shift+2 move container to workspace number "2"
+bindsym $mod+Shift+3 move container to workspace number "3"
+bindsym $mod+Shift+4 move container to workspace number "4"
+bindsym $mod+Shift+5 move container to workspace number "5"
+bindsym $mod+Shift+6 move container to workspace number "6"
+bindsym $mod+Shift+7 move container to workspace number "7"
+bindsym $mod+Shift+8 move container to workspace number "8"
+bindsym $mod+Shift+9 move container to workspace number "9"
+bindsym $mod+Shift+0 move container to workspace number "0"
+
+bindsym $mod+o split h; exec --no-startup-id dmenu_run
+bindsym $mod+p split v; exec --no-startup-id dmenu_run
+# bindsym $mod+space exec --no-startup-id dmenu_run
+
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+q kill
+
+for_window [class="^.*"] border pixel 2
+default_border pixel 0
+gaps inner 10
