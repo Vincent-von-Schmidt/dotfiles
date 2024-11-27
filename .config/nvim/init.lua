@@ -167,7 +167,11 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
 	callback = function()
 		-- compile the current c file, run the binary and delete the binary
 		vim.api.nvim_create_user_command("Run", function()
-			float.term("gcc -o a.out " .. vim.fn.expand("%") .. " && ./a.out && rm a.out")
+            if vim.fn.filereadable("./CMakeLists.txt") then
+                float.term("cmake . && make && ./app")
+            else
+                float.term("gcc -o a.out " .. vim.fn.expand("%") .. " && ./a.out && rm a.out")
+            end
 		end, { force = true })
 	end,
 })
