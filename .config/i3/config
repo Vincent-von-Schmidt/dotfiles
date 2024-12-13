@@ -2,12 +2,14 @@
 # background
 exec --no-startup-id feh --no-fehbg --bg-fill "$HOME/git_repos/dotfiles/misc/background.jpg"
 
+# status bar
+exec --no-startup-id polybar main
+
 # font pango:monospace 8
 font jetbrains
 
-# Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+# application for autostart
+# exec --no-startup-id dex --autostart --environment i3
 
 floating_modifier $mod
 # bindsym $mod+Shift+f floating toggle
