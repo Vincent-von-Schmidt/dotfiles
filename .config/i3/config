@@ -1,21 +1,24 @@
 
+# background
 exec --no-startup-id feh --no-fehbg --bg-fill "$HOME/git_repos/dotfiles/misc/background.jpg"
 
-font pango:monospace 8
+# font pango:monospace 8
+font jetbrains
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
-exec --not-startup-id xsetroot -solid "#333333"
-
 floating_modifier $mod
+# bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+f fullscreen toggle
+
 tiling_drag modifier titlebar
 
 for_window [window_role="pop_up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
-workspace_auto_back_and_forth yes
+# workspace_auto_back_and_forth yes
 
 set $mod Mod1
 
