@@ -7,7 +7,7 @@ exec_always --no-startup-id feh --no-fehbg --bg-fill "$HOME/git_repos/dotfiles/w
 exec_always --no-startup-id polybar-msg cmd quit; polybar main
 
 # font pango:monospace 8
-font jetbrains
+font JetBrainsMonoNerdFont-Regular.ttf 8
 
 # application for autostart
 # exec --no-startup-id dex --autostart --environment i3
@@ -57,9 +57,10 @@ bindsym $mod+Shift+8 move container to workspace number "8"
 bindsym $mod+Shift+9 move container to workspace number "9"
 bindsym $mod+Shift+0 move container to workspace number "0"
 
-bindsym $mod+o split h; exec --no-startup-id dmenu_run
-bindsym $mod+p split v; exec --no-startup-id dmenu_run
-# bindsym $mod+space exec --no-startup-id dmenu_run
+# bindsym $mod+o split h; exec --no-startup-id dmenu_run
+# bindsym $mod+p split v; exec --no-startup-id dmenu_run
+bindsym $mod+o split h; exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher.rasi
+bindsym $mod+p split v; exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher.rasi
 
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+q kill
